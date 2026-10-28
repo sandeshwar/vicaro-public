@@ -1,271 +1,188 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Vicaro - The AI that actually clicks the buttons</title>
-<meta name="description" content="Vicaro is an AI coworker that lives inside your own Chrome. It uses the tabs and logins you already have to finish real work end to end, and remembers you between sessions." />
-<meta property="og:title" content="Vicaro - Your browser just hired a coworker" />
-<meta property="og:description" content="An AI coworker inside your Chrome. It clicks, types, fills, files and posts - on your logged-in accounts. It remembers you, so tomorrow it starts smarter." />
-<meta property="og:type" content="website" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vicaro — an AI coworker in your browser</title>
+<meta name="description" content="Vicaro reads your tabs, clicks, types and finishes the task in the Chrome you already use — or lets Cursor, Claude Code and Codex drive that browser over MCP.">
+<meta property="og:title" content="Vicaro — an AI coworker in your browser">
+<meta property="og:description" content="Runs in your Chrome, with the tabs and logins you already have. Point it at your own model. Free while in beta.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f6fd6'/%3E%3Ctext x='16' y='22' font-family='system-ui' font-size='17' font-weight='700' fill='white' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E">
 <style>
-  :root{
-    --bg:#0b0d12; --panel:#12151d; --panel2:#171b25; --line:#232838;
-    --txt:#e8ebf2; --muted:#9aa4b8; --brand:#6ea8fe; --brand2:#8b7bff;
-    --good:#3ecf8e; --radius:16px; --maxw:1120px;
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0;background:var(--bg);color:var(--txt);
-    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased}
-  a{color:inherit;text-decoration:none}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-  .pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);
-    border:1px solid var(--line);background:var(--panel);padding:6px 12px;border-radius:999px}
-  .dot{width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 10px var(--good)}
+    :root {
+      color-scheme: light dark;
+      --bg: #fbfaf7; --ink: #14161a; --muted: #5c6470; --line: #e6e2da;
+      --card: #ffffff; --accent: #2f6fd6; --code-bg: #f2efe9;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1115; --ink: #e9ecf2; --muted: #98a1b0; --line: #232833;
+        --card: #151922; --accent: #6ea1ff; --code-bg: #171b23;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink);
+      font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 
-  header{position:sticky;top:0;z-index:20;backdrop-filter:blur(10px);
-    background:rgba(11,13,18,.72);border-bottom:1px solid var(--line)}
-  nav{display:flex;align-items:center;justify-content:space-between;height:64px}
-  .logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.02em;font-size:18px}
-  .mark{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--brand2))}
-  .navlinks{display:flex;gap:26px;color:var(--muted);font-size:14px}
-  .navlinks a:hover{color:var(--txt)}
-  .btn{display:inline-block;padding:11px 18px;border-radius:12px;font-weight:600;font-size:14px;
-    border:1px solid transparent;transition:.15s;cursor:pointer}
-  .btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#0b0d12}
-  .btn-primary:hover{filter:brightness(1.08)}
-  .btn-ghost{border-color:var(--line);color:var(--txt);background:var(--panel)}
-  .btn-ghost:hover{border-color:var(--brand)}
+    header {
+      max-width: 820px; margin: 0 auto; padding: 22px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .brand { display: flex; align-items: center; gap: 9px; font-weight: 650; letter-spacing: -0.01em; color: var(--ink); }
+    .mark { width: 22px; height: 22px; border-radius: 6px; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 12px; font-weight: 700; }
+    nav { display: flex; gap: 18px; font-size: 14px; }
+    nav a { color: var(--muted); }
 
-  .hero{padding:84px 0 40px;text-align:center;position:relative;overflow:hidden}
-  .hero h1{font-size:clamp(34px,6vw,60px);line-height:1.05;letter-spacing:-.03em;margin:18px 0 0}
-  .hero .grad{background:linear-gradient(120deg,var(--brand),var(--brand2));
-    -webkit-background-clip:text;background-clip:text;color:transparent}
-  .hero p{max-width:680px;margin:20px auto 0;color:var(--muted);font-size:clamp(16px,2.2vw,19px)}
-  .cta-row{display:flex;gap:14px;justify-content:center;margin-top:30px;flex-wrap:wrap}
-  .sub{margin-top:14px;color:var(--muted);font-size:13px}
-  .glow{position:absolute;inset:-40% -10% auto -10%;height:420px;pointer-events:none;
-    background:radial-gradient(50% 60% at 50% 0%,rgba(110,168,254,.22),transparent 70%)}
+    main { max-width: 820px; margin: 0 auto; padding: 0 24px 72px; }
 
-  .mock{max-width:880px;margin:46px auto 0;border:1px solid var(--line);border-radius:18px;
-    background:var(--panel);overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
-  .mock .bar{display:flex;gap:7px;padding:12px 14px;border-bottom:1px solid var(--line);background:var(--panel2)}
-  .mock .bar i{width:11px;height:11px;border-radius:50%;background:#2a3040;display:block}
-  .mock .body{padding:20px 22px;text-align:left;font-size:14px}
-  .task{color:var(--brand);font-weight:600}
-  .step{display:flex;gap:10px;align-items:flex-start;margin:9px 0;color:var(--muted)}
-  .step b{color:var(--txt);font-weight:600}
-  .check{color:var(--good)}
+    .hero { padding: 64px 0 56px; border-bottom: 1px solid var(--line); }
+    .eyebrow { display: flex; align-items: center; gap: 8px; margin: 0 0 18px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    h1 { margin: 0 0 18px; font-size: clamp(34px, 6vw, 52px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 680; }
+    .lede { margin: 0; max-width: 44ch; font-size: 19px; line-height: 1.55; color: var(--muted); }
+    .cta { display: flex; flex-wrap: wrap; gap: 10px; margin: 30px 0 16px; }
+    .btn { display: inline-block; padding: 11px 18px; border-radius: 999px; font-size: 14px; font-weight: 600; border: 1px solid var(--accent); background: var(--accent); color: #fff; }
+    .btn:hover { text-decoration: none; opacity: .92; }
+    .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+    .fine { margin: 0; font-size: 13px; color: var(--muted); }
 
-  section{padding:64px 0;border-top:1px solid var(--line)}
-  .eyebrow{color:var(--brand);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
-  h2{font-size:clamp(26px,4vw,38px);letter-spacing:-.02em;margin:10px 0 8px}
-  .lead{color:var(--muted);max-width:640px}
+    section { padding: 52px 0; border-bottom: 1px solid var(--line); }
+    section:last-of-type { border-bottom: 0; }
+    h2 { margin: 0 0 8px; font-size: 24px; letter-spacing: -0.02em; }
+    .sub { margin: 0 0 26px; color: var(--muted); }
 
-  .grid{display:grid;gap:18px;margin-top:34px}
-  .g3{grid-template-columns:repeat(3,1fr)}
-  .g2{grid-template-columns:repeat(2,1fr)}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
-  .card h3{margin:0 0 6px;font-size:17px;letter-spacing:-.01em}
-  .card p{margin:0;color:var(--muted);font-size:14px}
-  .card .ic{font-size:22px;margin-bottom:12px;display:block}
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+    .card h3 { margin: 0 0 6px; font-size: 15px; }
+    .card p { margin: 0; font-size: 14px; color: var(--muted); }
 
-  .uc h4{font-size:14px;color:var(--brand);margin:26px 0 10px;letter-spacing:.02em}
-  .uc ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
-  .uc li{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:14px}
-  .uc li span{color:var(--muted)}
+    ol.steps { list-style: none; counter-reset: s; margin: 0; padding: 0; display: grid; gap: 14px; }
+    ol.steps li { counter-increment: s; display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; }
+    ol.steps li::before { content: counter(s); width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; font-size: 13px; color: var(--muted); }
+    ol.steps strong { display: block; font-size: 15px; }
+    ol.steps span { font-size: 14px; color: var(--muted); }
 
-  .price{grid-template-columns:repeat(4,1fr);align-items:stretch}
-  .tier{display:flex;flex-direction:column}
-  .tier .amt{font-size:34px;font-weight:700;letter-spacing:-.02em;margin:6px 0 2px}
-  .tier .per{color:var(--muted);font-size:13px}
-  .tier ul{list-style:none;padding:0;margin:16px 0 22px;display:grid;gap:9px;font-size:14px;color:var(--muted)}
-  .tier li::before{content:"\2713";color:var(--good);margin-right:9px;font-weight:700}
-  .tier .btn{margin-top:auto;text-align:center}
-  .tier.hot{border-color:var(--brand);box-shadow:0 0 0 1px var(--brand),0 20px 50px rgba(110,168,254,.12);position:relative}
-  .tag{position:absolute;top:-11px;left:22px;background:linear-gradient(135deg,var(--brand),var(--brand2));
-    color:#0b0d12;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;letter-spacing:.04em}
+    pre { margin: 18px 0 12px; padding: 14px 16px; background: var(--code-bg); border: 1px solid var(--line); border-radius: 12px; overflow-x: auto; font-size: 13px; line-height: 1.6; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 
-  .trust{display:grid;gap:14px;grid-template-columns:repeat(3,1fr);margin-top:30px}
-  .trust .card{display:flex;gap:12px;align-items:flex-start}
+    details { border-bottom: 1px solid var(--line); padding: 14px 0; }
+    details:last-of-type { border-bottom: 0; }
+    summary { cursor: pointer; font-weight: 600; font-size: 15px; }
+    details p { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
 
-  .final{text-align:center}
-  .final .card{max-width:760px;margin:0 auto;background:linear-gradient(180deg,var(--panel2),var(--panel));
-    border-color:var(--brand)}
-  footer{padding:40px 0;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
-  .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    footer { max-width: 820px; margin: 0 auto; padding: 28px 24px 48px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
+    footer nav { gap: 14px; }
 
-  @media(max-width:860px){.g3,.g2,.price,.trust{grid-template-columns:1fr}.navlinks{display:none}}
+    @media (max-width: 560px) {
+      .hero { padding: 44px 0 40px; }
+      .lede { font-size: 17px; }
+      nav a:not(:last-child) { display: none; }
+    }
 </style>
 </head>
 <body>
+
 <header>
-  <div class="wrap">
-    <nav>
-      <a class="logo" href="#top"><span class="mark"></span>Vicaro</a>
-      <div class="navlinks">
-        <a href="#how">How it works</a>
-        <a href="#usecases">Use cases</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#privacy">Privacy</a>
-      </div>
-      <a class="btn btn-primary" href="#pricing">Get Vicaro free</a>
-    </nav>
-  </div>
+  <a class="brand" href="#top"><span class="mark">V</span> Vicaro</a>
+  <nav>
+    <a href="#how">How it works</a>
+    <a href="#install">Install</a>
+    <a href="privacy.html">Privacy</a>
+  </nav>
 </header>
 
 <main id="top">
-  <section class="hero" style="border-top:none">
-    <div class="glow"></div>
-    <div class="wrap">
-      <span class="pill"><span class="dot"></span> Runs inside the Chrome you already use</span>
-      <h1>Your browser just hired<br /><span class="grad">a coworker.</span></h1>
-      <p>Vicaro lives inside your Chrome, uses the tabs and logins you already have, and finishes the boring work end to end. It remembers you, so tomorrow it starts smarter.</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="#pricing">Get Vicaro free</a>
-        <a class="btn btn-ghost" href="#demo">See it do a real task</a>
-      </div>
-      <div class="sub">No credit card. No export/import. It works where you already work.</div>
+  <section class="hero">
+    <p class="eyebrow">Beta for macOS</p>
+    <h1>An AI coworker that lives in your browser.</h1>
+    <p class="lede">Vicaro opens tabs, reads pages, clicks and types in the Chrome you already use — or hands that same browser to Cursor, Claude Code and Codex.</p>
+    <div class="cta">
+      <a class="btn" href="#install">Install the beta</a>
+      <a class="btn ghost" href="#how">See how it works</a>
+    </div>
+    <p class="fine">Free while in beta · no account · your model, your machine</p>
+  </section>
 
-      <div class="mock" id="demo">
-        <div class="bar"><i></i><i></i><i></i></div>
-        <div class="body">
-          <div class="task">"Unsubscribe me from every newsletter I haven't opened in 30 days, then archive the promos."</div>
-          <div class="step"><span class="check">&#10003;</span><span>Scanned <b>Inbox</b> &amp; <b>Promotions</b>, found <b>47</b> senders, checked last-open dates.</span></div>
-          <div class="step"><span class="check">&#10003;</span><span>Opened each unsubscribe page in your logged-in session, confirmed <b>31</b> opt-outs.</span></div>
-          <div class="step"><span class="check">&#10003;</span><span>Archived <b>212</b> promo threads. Kept receipts, travel and anything from a real person.</span></div>
-          <div class="step"><span class="check">&#10003;</span><span><b>Done.</b> Inbox at 18 unread. Saved this as a weekly task you can re-run anytime.</span></div>
-        </div>
+  <section id="what">
+    <h2>What it does</h2>
+    <p class="sub">A side panel that can actually use the web, not just talk about it.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>Reads what you see</h3>
+        <p>Every open tab, the page in front of you, and the text behind it — with the logins you already have.</p>
+      </div>
+      <div class="card">
+        <h3>Acts, then checks</h3>
+        <p>Clicks, types, scrolls and navigates. After anything that changes the page, it verifies the result before answering.</p>
+      </div>
+      <div class="card">
+        <h3>Asks before damage</h3>
+        <p>Purchases, deletes, sends and uploads stop for your Allow. Everything else runs without interrupting you.</p>
+      </div>
+      <div class="card">
+        <h3>Works with your tools</h3>
+        <p>Registers as an MCP server for Cursor, Claude Code, Claude Desktop, Codex, Grok Build, VS Code, Windsurf and opencode.</p>
       </div>
     </div>
   </section>
 
   <section id="how">
-    <div class="wrap">
-      <div class="eyebrow">Why it's different</div>
-      <h2>Most AI hands you an answer. Vicaro hands you a finished task.</h2>
-      <p class="lead">Three things separate it from a chat window you have to feed, copy out of, and paste into the real tool.</p>
-      <div class="grid g3">
-        <div class="card"><span class="ic">&#128225;</span><h3>Works where you work</h3><p>Inside your Chrome, on your logged-in accounts. No "paste the page here," no export/import.</p></div>
-        <div class="card"><span class="ic">&#9889;</span><h3>Finishes, not advises</h3><p>It clicks, types, fills forms, downloads, files, posts and runs commands. You get a result, not a paragraph.</p></div>
-        <div class="card"><span class="ic">&#129504;</span><h3>Remembers you</h3><p>Durable memory across sessions: your profile, preferences and recurring tasks. It gets faster the more you use it.</p></div>
-      </div>
-    </div>
+    <h2>How it works</h2>
+    <p class="sub">The thinking runs on your machine. The browser is the interface.</p>
+    <ol class="steps">
+      <li><div><strong>Install the helper</strong><span>A small menu-bar app. It holds the model connection and your history, locally.</span></div></li>
+      <li><div><strong>Add the extension</strong><span>Chrome side panel. You grant page access per site, the first time you use it.</span></div></li>
+      <li><div><strong>Point it at a model</strong><span>A server on your LAN (Ollama, LM Studio, mlx, vLLM) or any OpenAI-compatible endpoint with your key.</span></div></li>
+      <li><div><strong>Ask, or hand it over</strong><span>Type in the panel — or let Cursor and Claude Code drive the browser through MCP.</span></div></li>
+    </ol>
   </section>
 
-  <section id="usecases" class="uc">
-    <div class="wrap">
-      <div class="eyebrow">What people actually use it for</div>
-      <h2>Real tasks, not feature lists</h2>
-      <p class="lead">Every one of these is something Vicaro can genuinely do today. Pick a line, say it out loud, watch it run.</p>
-
-      <h4>For everyone</h4>
-      <ul>
-        <li><b>Inbox zero on autopilot.</b> <span>"Unsubscribe from every newsletter I haven't opened in 30 days, then archive the promos."</span></li>
-        <li><b>Morning watchdog.</b> <span>"Every morning check my 3 competitor sites and my server dashboard, tell me what changed."</span></li>
-        <li><b>Research digest.</b> <span>"Find the 5 best reviews of this product, pull the recurring complaints, save it to a doc."</span></li>
-        <li><b>Form filler that remembers.</b> <span>Government, insurance, travel and vendor forms, filled from your saved profile.</span></li>
-      </ul>
-
-      <h4>For work &amp; professionals</h4>
-      <ul>
-        <li><b>Tag &amp; analytics QA.</b> <span>Open staging, fire events, read the data layer, diff against the spec, file a defect list.</span></li>
-        <li><b>Release-notes triage.</b> <span>Read a GitHub release, flag breaking changes, draft the internal changelog.</span></li>
-        <li><b>Meeting notes to action items.</b> <span>Pull a call transcript, extract decisions, post them to the team channel.</span></li>
-        <li><b>Lead enrichment.</b> <span>Open a CRM row, visit each lead's LinkedIn and site, fill the missing fields.</span></li>
-      </ul>
-
-      <h4>For creators &amp; solopreneurs</h4>
-      <ul>
-        <li><b>Repurposing engine.</b> <span>Turn one video into a LinkedIn post, a Reddit post, a thread and a newsletter blurb, in your voice.</span></li>
-        <li><b>Store ops.</b> <span>Update Gumroad/Etsy/Shopify listings, test copy, catch the links that 404.</span></li>
-        <li><b>Comment triage.</b> <span>Sort every comment into questions, praise and leads, then draft replies.</span></li>
-      </ul>
-
-      <h4>For developers</h4>
-      <ul>
-        <li><b>Website audit.</b> <span>Run the built-in audit skill, get a prioritized health report.</span></li>
-        <li><b>Deploy smoke test.</b> <span>Verify a deploy is reachable and contains the expected content.</span></li>
-        <li><b>Browser-to-local bridge.</b> <span>Pull data from a web app, write it to a file, run a script on it.</span></li>
-        <li><b>Bug repro.</b> <span>Follow QA steps, capture console logs and screenshots, paste into the issue.</span></li>
-      </ul>
-
-      <h4>For personal life</h4>
-      <ul>
-        <li><b>Travel shortlists.</b> <span>Compare flights and hotels across tabs, build a shortlist with total cost.</span></li>
-        <li><b>Subscription audit.</b> <span>List every recurring charge, flag the ones you forgot.</span></li>
-        <li><b>Deal hunting.</b> <span>Watch a price, alert when it drops below your number.</span></li>
-      </ul>
-    </div>
+  <section id="install">
+    <h2>Install</h2>
+    <p class="sub">macOS 13+ and Chrome 116+. Linux is next.</p>
+    <pre><code>curl -fsSL https://vicaro.creativeducks.com/install.sh | sh</code></pre>
+    <p class="fine">Installs the helper into ~/Applications and connects the AI tools already on your Mac. Add <code>--no-mcp</code> to skip the second part.</p>
+    <p class="sub" style="margin-top:26px">Then add the extension: unzip <span class="mono">Vicaro-extension.zip</span> from the same download folder, and use <span class="mono">chrome://extensions</span> → Developer mode → Load unpacked. The Chrome Web Store listing is in review.</p>
+    <p class="fine">No Developer ID yet, so the helper is ad-hoc signed — the installer says what it touches and how to undo it.</p>
   </section>
 
-  <section id="pricing">
-    <div class="wrap">
-      <div class="eyebrow">Pricing</div>
-      <h2>Affordable on purpose. The free tier is the point.</h2>
-      <p class="lead">Metered by tasks per day, not tokens, because "X tasks a day" is something you can actually plan around.</p>
-      <div class="grid price">
-        <div class="card tier">
-          <h3>Free</h3>
-          <div class="amt">$0</div><div class="per">forever</div>
-          <ul><li>Limited daily actions</li><li>Core browsing tasks</li><li>Single device</li></ul>
-          <a class="btn btn-ghost" href="#">Start free</a>
-        </div>
-        <div class="card tier hot">
-          <span class="tag">MOST POPULAR</span>
-          <h3>Solo</h3>
-          <div class="amt">$9</div><div class="per">per month</div>
-          <ul><li>Generous daily actions</li><li>Durable memory</li><li>Full skill library</li><li>Annual = 2 months free</li></ul>
-          <a class="btn btn-primary" href="#">Get Solo</a>
-        </div>
-        <div class="card tier">
-          <h3>Pro</h3>
-          <div class="amt">$22</div><div class="per">per month</div>
-          <ul><li>High / near-unlimited actions</li><li>Local file + shell access</li><li>Scheduled &amp; recurring tasks</li><li>Priority speed</li></ul>
-          <a class="btn btn-ghost" href="#">Get Pro</a>
-        </div>
-        <div class="card tier">
-          <h3>Teams</h3>
-          <div class="amt">$18</div><div class="per">per seat / month</div>
-          <ul><li>Shared skills &amp; memory notes</li><li>Admin + audit log</li><li>Min 3 seats</li></ul>
-          <a class="btn btn-ghost" href="#">Talk to us</a>
-        </div>
-      </div>
-      <div class="sub" style="text-align:center;margin-top:18px">Regional pricing available (e.g. Solo ~&#8377;499/mo in India). Good tools shouldn't be priced only for one country.</div>
-    </div>
-  </section>
-
-  <section id="privacy">
-    <div class="wrap">
-      <div class="eyebrow">Trust is the product</div>
-      <h2>An agent that clicks in your accounts should be radically transparent.</h2>
-      <p class="lead">We treat privacy as a feature to market, not hide.</p>
-      <div class="trust">
-        <div class="card"><span class="ic">&#128274;</span><div><h3>Secrets stay in a vault</h3><p>Credentials are referenced, never pasted into prompts or sent anywhere.</p></div></div>
-        <div class="card"><span class="ic">&#128465;</span><div><h3>Local, read-only history</h3><p>"That site I saw yesterday" searches your own machine. Nothing leaves it.</p></div></div>
-        <div class="card"><span class="ic">&#128065;</span><div><h3>You see every action</h3><p>It acts in your browser under your logins, and irreversible steps ask first.</p></div></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="final">
-    <div class="wrap">
-      <div class="card">
-        <h2 style="margin-top:0">It's the AI that actually clicks the buttons.</h2>
-        <p class="lead" style="margin:0 auto 22px">Give your boring browser work away tonight. Free to start, runs in the Chrome you already have open.</p>
-        <div class="cta-row"><a class="btn btn-primary" href="#">Get Vicaro free</a></div>
-      </div>
-    </div>
+  <section id="faq">
+    <h2>Questions</h2>
+    <p class="sub">The short answers.</p>
+    <details>
+      <summary>Does it send my pages to your servers?</summary>
+      <p>No. Vicaro has no servers. Page text goes to the model endpoint you configure — locally, on your LAN, or a provider you already pay for — and nowhere else.</p>
+    </details>
+    <details>
+      <summary>Is it open source?</summary>
+      <p>No. Vicaro is closed-source software, and the helper is self-hosted: it runs on your machine and keeps its data in a local database you can inspect or delete.</p>
+    </details>
+    <details>
+      <summary>Can I use it from Cursor or Claude Code?</summary>
+      <p>Yes. Vicaro registers itself as an MCP server in the tools it finds, so they can list tabs, read pages, click and type with the same safety gate as the panel.</p>
+    </details>
+    <details>
+      <summary>What does it cost?</summary>
+      <p>Nothing while it is in beta. If that changes, the price will be announced before it applies — you will not be surprised by a bill.</p>
+    </details>
   </section>
 </main>
 
 <footer>
-  <div class="wrap foot">
-    <span>&copy; 2026 Vicaro. Built for people who are done with copy-paste AI.</span>
-    <span><a href="#privacy">Privacy</a> &nbsp; <a href="#pricing">Pricing</a> &nbsp; <a href="mailto:hello@vicaro.io">hello@vicaro.io</a></span>
-  </div>
+  <span>© 2026 Vicaro</span>
+  <nav>
+    <a href="privacy.html">Privacy</a>
+    <a href="mailto:hello@creativeducks.com">hello@creativeducks.com</a>
+  </nav>
 </footer>
+
 </body>
 </html>
