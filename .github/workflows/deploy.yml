@@ -7,6 +7,5 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Netlify deploy hook
-        run: |
-          curl -s -X POST "${{ secrets.NETLIFY_DEPLOY_HOOK }}" | head -c 300
+      - name: Trigger Netlify deploy
+        run: curl -s -X POST "https://api.netlify.com/build_hooks/6ae22c9343f8efb0c8c9cef6" | head -c 300
