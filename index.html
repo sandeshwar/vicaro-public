@@ -161,7 +161,13 @@
     <p class="sub">macOS 13+ and Chrome 116+. Linux is next.</p>
     <pre><code>curl -fsSL https://vicaro.creativeducks.com/install.sh | sh</code></pre>
     <p class="fine">Installs the helper into ~/Applications and connects the AI tools already on your Mac. Add <code>--no-mcp</code> to skip the second part.</p>
-    <p class="sub" style="margin-top:26px">Then add the extension: download <a href="downloads/Vicaro-extension.zip"><span class="mono">Vicaro-extension.zip</span></a>, unzip it, and use <span class="mono">chrome://extensions</span> → Developer mode → Load unpacked. A Chrome Web Store listing is not live yet.</p>
+    <p class="sub" style="margin-top:26px">The installer also stages the extension and puts its folder on your clipboard. Then in Chrome:</p>
+    <ol class="steps" style="margin-top:12px">
+      <li><div><strong>Open chrome://extensions</strong><span>Turn on Developer mode, top right.</span></div></li>
+      <li><div><strong>Load unpacked</strong><span>Cmd+Shift+G, paste the folder it copied, Return.</span></div></li>
+      <li><div><strong>Pin and open</strong><span>Click the Vicaro icon to open the side panel.</span></div></li>
+    </ol>
+    <p class="fine">No Chrome Web Store listing yet — that is why this step is manual. The <a href="downloads/Vicaro-extension.zip">extension package</a> is also there if you prefer to do it yourself.</p>
     <p class="fine">No Developer ID yet, so the helper is ad-hoc signed — the installer says what it touches and how to undo it.</p>
   </section>
 
