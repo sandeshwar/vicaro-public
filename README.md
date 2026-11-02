@@ -33,13 +33,16 @@ Rules:
 
 ## Deploying
 
-GitHub Actions deploys to Netlify on push to `main`, **but only when something
-Netlify serves has changed** (`index.html`, `install.sh`, `privacy.html`, the icons,
-or `downloads/`). README, workflow and doc edits deploy nothing. `workflow_dispatch`
-is there for a manual deploy.
+**GitHub Pages is the deployment.** It builds this repo on every push, for nothing,
+at <https://sandeshwar.github.io/vicaro-public/> — the landing page, `install.sh`,
+`privacy.html` and all 76 MB of `downloads/` included.
 
-Deploys are serialised (`concurrency: netlify-production`), so two pushes cannot
-overlap and pay for two builds.
+`CNAME` names the custom domain. Once DNS for `vicaro.creativeducks.com` points at
+Pages, the Netlify workflow can be deleted along with its two secrets.
+
+The Netlify workflow is **manual only** now (`workflow_dispatch`): it exists to
+update the Netlify copy while the domain still points there. It used to run on
+every push, which meant a second, paid copy of a site Pages was already serving.
 
 > **Credits.** Every production deploy and every byte served is billed. Nine pushes
 > in two days is nine deploys, and a single macOS install pulls a 38 MB tarball

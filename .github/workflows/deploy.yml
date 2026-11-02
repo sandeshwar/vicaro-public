@@ -1,31 +1,15 @@
 name: Deploy to Netlify
 
-# Netlify bills every production deploy and every byte it serves. Two rules keep
-# that cheap:
-#   1. Only deploy when something Netlify actually serves has changed. A README or
-#      a workflow edit does not need a deploy.
-#   2. Do not let two deploys overlap.
-# Documentation-only pushes therefore cost nothing.
+# GitHub Pages already builds and serves this repo on every push, for free, at
+# https://sandeshwar.github.io/vicaro-public/ — including install.sh and the
+# 38 MB downloads. This Netlify workflow was therefore a second, paid copy of the
+# same site: 19 production deploys in five days, each shipping 76 MB, on top of
+# the bandwidth every install costs.
 #
-# The 76 MB of /downloads is the expensive part: each install pulls a 38 MB
-# tarball through Netlify. Moving those to GitHub Releases (free, CDN-backed) is
-# the next step; see README.md.
+# It is now manual only. Run it from the Actions tab if Netlify has to be updated
+# before the domain moves to Pages. Once the domain points at Pages, delete this
+# file and the two Netlify secrets.
 on:
-  push:
-    branches: [main]
-    paths:
-      - "index.html"
-      - "install.sh"
-      - "privacy.html"
-      - "site.webmanifest"
-      - "_redirects"
-      - "favicon.ico"
-      - "favicon.svg"
-      - "icon-192.png"
-      - "icon-512.png"
-      - "apple-touch-icon.png"
-      - "og.png"
-      - "downloads/**"
   workflow_dispatch:
 
 concurrency:
