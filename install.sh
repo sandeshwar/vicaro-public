@@ -178,6 +178,7 @@ if [ "$DRY" = "1" ]; then
   echo "  would install into $APP"
   echo "  would stage the Chrome extension: $([ "$NO_EXT" = "1" ] && echo no || echo yes)"
   echo "  would register login agent: $([ "$NO_AGENT" = "1" ] && echo no || echo yes)"
+  echo "  would start the helper now: yes"
   echo "  would connect AI tools: $([ "$WANT_MCP" = "1" ] && echo yes || echo "no (Settings -> AI tools)")"
   exit 0
 fi
@@ -244,6 +245,30 @@ PL
   launchctl bootstrap "gui/$(id -u)" "$AGENT" 2>/dev/null || true
   launchctl kickstart "gui/$(id -u)/com.vicaro.orchestrator.app" 2>/dev/null || true
   echo "  login agent: registered"
+fi
+
+# ---- start it now ----
+# The agent covers future logins; installing should also leave a helper that is
+# already answering, otherwise the first thing the panel shows is "connecting".
+# Both launchctl calls above are best-effort (they fail outside a GUI session), so
+# this is what actually guarantees the app is up, and it reports the truth.
+HEALTH="http://127.0.0.1:${VICARO_PORT:-8790}/health"
+up() { curl -fsS -m 2 "$HEALTH" >/dev/null 2>&1; }
+if up; then
+  echo "  helper: already running"
+else
+  open -a "$APP" 2>/dev/null || true
+  n=0
+  while [ "$n" -lt 20 ]; do
+    up && break
+    n=$((n + 1))
+    sleep 1
+  done
+  if up; then
+    echo "  helper: running on ${VICARO_PORT:-8790}"
+  else
+    echo "  helper: started, not answering yet - open Vicaro Orchestrator from Applications"
+  fi
 fi
 
 # ---- AI tools (opt-in) ----
