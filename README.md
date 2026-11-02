@@ -33,18 +33,41 @@ Rules:
 
 ## Deploying
 
-Push to `main`. GitHub Actions deploys the repo to Netlify, which serves the page
-and `/downloads/` directly (no CDN in front, `max-age=0, must-revalidate`).
+GitHub Actions deploys to Netlify on push to `main`, **but only when something
+Netlify serves has changed** (`index.html`, `install.sh`, `privacy.html`, the icons,
+or `downloads/`). README, workflow and doc edits deploy nothing. `workflow_dispatch`
+is there for a manual deploy.
 
-That matters for cost: a 38 MB tarball per install is real bandwidth, and the free
-tier is not unlimited. Two consequences, in order of value:
+Deploys are serialised (`concurrency: netlify-production`), so two pushes cannot
+overlap and pay for two builds.
 
-1. **The web UI bundle goes to GitHub, not Netlify** — `cdn.jsdelivr.net/gh/` over
-   this repo, or GitHub Pages, both free and cacheable, with an immutable
-   version directory.
-2. **Downloads belong in GitHub Releases** (`/releases/download/<tag>/…`), which is
-   free and CDN-backed. `install.sh` already takes `VICARO_BASE_URL`, so moving is a
-   one-line change plus a redirect for the old path.
+> **Credits.** Every production deploy and every byte served is billed. Nine pushes
+> in two days is nine deploys, and a single macOS install pulls a 38 MB tarball
+> through Netlify. That is what drains the allowance, not the 11 KB landing page.
+
+### Getting the binaries off Netlify
+
+Two moves, in order of value:
+
+1. **Downloads to GitHub Releases.** Free, CDN-backed, no size limit.
+   `install.sh` reads `VICARO_BASE_URL`, so the installer needs one line changed;
+   a `_redirects` rule keeps the old `/downloads/*` URLs working:
+
+   ```
+   /downloads/*  https://github.com/sandeshwar/vicaro-public/releases/download/v<tag>/:splat  302
+   ```
+
+   `<tag>` cannot contain the arch filename, so either publish one release per arch
+   or point at a stable `latest` tag.
+
+2. **The helper web UI bundle to a CDN over this repo** (`cdn.jsdelivr.net/gh/…`),
+   which is free and caches at the edge. Version directories are immutable, so the
+   URL never changes meaning.
+
+If Netlify stays too expensive, the whole site is static and small: GitHub Pages
+with a `CNAME` for `vicaro.creativeducks.com` serves it for nothing, and Pages has
+its own free bandwidth allowance. The only thing lost is Netlify's form handling,
+which this site does not use.
 
 ## Releasing a build
 

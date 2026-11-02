@@ -1,8 +1,37 @@
 name: Deploy to Netlify
+
+# Netlify bills every production deploy and every byte it serves. Two rules keep
+# that cheap:
+#   1. Only deploy when something Netlify actually serves has changed. A README or
+#      a workflow edit does not need a deploy.
+#   2. Do not let two deploys overlap.
+# Documentation-only pushes therefore cost nothing.
+#
+# The 76 MB of /downloads is the expensive part: each install pulls a 38 MB
+# tarball through Netlify. Moving those to GitHub Releases (free, CDN-backed) is
+# the next step; see README.md.
 on:
   push:
     branches: [main]
+    paths:
+      - "index.html"
+      - "install.sh"
+      - "privacy.html"
+      - "site.webmanifest"
+      - "_redirects"
+      - "favicon.ico"
+      - "favicon.svg"
+      - "icon-192.png"
+      - "icon-512.png"
+      - "apple-touch-icon.png"
+      - "og.png"
+      - "downloads/**"
   workflow_dispatch:
+
+concurrency:
+  group: netlify-production
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
