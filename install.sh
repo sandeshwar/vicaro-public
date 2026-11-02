@@ -54,6 +54,92 @@ APP="$DEST/$APP_NAME.app"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
+# ---- progress ----
+# 40 MB on a slow line looks frozen, so the tarball fetch draws a bar. Everything
+# here is skipped when stderr is not a terminal (CI, logs, `| tee`), where the
+# carriage returns would be noise.
+TTY=0
+[ -t 2 ] && TTY=1
+BAR=30
+case "${LC_ALL:-${LC_CTYPE:-${LANG:-}}}" in
+  *[Uu][Tt][Ff]-8*|*[Uu][Tt][Ff]8*) FILL='█'; EMPTY='░' ;;
+  *) FILL='#'; EMPTY='-' ;;
+esac
+
+human() { # bytes -> "38.6 MB"
+  awk -v b="${1:-0}" 'BEGIN {
+    split("B KB MB GB TB", u, " "); i = 1
+    while (b >= 1000 && i < 5) { b /= 1000; i++ }
+    printf(i == 1 ? "%d %s" : "%.1f %s", b, u[i])
+  }' /dev/null
+}
+
+draw() { # have total elapsed
+  awk -v have="${1:-0}" -v total="${2:-0}" -v secs="${3:-0}" \
+      -v w="$BAR" -v f="$FILL" -v e="$EMPTY" '
+    function hum(b) {
+      split("B KB MB GB TB", u, " "); i = 1
+      while (b >= 1000 && i < 5) { b /= 1000; i++ }
+      return (i == 1) ? sprintf("%d %s", b, u[i]) : sprintf("%.1f %s", b, u[i])
+    }
+    BEGIN {
+      # Without a Content-Length there is nothing to fill, so show bytes only
+      # rather than a bar that never leaves zero.
+      if (total <= 0) {
+        line = hum(have)
+      } else {
+        pct = int(have * 100 / total)
+        if (pct > 100) pct = 100
+        n = int(pct * w / 100)
+        bar = ""
+        for (i = 0; i < n; i++) bar = bar f
+        for (; i < w; i++) bar = bar e
+        line = sprintf("[%s] %3d%%  %s / %s", bar, pct, hum(have), hum(total))
+      }
+      # A rate measured over one second is an average of the whole download, so it
+      # jumps around; it only means something once the transfer has run a while.
+      if (secs >= 2 && have > 0) line = line sprintf("  %s/s", hum(have / secs))
+      printf "\r  %s\033[K", line
+    }' /dev/null
+}
+
+fetch() { # url dest label - returns non-zero if the download did not happen
+  f_url="$1" f_dest="$2" f_label="$3"
+  # Ask for the size first so the bar is determinate from the first frame.
+  f_total="$(curl -fsIL "$f_url" 2>/dev/null | tr -d '\r' |
+    awk 'tolower($1) == "content-length:" { n = $2 } END { print n + 0 }')"
+
+  if [ "$TTY" != "1" ]; then
+    echo "  fetching $f_label ($(human "$f_total"))"
+    curl -fsSL "$f_url" -o "$f_dest" && return 0
+    return 1
+  fi
+
+  echo "  fetching $f_label ($(human "$f_total"))"
+  rm -f "$TMP/.rc"
+  : > "$f_dest"
+  # A flag file, not `kill -0`: it cleanly separates "curl is still writing" from
+  # "curl finished" and carries the exit status back out of the subshell.
+  ( curl -fsSL "$f_url" -o "$f_dest" 2>/dev/null; echo $? > "$TMP/.rc" ) &
+  f_pid=$!
+  f_start="$(date +%s)"
+  while [ ! -f "$TMP/.rc" ]; do
+    f_have="$(wc -c < "$f_dest" 2>/dev/null | tr -d ' ')"
+    draw "${f_have:-0}" "$f_total" "$(( $(date +%s) - f_start ))" >&2
+    sleep 0.2
+  done
+  wait "$f_pid" 2>/dev/null || true
+  f_rc="$(cat "$TMP/.rc")"
+  # Only finish the bar on success: a failed transfer ends on a partial bar,
+  # which would read as "done".
+  if [ "$f_rc" = "0" ]; then
+    f_have="$(wc -c < "$f_dest" 2>/dev/null | tr -d ' ')"
+    draw "${f_have:-0}" "$f_total" "$(( $(date +%s) - f_start ))" >&2
+  fi
+  printf '\n' >&2
+  [ "$f_rc" = "0" ]
+}
+
 echo "Vicaro installer"
 echo "  target: $APP"
 
@@ -62,12 +148,11 @@ if [ -n "${VICARO_TARBALL:-}" ]; then
   cp "$VICARO_TARBALL" "$TMP/app.tar.gz"
   [ -f "$VICARO_TARBALL.sha256" ] && cp "$VICARO_TARBALL.sha256" "$TMP/app.sha256"
 else
-  echo "  fetching $BASE_URL/$TARBALL"
-  if ! curl -fsSL "$BASE_URL/$TARBALL" -o "$TMP/app.tar.gz"; then
+  if ! fetch "$BASE_URL/$TARBALL" "$TMP/app.tar.gz" "$TARBALL"; then
     WANTED="$TARBALL"
     TARBALL="Vicaro-macos-universal.tar.gz"
     echo "  no $WANTED for this Mac - trying $TARBALL"
-    curl -fsSL "$BASE_URL/$TARBALL" -o "$TMP/app.tar.gz"
+    fetch "$BASE_URL/$TARBALL" "$TMP/app.tar.gz" "$TARBALL"
   fi
   curl -fsSL "$BASE_URL/$TARBALL.sha256" -o "$TMP/app.sha256"
 fi
