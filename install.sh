@@ -232,9 +232,7 @@ else
 <plist version="1.0"><dict>
   <key>Label</key><string>com.vicaro.orchestrator.app</string>
   <key>ProgramArguments</key><array>
-    <string>/usr/bin/open</string>
-    <string>-a</string>
-    <string>"$APP"</string>
+    <string>"$APP/Contents/MacOS/VicaroOrchestrator"</string>
   </array>
   <key>RunAtLoad</key><true/>
   <key>LimitLoadToSessionType</key><string>Aqua</string>
@@ -257,9 +255,10 @@ up() { curl -fsS -m 2 "$HEALTH" >/dev/null 2>&1; }
 if up; then
   echo "  helper: already running"
 else
+  echo "  helper: starting"
   open -a "$APP" 2>/dev/null || true
   n=0
-  while [ "$n" -lt 20 ]; do
+  while [ "$n" -lt 15 ]; do
     up && break
     n=$((n + 1))
     sleep 1
