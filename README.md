@@ -73,4 +73,5 @@ in clones made before the rewrite.
    attached. `install.sh` reads `latest/download`, so the newest release has to
    carry all five.
 3. Copy `install.sh` from the app repo here, and commit.
-4. Verify: `curl -fsSL https://vicaro.creativeducks.com/install.sh | sh --dry-run`.
+4. Verify: `curl -fsSL https://vicaro.creativeducks.com/install.sh | sh -s -- --dry-run`
+   (`sh --dry-run` passes the flag to the shell, not the script).
