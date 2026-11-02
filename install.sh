@@ -256,10 +256,18 @@ if up; then
   echo "  helper: already running"
 else
   echo "  helper: starting"
-  open -a "$APP" 2>/dev/null || true
+  # Never start a second copy: the login agent may have launched it a moment ago,
+  # and two instances race for the port and leave nothing running.
+  opened=0
   n=0
   while [ "$n" -lt 15 ]; do
     up && break
+    if ! pgrep -f "$APP/Contents/MacOS/VicaroOrchestrator" >/dev/null 2>&1; then
+      if [ "$opened" = "0" ]; then
+        open -a "$APP" 2>/dev/null || true
+        opened=1
+      fi
+    fi
     n=$((n + 1))
     sleep 1
   done
