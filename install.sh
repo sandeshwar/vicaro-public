@@ -4,7 +4,8 @@
 #
 # What it does, in order: download the app tarball, verify its SHA-256, replace
 # ~/Applications/Vicaro Orchestrator.app, stage the Chrome extension, register the
-# login agent, then wire Vicaro into the AI tools already on this Mac.
+# login agent. It leaves other apps alone: connecting Cursor, Claude Code or Codex
+# is opt-in (--mcp), and the same switch is in Settings -> AI tools.
 #
 # The tarball arrives without a quarantine flag (curl does not set one), so macOS
 # does not show the "unidentified developer" wall. The app is still ad-hoc signed,
@@ -12,7 +13,7 @@
 #
 #   --no-agent       do not register the login agent
 #   --no-extension   do not stage the Chrome extension
-#   --no-mcp         do not touch any AI tool config
+#   --mcp            also connect the AI tools already on this Mac
 #   --no-open        do not launch Chrome or Finder at the end
 #   --dry-run        print what would happen, change nothing
 set -eu
@@ -26,18 +27,19 @@ TARBALL="Vicaro-macos-$(uname -m).tar.gz"
 BASE_URL="${VICARO_BASE_URL:-https://vicaro.creativeducks.com/downloads}"
 
 NO_AGENT=0
-NO_MCP=0
+WANT_MCP=0
 NO_EXT=0
 NO_OPEN=0
 DRY=0
 for arg in "$@"; do
   case "$arg" in
     --no-agent) NO_AGENT=1 ;;
-    --no-mcp) NO_MCP=1 ;;
+    --mcp) WANT_MCP=1 ;;
+    --no-mcp) WANT_MCP=0 ;;
     --no-extension) NO_EXT=1 ;;
     --no-open) NO_OPEN=1 ;;
     --dry-run) DRY=1 ;;
-    *) echo "unknown option: $arg (use --no-agent, --no-extension, --no-mcp, --no-open, --dry-run)" >&2; exit 2 ;;
+    *) echo "unknown option: $arg (use --no-agent, --no-extension, --mcp, --no-open, --dry-run)" >&2; exit 2 ;;
   esac
 done
 
@@ -176,7 +178,7 @@ if [ "$DRY" = "1" ]; then
   echo "  would install into $APP"
   echo "  would stage the Chrome extension: $([ "$NO_EXT" = "1" ] && echo no || echo yes)"
   echo "  would register login agent: $([ "$NO_AGENT" = "1" ] && echo no || echo yes)"
-  echo "  would connect AI tools: $([ "$NO_MCP" = "1" ] && echo no || echo yes)"
+  echo "  would connect AI tools: $([ "$WANT_MCP" = "1" ] && echo yes || echo "no (Settings -> AI tools)")"
   exit 0
 fi
 
@@ -244,10 +246,10 @@ PL
   echo "  login agent: registered"
 fi
 
-# ---- AI tools ----
-if [ "$NO_MCP" = "1" ]; then
-  echo "  AI tools: skipped"
-else
+# ---- AI tools (opt-in) ----
+# Not by default: installing a helper should not rewrite another app's config files
+# unasked. Settings -> AI tools does exactly this later, with a checkbox per tool.
+if [ "$WANT_MCP" = "1" ]; then
   NODE="$APP/Contents/Resources/node"
   CLI="$APP/Contents/Resources/app/cli/dist/index.js"
   if [ -x "$NODE" ] && [ -f "$CLI" ]; then
@@ -255,6 +257,8 @@ else
   else
     echo "  AI tools: this build has no bundled CLI"
   fi
+else
+  echo "  AI tools: not connected (Settings -> AI tools, or rerun with --mcp)"
 fi
 
 echo
@@ -283,7 +287,8 @@ else
 fi
 
 echo
-echo "  Then open the menu bar icon and allow Local Network access when asked."
+echo "  Then open the panel, point it at a model, and allow Local Network access when asked."
+echo "  Vicaro needs a model: one running on this Mac, or any OpenAI-compatible endpoint."
 echo "Data and logs: $HOME/Library/Application Support/Vicaro"
 echo "Uninstall: launchctl bootout gui/$(id -u)/com.vicaro.orchestrator.app 2>/dev/null;"
 echo "           rm -rf \"$APP\" \"$AGENT\" \"$HOME/Library/Application Support/Vicaro\""
