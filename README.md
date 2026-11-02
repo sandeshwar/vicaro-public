@@ -40,14 +40,12 @@ Rules:
 at <https://sandeshwar.github.io/vicaro-public/> — the landing page, `install.sh`,
 `privacy.html` and the web UI bundles included.
 
-`CNAME` names the custom domain, and `vicaro.creativeducks.com` now answers from
-Pages. The Netlify workflow is **manual only** (`workflow_dispatch`); with the domain
-moved it can be deleted along with its two secrets.
+`CNAME` names the custom domain, and `vicaro.creativeducks.com` answers from Pages.
 
-> **Credits.** Every production deploy and every byte served is billed. Nine pushes
-> in two days is nine deploys, and a single macOS install pulled a 38 MB tarball
-> through Netlify on every run. That is what drained the allowance, not the 11 KB
-> landing page.
+> **Why Pages.** Netlify billed every deploy and every byte. Nine pushes in two days
+> were nine deploys, and a single macOS install pulled a 38 MB tarball through it on
+> every run. Pages serves the same static site for nothing, and the release now
+> carries the downloads.
 
 ### Where the bytes go now
 
