@@ -22,9 +22,11 @@ APP_NAME="Vicaro Orchestrator"
 # Builds are per-architecture (a universal Node is twice the size); fall back to
 # the universal tarball only if no matching arch build was published.
 TARBALL="Vicaro-macos-$(uname -m).tar.gz"
-# Where the tarball and its .sha256 live. There is no public source repo: publish
-# both files to the website (site/downloads/) at release time.
-BASE_URL="${VICARO_BASE_URL:-https://vicaro.creativeducks.com/downloads}"
+# Where the tarball and its .sha256 live. GitHub Releases is the primary: free,
+# CDN-backed, and it keeps install traffic away from the site's bandwidth.
+# FALLBACK_URL is the old /downloads path, used only if the release is missing.
+BASE_URL="${VICARO_BASE_URL:-https://github.com/sandeshwar/vicaro-public/releases/latest/download}"
+FALLBACK_URL="https://vicaro.creativeducks.com/downloads"
 
 NO_AGENT=0
 WANT_MCP=0
@@ -154,7 +156,12 @@ else
     WANTED="$TARBALL"
     TARBALL="Vicaro-macos-universal.tar.gz"
     echo "  no $WANTED for this Mac - trying $TARBALL"
-    fetch "$BASE_URL/$TARBALL" "$TMP/app.tar.gz" "$TARBALL"
+    if ! fetch "$BASE_URL/$TARBALL" "$TMP/app.tar.gz" "$TARBALL"; then
+      # Releases moved, were unpublished, or the network blocks github.com.
+      echo "  no release asset - falling back to $FALLBACK_URL"
+      BASE_URL="$FALLBACK_URL"
+      fetch "$BASE_URL/$TARBALL" "$TMP/app.tar.gz" "$TARBALL"
+    fi
   fi
   curl -fsSL "$BASE_URL/$TARBALL.sha256" -o "$TMP/app.sha256"
 fi
