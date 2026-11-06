@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy — Vicaro</title>
-<meta name="description" content="Vicaro privacy policy. Self-hosted, no account, no telemetry, no Vicaro servers.">
+<meta name="description" content="Vicaro privacy policy. Self-hosted, no Vicaro account, no telemetry, optional Google sign-in.">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -28,16 +28,16 @@
 <body>
 <main>
   <h1>Privacy</h1>
-  <p class="lede">Last updated 28 October 2026</p>
+  <p class="lede">Last updated 6 November 2026</p>
 
-  <p>Vicaro is a self-hosted browser assistant. It runs on your computer. There is no Vicaro account, no Vicaro server, and no telemetry.</p>
+  <p>Vicaro is a self-hosted browser assistant. It runs on your computer. There is no Vicaro server and no telemetry. Google sign-in is optional; when you use it, Google verifies your account through Firebase Authentication.</p>
 
   <h2>What Vicaro is</h2>
   <p>Vicaro has two parts: a Chrome extension that reads the page you are on and performs the click or keystroke an assistant asks for, and a helper program you install and run yourself, which decides what to do, talks to the model you configure, and stores its data locally. They talk over a loopback connection, or over your local network if you explicitly configure split mode with a bearer token.</p>
 
   <h2>What the extension can see</h2>
   <p>Only what it needs to carry out a request you make: the list of open tabs (titles and addresses), the visible content and interactive elements of a tab once you have granted page access to that site, the action it is asked to perform, and the page state afterwards.</p>
-  <p>It does not read pages in the background, and it does not run on sites you have not granted. Nothing is sent anywhere except to your own helper.</p>
+  <p>It does not read pages in the background, and it does not run on sites you have not granted. Outside the optional Google sign-in below, nothing is sent anywhere except to your own helper.</p>
 
   <h2>Optional capabilities</h2>
   <p>Two capabilities are off until you enable them in Settings, Access:</p>
@@ -47,9 +47,13 @@
   </ul>
   <p>Both can be removed at any time from Chrome's extension settings.</p>
 
+  <h2>Google sign-in (optional)</h2>
+  <p>You can link one Google account to the helper from the side panel. The extension gets a Google access token from Chrome, exchanges it for a Firebase ID token, and sends that token to your helper over loopback. The helper checks the token against Google's public signing keys and stores the account's name, email and Firebase user id in its local <span class="mono">account.json</span>. The ID token itself is not stored. Google receives the sign-in request, as it would for any Google sign-in; no chats, pages or memories are sent to Google or Firebase. Signing out removes the local link.</p>
+
   <h2>Where your data goes</h2>
   <ul>
     <li><strong>Your model endpoint.</strong> Messages, page text and tool results are sent to the model server you configure — a local server, your LAN, or a hosted provider. That server's privacy policy applies to it. Vicaro has no default provider and no fallback.</li>
+    <li><strong>Google sign-in (optional).</strong> Only if you choose it: Google and Firebase receive the authentication request, as described above. No page or chat content is included.</li>
     <li><strong>Nowhere else.</strong> No analytics, no crash reporting, no usage statistics, no advertising identifiers, and no sale or sharing of data with third parties.</li>
   </ul>
 
@@ -57,6 +61,7 @@
   <ul>
     <li><strong>On your machine:</strong> conversation history, task state, memories, saved skills and the secret vault live in a SQLite database owned by the helper, in the app's data directory.</li>
     <li><strong>In Chrome:</strong> the panel stores your helper address, bearer token, theme and model preference in <span class="mono">chrome.storage.local</span>.</li>
+    <li><strong>Linked Google account:</strong> the helper stores the account's name, email and Firebase user id in its local <span class="mono">account.json</span>. Signing out clears it.</li>
     <li><strong>Secret vault values</strong> are substituted into actions at execution time and never sent to the model.</li>
   </ul>
 
@@ -64,6 +69,7 @@
   <ul>
     <li>Revoke page access or the optional permissions in <span class="mono">chrome://extensions</span>, or in Settings, Access.</li>
     <li>Delete the helper's database file to erase history, tasks and memories.</li>
+    <li>Sign out in Settings, General, Account to remove the linked Google account.</li>
     <li>Uninstall the extension and the helper to remove everything.</li>
   </ul>
 
