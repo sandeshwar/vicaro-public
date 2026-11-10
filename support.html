@@ -156,6 +156,7 @@
         <p>The helper does not ship a model. Open Settings, Model and point it at an OpenAI-compatible endpoint. This can be a local server such as Ollama, LM Studio, mlx or vLLM, or a hosted provider you already use.</p>
         <ul>
           <li>Include <span class="mono">/v1</span> in the base URL if your server expects it. For Ollama the common base is <span class="mono">http://127.0.0.1:11434</span>.</li>
+          <li>For a model on another machine on your network, use its private address (for example <span class="mono">http://192.168.1.40:11434/v1</span>) and start Ollama with <span class="mono">OLLAMA_HOST=0.0.0.0:11434</span>. Plain HTTP is allowed for loopback, private and link-local addresses; public hosts must use HTTPS.</li>
           <li>Use Fetch models to check that the helper can reach the endpoint and read its model list.</li>
           <li>A 401 or 403 means the API key is missing or wrong. A timeout usually means the helper and the model are on different networks.</li>
           <li>Context errors mean the model window is smaller than the conversation. Lower the context budget in Settings, Model, Advanced.</li>

@@ -80,7 +80,10 @@ code from the menu and paste it into the panel.
 
 Open **Settings, Model** and enter the base URL and model id for your endpoint. Use
 **Fetch models** to check the connection. For Ollama the common base is
-`http://127.0.0.1:11434`.
+`http://127.0.0.1:11434`. A model on another machine on your LAN works too, for
+example `http://192.168.1.40:11434/v1`; start Ollama there with
+`OLLAMA_HOST=0.0.0.0:11434`. Plain HTTP is allowed for loopback and private
+addresses, while public hosts must use HTTPS.
 
 ### 5. Ask
 
