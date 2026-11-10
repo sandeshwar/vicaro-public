@@ -1,0 +1,37 @@
+name: Feature request
+description: Suggest a task or workflow Vicaro should handle.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: What are you trying to finish?
+      description: Describe the real task, not only the control you want added.
+      placeholder: I want Vicaro to compare prices across three tabs and keep a table of the results.
+    validations:
+      required: true
+  - type: textarea
+    id: today
+    attributes:
+      label: What do you do today?
+      description: How you handle this without Vicaro, or what the panel does now.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Optional. What should the panel, helper or extension do?
+  - type: input
+    id: version
+    attributes:
+      label: Helper and extension version
+      placeholder: Helper 1.3.0, extension 1.3.0
+  - type: checkboxes
+    id: safe
+    attributes:
+      label: Before posting
+      options:
+        - label: I removed page content, tokens, API keys and personal data from this request.
+          required: true

@@ -1,0 +1,85 @@
+name: Bug report
+description: Something in the Vicaro Beta helper or Chrome extension is broken.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for testing the beta. Remove page content, tokens, API keys, email addresses and anything else personal before posting.
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: A short description of the problem and the task you were trying to finish.
+      placeholder: The panel said it could not reach the helper after I restarted my Mac.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open the side panel
+        2. Ask it to summarize the current tab
+        3. Approve the page access prompt
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+      description: Include the exact panel message if there is one.
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version
+      placeholder: macOS 15.1
+    validations:
+      required: true
+  - type: input
+    id: chrome
+    attributes:
+      label: Chrome version
+      placeholder: Chrome 142
+    validations:
+      required: true
+  - type: input
+    id: helper
+    attributes:
+      label: Helper version
+      description: From the Vicaro Helper menu, or the app in Applications.
+      placeholder: 1.3.0
+    validations:
+      required: true
+  - type: input
+    id: extension
+    attributes:
+      label: Extension version
+      description: From chrome://extensions.
+      placeholder: 1.3.0
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log lines
+      description: The helper log is at ~/Library/Logs/Vicaro/helper.log. Redact page content and secrets.
+      render: shell
+  - type: checkboxes
+    id: safe
+    attributes:
+      label: Before posting
+      options:
+        - label: I removed page content, tokens, API keys and personal data from this report.
+          required: true
+        - label: This is not a security vulnerability. I will email security reports instead.
+          required: true

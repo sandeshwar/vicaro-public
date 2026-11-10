@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Support and troubleshooting
+    url: https://vicaro.creativeducks.com/support.html
+    about: Setup, model, pairing and page-access help.
+  - name: Security report
+    url: mailto:hello@creativeducks.com
+    about: Report a vulnerability privately. Do not open a public issue.
