@@ -8,9 +8,12 @@ source.
 
 | Path | What | Notes |
 |---|---|---|
-| `/` | landing page (`index.html`) | product copy, install one-liner |
-| `/install.sh` | macOS installer | copied verbatim from the app repo's `deploy/macos/install.sh` |
+| `/` | landing page (`index.html`) | product copy, screenshots, install one-liner |
+| `/support.html` | support and troubleshooting | setup, model, access, sign-in, beta safety |
 | `/privacy.html` | privacy policy | the URL pasted into the Chrome Web Store dashboard |
+| `/assets/shots/` | screenshot assets | 1280x800 PNG plus WebP variants used by the landing page and store listing |
+| `/site.css`, `/site.js` | shared page shell | styles and small progressive enhancements, no framework |
+| `/install.sh` | macOS installer | copied verbatim from the app repo's `deploy/macos/install.sh` |
 | `/webui/<version>/` | helper web UI bundle + manifest | hash-pinned; also mirrored by jsDelivr over this repo so UI traffic costs nothing |
 
 Builds are **not** served from this repo. The tarballs, their `.sha256` files and
@@ -61,6 +64,16 @@ The `downloads/` directory that used to sit here — 76 MB across two tarballs, 
 checksums and the extension zip — is gone, and the history was rewritten to drop it,
 because every clone and every Pages deploy carried it. The old commits survive only
 in clones made before the rewrite.
+
+## Previewing the pages
+
+```sh
+python3 -m http.server 8088
+# open http://127.0.0.1:8088/
+```
+
+The pages have no build step. `site.js` is optional: the copy button falls back to
+selecting the command, and the mobile menu is a native `<details>` element.
 
 ## Releasing a build
 

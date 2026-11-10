@@ -1,7 +1,7 @@
 {
-  "name": "Vicaro",
+  "name": "Vicaro Beta",
   "short_name": "Vicaro",
-  "description": "An AI coworker that lives in your browser.",
+  "description": "A self-hosted browser agent for Chrome. Your model, your machine, your tabs.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FBFAF7",
