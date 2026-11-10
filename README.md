@@ -118,6 +118,7 @@ actions.
 |---|---|
 | Panel cannot reach the helper | Check the menu bar globe, confirm `ws://127.0.0.1:8792/chrome`, press **Retry connection**. |
 | Pairing request never appears | Use **Copy pairing code** in the helper menu and paste it into the panel. |
+| Console: `WebSocket ... HTTP Authentication failed` | The helper is refusing an unpaired browser. Open the side panel and approve the request in the helper menu; the message stops after pairing. |
 | Model errors | Check the base URL, `/v1` suffix and API key in **Settings, Model**. |
 | Page access is missing | Grant the site when prompted, or check **Settings, Access**. |
 | "Vicaro Helper is damaged" | `xattr -dr com.apple.quarantine ~/Applications/"Vicaro Helper.app"` |
