@@ -1,0 +1,42 @@
+# Vicaro Beta
+
+> Vicaro is a self-hosted browser agent for Chrome. It runs in the side panel, reads open tabs, clicks and types when asked, and asks before purchases, deletes, sends or uploads. The helper runs on the user's Mac and connects to a model endpoint the user chooses.
+
+## Key facts
+
+- Category: browser agent and AI assistant for Chrome.
+- Platform: macOS 13.5 or newer, Chrome 116 or newer. Apple Silicon and Intel.
+- Model: any local OpenAI-compatible server (Ollama, LM Studio, mlx, vLLM) or a hosted endpoint. No default provider and no fallback.
+- Pricing: free while in beta.
+- Account: no Vicaro account required. Google sign-in is optional and only links one account to the web UI.
+- Data: page content and tool results go to the model endpoint the user configures. Chat, tasks and memories stay in a local SQLite database. No analytics or telemetry.
+- Access: page access is granted per site. Purchases, deletes, sends and uploads stop for approval.
+- Source: closed source. The helper is self-hosted.
+- Version: 1.3.0, released 10 November 2026.
+- Chrome Web Store: listing in preparation. The extension is currently loaded unpacked from the release package.
+
+## Pages
+
+- [Home](https://vicaro.creativeducks.com/): product overview, screenshots and install steps.
+- [Support](https://vicaro.creativeducks.com/support.html): helper connection, model errors, page access, Google sign-in and beta safety.
+- [Privacy](https://vicaro.creativeducks.com/privacy.html): what the extension can see, where data goes and what is stored.
+- [GitHub releases](https://github.com/sandeshwar/vicaro-public/releases): signed macOS tarballs, universal DMG and the development extension zip.
+
+## Install
+
+1. Run: curl -fsSL https://vicaro.creativeducks.com/install.sh | sh
+2. Open chrome://extensions, enable Developer mode, choose Load unpacked, and select ~/Library/Application Support/Vicaro/extension.
+3. Open the side panel, approve the pairing request in the menu bar, and configure the model in Settings.
+
+A universal DMG is available from the latest GitHub release.
+
+## Safety
+
+Vicaro is beta software. It can click, type, submit forms, make purchases, delete data and change account settings. Start with Read only or Ask first, keep backups, and use a Chrome profile you can afford to lose. See the support safety section for the full warning.
+
+## Contact
+
+- Support: https://vicaro.creativeducks.com/support.html
+- Issues: https://github.com/sandeshwar/vicaro-public/issues
+- Email: hello@creativeducks.com
+- Security reports: email hello@creativeducks.com privately. Do not open a public issue.

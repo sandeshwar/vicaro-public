@@ -155,6 +155,7 @@ proprietary software and the helper source stays private.
 | `/privacy.html` | Privacy policy |
 | `/install.sh` | macOS installer |
 | `/assets/shots/` | Screenshots used by the site and store listing |
+| `/llms.txt` | Concise product facts and canonical links for AI crawlers |
 | `/site.css`, `/site.js` | Shared page styles and small enhancements |
 | `/webui/<version>/` | Optional signed helper web UI bundle |
 

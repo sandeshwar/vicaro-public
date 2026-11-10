@@ -10,6 +10,7 @@
 <meta property="og:title" content="Vicaro Beta: an AI coworker in your browser">
 <meta property="og:description" content="Self-hosted. Your model. Your Chrome. Vicaro acts in the browser you already use, with a safety gate before anything destructive.">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://vicaro.creativeducks.com/">
 <meta property="og:site_name" content="Vicaro">
 <meta property="og:image" content="https://vicaro.creativeducks.com/og.png">
@@ -26,19 +27,174 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
 <meta name="color-scheme" content="light dark">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<meta name="author" content="Vicaro">
 <meta name="theme-color" content="#2F6FD6">
 <link rel="stylesheet" href="site.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Vicaro Beta",
-  "applicationCategory": "BrowserApplication",
-  "operatingSystem": "macOS",
-  "description": "A self-hosted browser agent for Chrome. It reads tabs, clicks, types, and can be driven by Cursor, Claude Code or Codex over MCP.",
-  "url": "https://vicaro.creativeducks.com/",
-  "image": "https://vicaro.creativeducks.com/og.png",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://vicaro.creativeducks.com/#organization",
+      "name": "Vicaro",
+      "url": "https://vicaro.creativeducks.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://vicaro.creativeducks.com/icon-512.png",
+        "width": 512,
+        "height": 512
+      },
+      "sameAs": [
+        "https://github.com/sandeshwar/vicaro-public"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "hello@creativeducks.com",
+        "contactType": "customer support"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://vicaro.creativeducks.com/#website",
+      "url": "https://vicaro.creativeducks.com/",
+      "name": "Vicaro Beta",
+      "inLanguage": "en",
+      "dateModified": "2026-11-10",
+      "publisher": {
+        "@id": "https://vicaro.creativeducks.com/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://vicaro.creativeducks.com/#webpage",
+      "url": "https://vicaro.creativeducks.com/",
+      "name": "Vicaro Beta: an AI coworker in your browser",
+      "description": "A self-hosted browser agent for Chrome. Vicaro reads tabs, clicks, types, and lets Cursor, Claude Code and Codex drive the same browser.",
+      "inLanguage": "en",
+      "dateModified": "2026-11-10",
+      "isPartOf": {
+        "@id": "https://vicaro.creativeducks.com/#website"
+      },
+      "about": {
+        "@id": "https://vicaro.creativeducks.com/#software"
+      },
+      "mainEntity": {
+        "@id": "https://vicaro.creativeducks.com/#software"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://vicaro.creativeducks.com/og.png"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          ".hero h1",
+          ".hero .lede"
+        ]
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://vicaro.creativeducks.com/#software",
+      "name": "Vicaro Beta",
+      "applicationCategory": "BrowserApplication",
+      "applicationSubCategory": "Self-hosted browser agent",
+      "operatingSystem": "macOS 13.5+",
+      "softwareVersion": "1.3.0",
+      "datePublished": "2026-11-10",
+      "description": "A self-hosted browser agent for Chrome. Vicaro reads tabs, clicks, types, and can be driven by Cursor, Claude Code or Codex over MCP.",
+      "url": "https://vicaro.creativeducks.com/",
+      "downloadUrl": "https://github.com/sandeshwar/vicaro-public/releases/latest",
+      "image": "https://vicaro.creativeducks.com/og.png",
+      "screenshot": [
+        "https://vicaro.creativeducks.com/assets/shots/01-ask-any-tab.png",
+        "https://vicaro.creativeducks.com/assets/shots/02-ai-tools.png",
+        "https://vicaro.creativeducks.com/assets/shots/03-your-model.png",
+        "https://vicaro.creativeducks.com/assets/shots/04-beta-guardrails.png"
+      ],
+      "featureList": [
+        "Reads open tabs and page content",
+        "Clicks, types, scrolls and navigates",
+        "Asks before purchases, deletes, sends and uploads",
+        "Connects to local or OpenAI-compatible models",
+        "Runs the helper on the user's Mac",
+        "Optional Google sign-in"
+      ],
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@id": "https://vicaro.creativeducks.com/#organization"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://vicaro.creativeducks.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is it safe to use in beta?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not for anything you cannot afford to lose. It can click, type, submit forms and change settings. Start with Read only or Ask first, keep backups, and use a Chrome profile that does not hold your most important accounts."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it send my pages to your servers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Vicaro has no servers. Page text, tool results and messages go to the model endpoint you configure, and nowhere else. That endpoint may be local, on your LAN, or a hosted provider you chose."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need a Google account?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The panel works without one. Google sign-in is optional and only links one account to the web UI. No chats, pages or memories are sent to Google or Firebase."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use it from Cursor or Claude Code?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Vicaro registers as an MCP server in the tools it finds, so they can list tabs, read pages, click and type with the same safety gate as the panel. You choose which tools may connect."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work on Windows or Linux?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "macOS is the supported beta today. A Linux helper build is in progress. Windows is not supported yet."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does it cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nothing while it is in beta. If that changes, the price will be announced before it applies."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it open source?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Vicaro is closed-source software, and the helper is self-hosted: it runs on your machine and keeps its data in a local database you can inspect or delete."
+          }
+        }
+      ]
+    }
+  ]
 }
 </script>
 </head>
@@ -47,7 +203,7 @@
 
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="brand" href="index.html" aria-label="Vicaro home">
+    <a class="brand" href="index.html">
       <span class="mark"><svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14.4" fill="#2F6FD6"/><path d="M19.2 21.12 L32 42.24 L44.8 21.12" fill="none" stroke="#fff" stroke-width="10.24" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       <span class="word">Vicaro</span>
       <span class="beta">Beta</span>
@@ -128,6 +284,25 @@
     </div>
   </section>
 
+  <section class="section tight" id="about">
+    <div class="wrap about-grid">
+      <div>
+        <p class="kicker">What is Vicaro?</p>
+        <h2>A self-hosted browser agent for Chrome.</h2>
+        <p>Vicaro is an AI assistant that runs in Chrome's side panel and acts on the browser you already use. It reads open tabs, clicks, types, and reports back. A small helper on your Mac runs the loop and talks to the model you choose.</p>
+        <p>Unlike a hosted browser agent, Vicaro does not run your pages in a vendor cloud. The helper, history and memories stay on your machine, and page content goes only to the model endpoint you configure.</p>
+      </div>
+      <dl class="facts">
+        <div><dt>Category</dt><dd>Browser agent and AI assistant</dd></div>
+        <div><dt>Runs on</dt><dd>macOS 13.5+ and Chrome 116+</dd></div>
+        <div><dt>Model</dt><dd>Local server or any OpenAI-compatible endpoint</dd></div>
+        <div><dt>Price</dt><dd>Free while in beta</dd></div>
+        <div><dt>Data</dt><dd>Local SQLite, no telemetry</dd></div>
+        <div><dt>Source</dt><dd>Closed source, self-hosted helper</dd></div>
+      </dl>
+    </div>
+  </section>
+
   <section class="section" id="what">
     <div class="wrap">
       <div class="section-head">
@@ -169,19 +344,19 @@
       </div>
       <div class="gallery">
         <figure class="shot">
-          <a href="assets/shots/01-ask-any-tab.png" target="_blank" rel="noopener"><img src="assets/shots/01-ask-any-tab.webp" srcset="assets/shots/01-ask-any-tab-640.webp 640w, assets/shots/01-ask-any-tab.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 580px" width="1280" height="800" alt="Vicaro side panel answering a question about the current page"></a>
+          <a href="assets/shots/01-ask-any-tab.png" target="_blank" rel="noopener"><img src="assets/shots/01-ask-any-tab.webp" srcset="assets/shots/01-ask-any-tab-640.webp 640w, assets/shots/01-ask-any-tab.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 580px" width="1280" height="800" loading="lazy" decoding="async" alt="Vicaro side panel answering a question about the current page"></a>
           <figcaption><span><b>Ask about any tab.</b> The panel reads the page and answers in place.</span><span class="open">OPEN 01</span></figcaption>
         </figure>
         <figure class="shot">
-          <a href="assets/shots/02-ai-tools.png" target="_blank" rel="noopener"><img src="assets/shots/02-ai-tools.webp" srcset="assets/shots/02-ai-tools-640.webp 640w, assets/shots/02-ai-tools.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 580px" width="1280" height="800" alt="Vicaro AI tools settings with Claude Code and Codex connected"></a>
+          <a href="assets/shots/02-ai-tools.png" target="_blank" rel="noopener"><img src="assets/shots/02-ai-tools.webp" srcset="assets/shots/02-ai-tools-640.webp 640w, assets/shots/02-ai-tools.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 580px" width="1280" height="800" loading="lazy" decoding="async" alt="Vicaro AI tools settings with Claude Code and Codex connected"></a>
           <figcaption><span><b>Bring your own tools.</b> Cursor, Claude Code, Codex and more, over MCP.</span><span class="open">OPEN 02</span></figcaption>
         </figure>
         <figure class="shot">
-          <a href="assets/shots/03-your-model.png" target="_blank" rel="noopener"><img src="assets/shots/03-your-model.webp" srcset="assets/shots/03-your-model-640.webp 640w, assets/shots/03-your-model.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 580px" width="1280" height="800" alt="Vicaro model settings pointed at a local OpenAI-compatible endpoint"></a>
+          <a href="assets/shots/03-your-model.png" target="_blank" rel="noopener"><img src="assets/shots/03-your-model.webp" srcset="assets/shots/03-your-model-640.webp 640w, assets/shots/03-your-model.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 580px" width="1280" height="800" loading="lazy" decoding="async" alt="Vicaro model settings pointed at a local OpenAI-compatible endpoint"></a>
           <figcaption><span><b>Your model, your machine.</b> A local server or any OpenAI-compatible endpoint.</span><span class="open">OPEN 03</span></figcaption>
         </figure>
         <figure class="shot">
-          <a href="assets/shots/04-beta-guardrails.png" target="_blank" rel="noopener"><img src="assets/shots/04-beta-guardrails.webp" srcset="assets/shots/04-beta-guardrails-640.webp 640w, assets/shots/04-beta-guardrails.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 580px" width="1280" height="800" alt="Vicaro beta warning in Settings explaining possible loss of money, data or access"></a>
+          <a href="assets/shots/04-beta-guardrails.png" target="_blank" rel="noopener"><img src="assets/shots/04-beta-guardrails.webp" srcset="assets/shots/04-beta-guardrails-640.webp 640w, assets/shots/04-beta-guardrails.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 580px" width="1280" height="800" loading="lazy" decoding="async" alt="Vicaro beta warning in Settings explaining possible loss of money, data or access"></a>
           <figcaption><span><b>Beta, with guardrails.</b> The warning is in Settings, not buried in a FAQ.</span><span class="open">OPEN 04</span></figcaption>
         </figure>
       </div>
@@ -231,7 +406,7 @@
         </ul>
       </div>
       <div class="split-media">
-        <img src="assets/shots/03-your-model.webp" srcset="assets/shots/03-your-model-640.webp 640w, assets/shots/03-your-model.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 560px" width="1280" height="800" alt="Model settings showing a local endpoint and a saved API key">
+        <img src="assets/shots/03-your-model.webp" srcset="assets/shots/03-your-model-640.webp 640w, assets/shots/03-your-model.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 560px" width="1280" height="800" loading="lazy" decoding="async" alt="Model settings showing a local endpoint and a saved API key">
         <p class="split-caption">Settings, Model. The endpoint is yours, and the key stays on your machine.</p>
       </div>
     </div>
@@ -249,7 +424,7 @@
         </div>
       </div>
       <div class="split-media">
-        <img src="assets/shots/02-ai-tools.webp" srcset="assets/shots/02-ai-tools-640.webp 640w, assets/shots/02-ai-tools.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 560px" width="1280" height="800" alt="AI tools settings with Claude Code and Codex connected over MCP">
+        <img src="assets/shots/02-ai-tools.webp" srcset="assets/shots/02-ai-tools-640.webp 640w, assets/shots/02-ai-tools.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 560px" width="1280" height="800" loading="lazy" decoding="async" alt="AI tools settings with Claude Code and Codex connected over MCP">
         <p class="split-caption">Settings, AI tools. Only the tools you tick are changed.</p>
       </div>
     </div>
@@ -269,7 +444,7 @@
             <li>Provided as is, without warranty. You are responsible for the actions you approve.</li>
           </ul>
         </div>
-        <img src="assets/shots/04-beta-guardrails.webp" srcset="assets/shots/04-beta-guardrails-640.webp 640w, assets/shots/04-beta-guardrails.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 560px" width="1280" height="800" alt="Beta warning in Vicaro Settings describing possible loss of money, data or access">
+        <img src="assets/shots/04-beta-guardrails.webp" srcset="assets/shots/04-beta-guardrails-640.webp 640w, assets/shots/04-beta-guardrails.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 560px" width="1280" height="800" loading="lazy" decoding="async" alt="Beta warning in Vicaro Settings describing possible loss of money, data or access">
       </div>
     </div>
   </section>
@@ -354,28 +529,28 @@
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="brand" href="index.html" aria-label="Vicaro home">
+        <a class="brand" href="index.html">
           <span class="mark"><svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14.4" fill="#2F6FD6"/><path d="M19.2 21.12 L32 42.24 L44.8 21.12" fill="none" stroke="#fff" stroke-width="10.24" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           <span class="word">Vicaro</span><span class="beta">Beta</span>
         </a>
         <p>A self-hosted browser agent for Chrome. Your model, your machine, your tabs.</p>
       </div>
       <div class="footer-col">
-        <h4>Product</h4>
+        <h3>Product</h3>
         <a href="#what">What it does</a>
         <a href="#screens">Screenshots</a>
         <a href="#install">Install</a>
         <a href="support.html">Support</a>
       </div>
       <div class="footer-col">
-        <h4>Resources</h4>
+        <h3>Resources</h3>
         <a href="https://github.com/sandeshwar/vicaro-public/releases/latest">Releases</a>
         <a href="https://github.com/sandeshwar/vicaro-public/issues">Report an issue</a>
         <a href="privacy.html">Privacy</a>
         <a href="mailto:hello@creativeducks.com">Email</a>
       </div>
       <div class="footer-col">
-        <h4>Notes</h4>
+        <h3>Notes</h3>
         <a href="#safety">Beta safety</a>
         <a href="#faq">FAQ</a>
         <a href="privacy.html">Data handling</a>
