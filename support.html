@@ -26,7 +26,8 @@
 <meta name="color-scheme" content="light dark">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="author" content="Vicaro">
-<meta name="theme-color" content="#2F6FD6">
+<meta name="theme-color" content="#fafbf9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101a22" media="(prefers-color-scheme: dark)">
 <link rel="stylesheet" href="site.css">
 <script type="application/ld+json">
 {
@@ -84,16 +85,17 @@
       <a href="index.html#what">What it does</a>
       <a href="index.html#screens">Screenshots</a>
       <a href="index.html#how">How it works</a>
-      <a href="index.html#install">Install</a>
+      <a href="support.html" aria-current="page">Support</a>
     </nav>
     <a class="btn small header-cta" href="index.html#install">Get the beta</a>
     <details class="menu">
-      <summary aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
+      <summary aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
       <div class="menu-panel">
         <a href="index.html#what">What it does</a>
         <a href="index.html#screens">Screenshots</a>
         <a href="index.html#how">How it works</a>
         <a href="index.html#install">Install</a>
+        <a href="support.html" aria-current="page">Support</a>
         <a href="privacy.html">Privacy</a>
         <a class="btn small" href="index.html#install">Get the beta</a>
       </div>
@@ -131,7 +133,7 @@
         <h2>Install</h2>
         <p>Vicaro Beta needs macOS 13.5 or later and Chrome 116 or later. The helper is a menu-bar app. The extension is a Chrome side panel.</p>
         <p>Run the installer:</p>
-        <div class="code"><code id="support-install">curl -fsSL https://vicaro.creativeducks.com/install.sh | sh</code><button class="copy" type="button" data-copy="support-install">COPY</button></div>
+        <div class="code"><code id="support-install">curl -fsSL https://vicaro.creativeducks.com/install.sh | sh</code><button class="copy" type="button" aria-live="polite" data-copy="support-install">COPY</button></div>
         <p style="margin-top:14px">It installs the helper into <span class="mono">~/Applications</span>, stages the extension, and copies the extension folder path to your clipboard. Then open <span class="mono">chrome://extensions</span>, turn on Developer mode, choose <strong>Load unpacked</strong>, press Cmd+Shift+G, paste the path and press Return.</p>
         <div class="callout">The Chrome Web Store listing is in preparation. Until it is live, the unpacked extension is the supported install path.</div>
       </section>

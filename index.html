@@ -29,7 +29,8 @@
 <meta name="color-scheme" content="light dark">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="author" content="Vicaro">
-<meta name="theme-color" content="#2F6FD6">
+<meta name="theme-color" content="#fafbf9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101a22" media="(prefers-color-scheme: dark)">
 <link rel="stylesheet" href="site.css">
 <script type="application/ld+json">
 {
@@ -212,11 +213,11 @@
       <a href="#what">What it does</a>
       <a href="#screens">Screenshots</a>
       <a href="#how">How it works</a>
-      <a href="#install">Install</a>
+      <a href="support.html">Support</a>
     </nav>
     <a class="btn small header-cta" href="#install">Get the beta</a>
     <details class="menu">
-      <summary aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
+      <summary aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
       <div class="menu-panel">
         <a href="#what">What it does</a>
         <a href="#screens">Screenshots</a>
@@ -235,12 +236,12 @@
     <div class="wrap">
       <div class="hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">Self-hosted browser agent <span class="sep">/</span> <span class="eyebrow-alt">Beta for macOS</span></p>
-          <h1>An AI <em>coworker</em> that lives in your browser.</h1>
-          <p class="lede">Vicaro opens tabs, reads pages, clicks and types in the Chrome you already use. Or hand that same browser to Cursor, Claude Code and Codex.</p>
+          <p class="eyebrow">A self-hosted browser assistant <span class="sep">/</span> <span class="eyebrow-alt">Beta for macOS</span></p>
+          <h1>A more capable browser, <em>on your terms.</em></h1>
+          <p class="lede">Meet Vicaro, the assistant that reads, clicks and works alongside you in the Chrome you already use. Your model, your machine, your control.</p>
           <div class="cta">
-            <a class="btn" href="#install">Install the beta</a>
-            <a class="btn ghost" href="#screens">See it in action</a>
+            <a class="btn arrow" href="#install">Get Vicaro for Mac</a>
+            <a class="btn ghost" href="#screens">Explore the product</a>
           </div>
           <ul class="hero-meta">
             <li>Free while in beta</li>
@@ -249,7 +250,8 @@
           </ul>
         </div>
 
-        <div class="hero-visual" aria-label="Vicaro side panel summarizing an article in Chrome">
+        <div class="hero-visual" aria-label="Illustration of the Vicaro side panel summarizing an article in Chrome">
+          <div class="visual-topline"><span>Made for the way you work</span><span>01 / THE WORKSPACE</span></div>
           <div class="browser">
             <div class="browser-bar" aria-hidden="true">
               <span class="dots"><i></i><i></i><i></i></span>
@@ -272,7 +274,7 @@
               </div>
             </div>
           </div>
-          <p class="hero-status"><span class="dot"></span> Helper online <span class="sep">/</span> Local model <span class="sep">/</span> Ask first</p>
+          <p class="hero-status"><span class="dot"></span> An assistant in your browser <span class="sep">/</span> An illustrative preview</p>
         </div>
       </div>
 
@@ -308,8 +310,8 @@
       <div class="section-head">
         <div>
           <p class="kicker">What it does</p>
-          <h2>A side panel that can actually use the web.</h2>
-          <p class="sub">Not another chat window. Vicaro sees the tab you are on, acts inside it, and checks the result before it answers.</p>
+          <h2>More than a window to chat.</h2>
+          <p class="sub">Vicaro sees the tab you are on, acts inside it, and checks the result before it answers.</p>
         </div>
       </div>
       <div class="features">
@@ -337,8 +339,8 @@
     <div class="wrap">
       <div class="section-head">
         <div>
-          <p class="kicker">Screenshots</p>
-          <h2>See the browser do the work.</h2>
+          <p class="kicker">A closer look</p>
+          <h2>See Vicaro in action.</h2>
           <p class="sub">The panel, the model settings, the tool connections, and the beta warning users see before they let it act.</p>
         </div>
       </div>
@@ -462,7 +464,7 @@
         <div class="install-card">
           <h3>One command</h3>
           <p>Installs the helper into <span class="mono">~/Applications</span>, stages the extension, and copies its folder path to your clipboard.</p>
-          <div class="code"><code id="install-command">curl -fsSL https://vicaro.creativeducks.com/install.sh | sh</code><button class="copy" type="button" data-copy="install-command">COPY</button></div>
+          <div class="code"><code id="install-command">curl -fsSL https://vicaro.creativeducks.com/install.sh | sh</code><button class="copy" type="button" aria-live="polite" data-copy="install-command">COPY</button></div>
           <p class="install-note">The helper is ad-hoc signed for now. The installer says what it touches and how to undo it.</p>
           <div class="store-status">
             <span class="dot" aria-hidden="true"></span>
