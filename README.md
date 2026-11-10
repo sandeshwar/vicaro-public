@@ -82,9 +82,9 @@ selecting the command, and the mobile menu is a native `<details>` element.
    ad-hoc, and writes the tarballs, checksums and `Vicaro-extension.zip` to
    `dist/release/`.
 2. Create a GitHub Release (tag `v<version>`) with `Vicaro-macos-arm64.tar.gz`,
-   `Vicaro-macos-x86_64.tar.gz`, both `.sha256` files and `Vicaro-extension.zip`
-   attached. `install.sh` reads `latest/download`, so the newest release has to
-   carry all five.
+   `Vicaro-macos-x86_64.tar.gz`, both `.sha256` files, `Vicaro-Beta-<version>.dmg`
+   with its checksum, and `Vicaro-extension.zip` attached. `install.sh` reads
+   `latest/download`, so the newest release has to carry the tarballs and zip.
 3. Update `install.sh` here if the app name, launch agent or install paths changed,
    and commit.
 4. Verify: `curl -fsSL https://vicaro.creativeducks.com/install.sh | sh -s -- --dry-run`
