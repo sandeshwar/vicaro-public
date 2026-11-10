@@ -41,7 +41,7 @@ Rules:
 
 **GitHub Pages is the deployment.** It builds this repo on every push, for nothing,
 at <https://sandeshwar.github.io/vicaro-public/> — the landing page, `install.sh`,
-`privacy.html` and the web UI bundles included.
+`support.html`, `privacy.html` and the web UI bundles included.
 
 `CNAME` names the custom domain, and `vicaro.creativeducks.com` answers from Pages.
 
