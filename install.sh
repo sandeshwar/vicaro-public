@@ -3,9 +3,9 @@
 #   curl -fsSL https://vicaro.creativeducks.com/install.sh | sh
 #
 # What it does, in order: download the app tarball, verify its SHA-256, replace
-# ~/Applications/Vicaro Orchestrator.app, stage the Chrome extension, register the
-# login agent. It leaves other apps alone: connecting Cursor, Claude Code or Codex
-# is opt-in (--mcp), and the same switch is in Settings -> AI tools.
+# ~/Applications/Vicaro Helper.app, stage the Chrome extension, register the login
+# agent. It leaves other apps alone: AI tools are configured from the panel, not by
+# this script.
 #
 # The tarball arrives without a quarantine flag (curl does not set one), so macOS
 # does not show the "unidentified developer" wall. The app is still ad-hoc signed,
@@ -13,14 +13,14 @@
 #
 #   --no-agent       do not register the login agent
 #   --no-extension   do not stage the Chrome extension
-#   --mcp            also connect the AI tools already on this Mac
+#   --mcp            accepted for older invocations; not used by this build
 #   --no-open        do not launch Chrome or Finder at the end
 #   --dry-run        print what would happen, change nothing
 set -eu
 
-APP_NAME="Vicaro Orchestrator"
-# Builds are per-architecture (a universal Node is twice the size); fall back to
-# the universal tarball only if no matching arch build was published.
+APP_NAME="Vicaro Helper"
+# Builds are per-architecture. Fall back to the universal tarball only if the
+# matching slice was not published.
 TARBALL="Vicaro-macos-$(uname -m).tar.gz"
 # Where the tarball and its .sha256 live: the GitHub Release on vicaro-public.
 # Free, CDN-backed, and it keeps install traffic away from the site's bandwidth.
@@ -188,7 +188,27 @@ fi
 tar -xzf "$TMP/app.tar.gz" -C "$TMP"
 [ -d "$TMP/$APP_NAME.app" ] || { echo "tarball did not contain $APP_NAME.app" >&2; exit 1; }
 # Only this installation's process: a different build elsewhere is not ours to kill.
-pkill -TERM -f "$APP/Contents/MacOS/VicaroOrchestrator" 2>/dev/null || true
+# Stop both the tray shell and its helper child; the child keeps port 8792 open and
+# would make the health check below report the old build as "already running".
+pkill -TERM -f "$APP/Contents/MacOS/VicaroHelper" 2>/dev/null || true
+pkill -TERM -f "$APP/Contents/Resources/vicaro-helper" 2>/dev/null || true
+n=0
+while pgrep -f "$APP/Contents/Resources/vicaro-helper" >/dev/null 2>&1 && [ "$n" -lt 10 ]; do
+  n=$((n + 1))
+  sleep 1
+done
+
+# Retire the Node app this installer used to ship. Leaving both on disk means a
+# stale login agent can win the next restart and the panel talks to 8790.
+OLD_APP="$DEST/Vicaro Orchestrator.app"
+OLD_AGENT="$HOME/Library/LaunchAgents/com.vicaro.orchestrator.app.plist"
+if [ -d "$OLD_APP" ] || [ -f "$OLD_AGENT" ]; then
+  launchctl bootout "gui/$(id -u)/com.vicaro.orchestrator.app" 2>/dev/null || true
+  pkill -TERM -f "$OLD_APP/Contents/MacOS/VicaroOrchestrator" 2>/dev/null || true
+  rm -rf "$OLD_APP" "$OLD_AGENT"
+  echo "  retired: old TypeScript app"
+fi
+
 mkdir -p "$DEST"
 rm -rf "$APP"
 cp -R "$TMP/$APP_NAME.app" "$APP"
@@ -222,7 +242,7 @@ else
 fi
 
 # ---- login agent ----
-AGENT="$HOME/Library/LaunchAgents/com.vicaro.orchestrator.app.plist"
+AGENT="$HOME/Library/LaunchAgents/com.vicaro.helper.app.plist"
 if [ "$NO_AGENT" = "1" ]; then
   echo "  login agent: skipped"
 else
@@ -231,18 +251,18 @@ else
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0"><dict>
-  <key>Label</key><string>com.vicaro.orchestrator.app</string>
+  <key>Label</key><string>com.vicaro.helper.app</string>
   <key>ProgramArguments</key><array>
-    <string>"$APP/Contents/MacOS/VicaroOrchestrator"</string>
+    <string>$APP/Contents/MacOS/VicaroHelper</string>
   </array>
   <key>RunAtLoad</key><true/>
   <key>LimitLoadToSessionType</key><string>Aqua</string>
   <key>ProcessType</key><string>Background</string>
 </dict></plist>
 PL
-  launchctl bootout "gui/$(id -u)/com.vicaro.orchestrator.app" 2>/dev/null || true
+  launchctl bootout "gui/$(id -u)/com.vicaro.helper.app" 2>/dev/null || true
   launchctl bootstrap "gui/$(id -u)" "$AGENT" 2>/dev/null || true
-  launchctl kickstart "gui/$(id -u)/com.vicaro.orchestrator.app" 2>/dev/null || true
+  launchctl kickstart "gui/$(id -u)/com.vicaro.helper.app" 2>/dev/null || true
   echo "  login agent: registered"
 fi
 
@@ -251,7 +271,7 @@ fi
 # already answering, otherwise the first thing the panel shows is "connecting".
 # Both launchctl calls above are best-effort (they fail outside a GUI session), so
 # this is what actually guarantees the app is up, and it reports the truth.
-HEALTH="http://127.0.0.1:${VICARO_PORT:-8790}/health"
+HEALTH="http://127.0.0.1:${VICARO_PORT:-8792}/"
 up() { curl -fsS -m 2 "$HEALTH" >/dev/null 2>&1; }
 if up; then
   echo "  helper: already running"
@@ -263,7 +283,7 @@ else
   n=0
   while [ "$n" -lt 15 ]; do
     up && break
-    if ! pgrep -f "$APP/Contents/MacOS/VicaroOrchestrator" >/dev/null 2>&1; then
+    if ! pgrep -f "$APP/Contents/MacOS/VicaroHelper" >/dev/null 2>&1; then
       if [ "$opened" = "0" ]; then
         open -a "$APP" 2>/dev/null || true
         opened=1
@@ -273,9 +293,9 @@ else
     sleep 1
   done
   if up; then
-    echo "  helper: running on ${VICARO_PORT:-8790}"
+    echo "  helper: running on ${VICARO_PORT:-8792}"
   else
-    echo "  helper: started, not answering yet - open Vicaro Orchestrator from Applications"
+    echo "  helper: started, not answering yet - open Vicaro Helper from Applications"
   fi
 fi
 
@@ -283,15 +303,9 @@ fi
 # Not by default: installing a helper should not rewrite another app's config files
 # unasked. Settings -> AI tools does exactly this later, with a checkbox per tool.
 if [ "$WANT_MCP" = "1" ]; then
-  NODE="$APP/Contents/Resources/node"
-  CLI="$APP/Contents/Resources/app/cli/dist/index.js"
-  if [ -x "$NODE" ] && [ -f "$CLI" ]; then
-    "$NODE" "$CLI" mcp install || echo "  AI tools: skipped (run it later from Settings -> AI tools)"
-  else
-    echo "  AI tools: this build has no bundled CLI"
-  fi
+  echo "  AI tools: not installed by this build (configure them from Settings -> AI tools)"
 else
-  echo "  AI tools: not connected (Settings -> AI tools, or rerun with --mcp)"
+  echo "  AI tools: not connected (Settings -> AI tools)"
 fi
 
 echo
@@ -312,7 +326,7 @@ if [ "$EXT_OK" = "1" ]; then
   echo "    2. Click Load unpacked."
   echo "    3. Press Cmd+Shift+G, paste, Return - the folder is on your clipboard."
   echo "       $EXT_DIR"
-  echo "    4. Pin Vicaro in the toolbar and click it to open the side panel."
+  echo "    4. Pin Vicaro Beta in the toolbar and click it to open the side panel."
 else
   echo
   echo "  Add the extension: download Vicaro-extension.zip, unzip it, then"
@@ -323,5 +337,5 @@ echo
 echo "  Then open the panel, point it at a model, and allow Local Network access when asked."
 echo "  Vicaro needs a model: one running on this Mac, or any OpenAI-compatible endpoint."
 echo "Data and logs: $HOME/Library/Application Support/Vicaro"
-echo "Uninstall: launchctl bootout gui/$(id -u)/com.vicaro.orchestrator.app 2>/dev/null;"
+echo "Uninstall: launchctl bootout gui/$(id -u)/com.vicaro.helper.app 2>/dev/null;"
 echo "           rm -rf \"$APP\" \"$AGENT\" \"$HOME/Library/Application Support/Vicaro\""

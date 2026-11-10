@@ -13,7 +13,7 @@ source.
 | `/privacy.html` | privacy policy | the URL pasted into the Chrome Web Store dashboard |
 | `/assets/shots/` | screenshot assets | 1280x800 PNG plus WebP variants used by the landing page and store listing |
 | `/site.css`, `/site.js` | shared page shell | styles and small progressive enhancements, no framework |
-| `/install.sh` | macOS installer | copied verbatim from the app repo's `deploy/macos/install.sh` |
+| `/install.sh` | macOS installer | installs `Vicaro Helper.app` and stages the unpacked extension |
 | `/webui/<version>/` | helper web UI bundle + manifest | hash-pinned; also mirrored by jsDelivr over this repo so UI traffic costs nothing |
 
 Builds are **not** served from this repo. The tarballs, their `.sha256` files and
@@ -77,12 +77,15 @@ selecting the command, and the mobile menu is a native `<details>` element.
 
 ## Releasing a build
 
-1. Build and pack in the app repo (`deploy/macos/build.sh --tarball`,
-   `npm run pack:extension`).
+1. In the app repo, run `./deploy/rust/release.sh`. It builds the Rust helper for
+   arm64 and x86_64, bundles the pinned development extension, signs both apps
+   ad-hoc, and writes the tarballs, checksums and `Vicaro-extension.zip` to
+   `dist/release/`.
 2. Create a GitHub Release (tag `v<version>`) with `Vicaro-macos-arm64.tar.gz`,
    `Vicaro-macos-x86_64.tar.gz`, both `.sha256` files and `Vicaro-extension.zip`
    attached. `install.sh` reads `latest/download`, so the newest release has to
    carry all five.
-3. Copy `install.sh` from the app repo here, and commit.
+3. Update `install.sh` here if the app name, launch agent or install paths changed,
+   and commit.
 4. Verify: `curl -fsSL https://vicaro.creativeducks.com/install.sh | sh -s -- --dry-run`
    (`sh --dry-run` passes the flag to the shell, not the script).
