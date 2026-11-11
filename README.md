@@ -186,10 +186,12 @@ the command, and the mobile menu is a native `<details>` element.
 
 ### Publish a release
 
-1. In the private app repo, run `./deploy/rust/release.sh`. It builds the Rust helper
-   for arm64 and x86_64, bundles the pinned development extension, signs the apps
-   ad-hoc, and writes the tarballs, checksums, universal DMG and
-   `Vicaro-extension.zip` to `dist/release/`.
+1. In the private app repo, run
+   `VICARO_RELEASE_CHANNEL=store ./deploy/rust/release.sh`. It builds the Rust helper
+   for arm64 and x86_64, configures both the development and store extension IDs,
+   bundles the pinned development extension, signs the apps ad-hoc, and writes the
+   tarballs, checksums, universal DMG and `Vicaro-extension.zip` to `dist/release/`.
+   The Chrome Web Store package is built separately with `npm run pack:extension`.
 2. Create a GitHub Release tagged `v<version>` with all assets:
    `Vicaro-macos-arm64.tar.gz`, `Vicaro-macos-x86_64.tar.gz`, both `.sha256`
    files, `Vicaro-Beta-<version>.dmg` with its checksum, and

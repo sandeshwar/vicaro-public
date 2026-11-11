@@ -12,7 +12,7 @@
 - Data: page content and tool results go to the model endpoint the user configures. Chat, tasks and memories stay in a local SQLite database. No analytics or telemetry.
 - Access: page access is granted per site. Purchases, deletes, sends and uploads stop for approval.
 - Source: closed source. The helper is self-hosted.
-- Version: 1.4.0, released 10 November 2026.
+- Version: 1.4.1, released 11 November 2026.
 - Chrome Web Store: listing in preparation. The extension is currently loaded unpacked from the release package.
 
 ## Pages
