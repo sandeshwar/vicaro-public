@@ -9,7 +9,7 @@
 - Model: any local OpenAI-compatible server (Ollama, LM Studio, mlx, vLLM) or a hosted endpoint. No default provider and no fallback.
 - Pricing: free while in beta.
 - Account: no Vicaro account required. Google sign-in is optional and only links one account to the web UI.
-- Data: page content and tool results go to the model endpoint the user configures. Chat, tasks and memories stay in a local SQLite database. No analytics or telemetry.
+- Data: page content and tool results go to the model endpoint the user configures. Chat, tasks and memories stay in the helper's local data directory. No analytics or telemetry.
 - Access: page access is granted per site. Purchases, deletes, sends and uploads stop for approval.
 - Source: closed source. The helper is self-hosted.
 - Version: 1.4.4, released 11 November 2026.

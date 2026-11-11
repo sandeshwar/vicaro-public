@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="v7aWRJc6Mbb--7viYg-XmhfIxllgI6C0-7FjrFP8qRw" />
 <title>Vicaro Beta, an AI coworker in your browser</title>
-<meta name="description" content="A self-hosted browser agent for Chrome. Vicaro reads tabs, clicks, types, and lets Cursor, Claude Code and Codex drive the same browser.">
+<meta name="description" content="A self-hosted browser agent for Chrome. Vicaro reads tabs, clicks, types, and works with the model you choose.">
 <link rel="canonical" href="https://vicaro.creativeducks.com/">
 <meta property="og:title" content="Vicaro Beta, an AI coworker in your browser">
 <meta property="og:description" content="Self-hosted. Your model. Your Chrome. Vicaro acts in the browser you already use, with a safety gate before anything destructive.">
@@ -62,7 +62,7 @@
       "url": "https://vicaro.creativeducks.com/",
       "name": "Vicaro Beta",
       "inLanguage": "en",
-      "dateModified": "2026-11-10",
+      "dateModified": "2026-11-11",
       "publisher": {
         "@id": "https://vicaro.creativeducks.com/#organization"
       }
@@ -72,9 +72,9 @@
       "@id": "https://vicaro.creativeducks.com/#webpage",
       "url": "https://vicaro.creativeducks.com/",
       "name": "Vicaro Beta, an AI coworker in your browser",
-      "description": "A self-hosted browser agent for Chrome. Vicaro reads tabs, clicks, types, and lets Cursor, Claude Code and Codex drive the same browser.",
+      "description": "A self-hosted browser agent for Chrome. Vicaro reads tabs, clicks, types, and works with the model you choose.",
       "inLanguage": "en",
-      "dateModified": "2026-11-10",
+      "dateModified": "2026-11-11",
       "isPartOf": {
         "@id": "https://vicaro.creativeducks.com/#website"
       },
@@ -105,13 +105,12 @@
       "operatingSystem": "macOS 13.5+",
       "softwareVersion": "1.4.4",
       "datePublished": "2026-11-11",
-      "description": "A self-hosted browser agent for Chrome. Vicaro reads tabs, clicks, types, and can be driven by Cursor, Claude Code or Codex over MCP.",
+      "description": "A self-hosted browser agent for Chrome. Vicaro reads tabs, clicks, types, and works with the model you choose.",
       "url": "https://vicaro.creativeducks.com/",
       "downloadUrl": "https://github.com/sandeshwar/vicaro-public/releases/latest",
       "image": "https://vicaro.creativeducks.com/og.png",
       "screenshot": [
         "https://vicaro.creativeducks.com/assets/shots/01-ask-any-tab.png",
-        "https://vicaro.creativeducks.com/assets/shots/02-ai-tools.png",
         "https://vicaro.creativeducks.com/assets/shots/03-your-model.png",
         "https://vicaro.creativeducks.com/assets/shots/04-beta-guardrails.png"
       ],
@@ -166,7 +165,7 @@
           "name": "Can I use it from Cursor or Claude Code?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Vicaro registers as an MCP server in the tools it finds, so they can list tabs, read pages, click and type with the same safety gate as the panel. You choose which tools may connect."
+            "text": "Not in this build. MCP host support is in development. The helper can consume MCP servers you configure, but it does not yet register itself in Cursor or Claude Code."
           }
         },
         {
@@ -329,7 +328,7 @@
         </article>
         <article class="feature">
           <span class="fico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg></span>
-          <div><h3>Works with your tools</h3><p>Registers as an MCP server for Cursor, Claude Code, Claude Desktop, Codex, Grok Build, VS Code, Windsurf and opencode.</p></div>
+          <div><h3>Shows its work</h3><p>Every action and observation becomes a receipt in the thread, with the page evidence it used.</p></div>
         </article>
       </div>
     </div>
@@ -341,7 +340,7 @@
         <div>
           <p class="kicker">A closer look</p>
           <h2>See Vicaro in action.</h2>
-          <p class="sub">The panel, the model settings, the tool connections, and the beta warning users see before they let it act.</p>
+          <p class="sub">The panel, the model settings, and the beta warning users see before they let it act.</p>
         </div>
       </div>
       <div class="gallery">
@@ -350,16 +349,12 @@
           <figcaption><span><b>Ask about any tab.</b> The panel reads the page and answers in place.</span><span class="open">OPEN 01</span></figcaption>
         </figure>
         <figure class="shot">
-          <a href="assets/shots/02-ai-tools.png" target="_blank" rel="noopener"><img src="assets/shots/02-ai-tools.webp" srcset="assets/shots/02-ai-tools-640.webp 640w, assets/shots/02-ai-tools.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 580px" width="1280" height="800" loading="lazy" decoding="async" alt="Vicaro AI tools settings with Claude Code and Codex connected"></a>
-          <figcaption><span><b>Bring your own tools.</b> Cursor, Claude Code, Codex and more, over MCP.</span><span class="open">OPEN 02</span></figcaption>
-        </figure>
-        <figure class="shot">
           <a href="assets/shots/03-your-model.png" target="_blank" rel="noopener"><img src="assets/shots/03-your-model.webp" srcset="assets/shots/03-your-model-640.webp 640w, assets/shots/03-your-model.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 580px" width="1280" height="800" loading="lazy" decoding="async" alt="Vicaro model settings pointed at a local OpenAI-compatible endpoint"></a>
-          <figcaption><span><b>Your model, your machine.</b> A local server or any OpenAI-compatible endpoint.</span><span class="open">OPEN 03</span></figcaption>
+          <figcaption><span><b>Your model, your machine.</b> A local server or any OpenAI-compatible endpoint.</span><span class="open">OPEN 02</span></figcaption>
         </figure>
         <figure class="shot">
           <a href="assets/shots/04-beta-guardrails.png" target="_blank" rel="noopener"><img src="assets/shots/04-beta-guardrails.webp" srcset="assets/shots/04-beta-guardrails-640.webp 640w, assets/shots/04-beta-guardrails.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 580px" width="1280" height="800" loading="lazy" decoding="async" alt="Vicaro beta warning in Settings explaining possible loss of money, data or access"></a>
-          <figcaption><span><b>Beta, with guardrails.</b> The warning is in Settings, not buried in a FAQ.</span><span class="open">OPEN 04</span></figcaption>
+          <figcaption><span><b>Beta, with guardrails.</b> The warning is in Settings, not buried in a FAQ.</span><span class="open">OPEN 03</span></figcaption>
         </figure>
       </div>
     </div>
@@ -377,7 +372,7 @@
       <ol class="steps">
         <li class="step">
           <h3>Install the helper</h3>
-          <p>A small menu-bar app. It holds the model connection, history, memories and the secret vault, locally.</p>
+          <p>A small menu-bar app. It holds the model connection, history and memories, locally.</p>
           <span class="step-tag">macOS app</span>
         </li>
         <li class="step">
@@ -403,31 +398,13 @@
         <ul class="checks">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> No Vicaro account required to use the panel</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> No analytics, no telemetry, no ad identifiers</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Chat, tasks and memories stay in a local SQLite database</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Chat, tasks and memories stay in the helper's local data directory</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Google sign-in is optional and carries no page content</li>
         </ul>
       </div>
       <div class="split-media">
         <img src="assets/shots/03-your-model.webp" srcset="assets/shots/03-your-model-640.webp 640w, assets/shots/03-your-model.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 560px" width="1280" height="800" loading="lazy" decoding="async" alt="Model settings showing a local endpoint and a saved API key">
         <p class="split-caption">Settings, Model. The endpoint is yours, and the key stays on your machine.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="tools">
-    <div class="wrap split rev">
-      <div>
-        <p class="kicker">MCP</p>
-        <h2>Let the tools you already use drive Chrome.</h2>
-        <p>Vicaro registers itself as an MCP server, so Cursor, Claude Code, Codex and other assistants can list tabs, read pages, click and type. You tick the tools that may connect, and each config is backed up first.</p>
-        <p>The same approval gate applies, whether the request comes from the panel or from your editor.</p>
-        <div class="tool-tags" aria-label="Supported tools">
-          <span>Cursor</span><span>Claude Code</span><span>Claude Desktop</span><span>Codex</span><span>Grok Build</span><span>VS Code</span><span>Windsurf</span><span>opencode</span>
-        </div>
-      </div>
-      <div class="split-media">
-        <img src="assets/shots/02-ai-tools.webp" srcset="assets/shots/02-ai-tools-640.webp 640w, assets/shots/02-ai-tools.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 560px" width="1280" height="800" loading="lazy" decoding="async" alt="AI tools settings with Claude Code and Codex connected over MCP">
-        <p class="split-caption">Settings, AI tools. Only the tools you tick are changed.</p>
       </div>
     </div>
   </section>
@@ -509,7 +486,7 @@
         </details>
         <details>
           <summary>Can I use it from Cursor or Claude Code?</summary>
-          <p>Yes. Vicaro registers as an MCP server in the tools it finds, so they can list tabs, read pages, click and type with the same safety gate as the panel. You choose which tools may connect.</p>
+          <p>Not in this build. MCP host support is in development. The helper can consume MCP servers you configure, but it does not yet register itself in Cursor or Claude Code.</p>
         </details>
         <details>
           <summary>Does it work on Windows or Linux?</summary>

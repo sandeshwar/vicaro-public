@@ -149,7 +149,7 @@
           <li>If you use a pairing code, copy it from the helper menu, paste it into the panel and choose Pair with this code.</li>
         </ul>
         <div class="callout">If Chrome's console shows <span class="mono">WebSocket connection to 'ws://127.0.0.1:8792/chrome' failed: HTTP Authentication failed</span> on a new browser, the helper is refusing an unpaired socket - not failing to start. Open the side panel, approve its request in the Vicaro Helper menu, and the message stops once the browser is paired.</div>
-        <p>The helper binds to loopback by default. If you configured split mode with a bearer token, the panel needs that token and the helper address you set, not localhost.</p>
+        <p>The helper binds to loopback only in this build. It is not reachable from another machine; keep the panel on the same Mac as the helper.</p>
       </section>
 
       <section id="model">

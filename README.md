@@ -23,13 +23,14 @@ anything destructive. Models run on your machine, your LAN, or an endpoint you c
 - **Uses your model.** Point the helper at Ollama, LM Studio, mlx, vLLM, or any
   OpenAI-compatible endpoint. There is no default provider and no fallback.
 - **Keeps data local.** No Vicaro account is required. No analytics, telemetry, or sale
-  of data. Chat, tasks and memories live in a local SQLite database.
+  of data. Chat, tasks and memories are stored locally by the helper.
 - **Optional Google sign-in.** One account can be linked for the web UI. No chats or
   pages are sent to Google or Firebase.
 
-The beta is panel-first. MCP connections for tools such as Cursor, Claude Code and
-Codex are being brought over from the reference app; the feature matrix in the current
-build decides what the panel shows.
+The beta is panel-first. MCP host support for tools such as Cursor, Claude Code and
+Codex is still being brought over from the reference app. The current helper can
+consume MCP servers you configure, but it does not register itself in those tools
+yet. The panel labels that settings card accordingly.
 
 ## Requirements
 

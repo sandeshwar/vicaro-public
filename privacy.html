@@ -135,8 +135,8 @@
       </div>
 
       <h2 id="what">What Vicaro is</h2>
-      <p>Vicaro has two parts: a Chrome extension that reads the page you are on and performs the click or keystroke an assistant asks for, and a helper program you install and run yourself. The helper decides what to do, talks to the model you configure, and stores its data locally. They talk over a loopback connection, or over your local network if you explicitly configure split mode with a bearer token.</p>
-      <p>Vicaro is closed-source software. The helper is self-hosted, and its local database can be inspected or deleted by you.</p>
+      <p>Vicaro has two parts: a Chrome extension that reads the page you are on and performs the click or keystroke an assistant asks for, and a helper program you install and run yourself. The helper decides what to do, talks to the model you configure, and stores its data locally. They talk over a loopback connection.</p>
+      <p>Vicaro is closed-source software. The helper is self-hosted, and its local data directory can be deleted by you.</p>
 
       <h2 id="see">What the extension can see</h2>
       <p>Only what it needs to carry out a request you make:</p>
@@ -169,10 +169,10 @@
 
       <h2 id="stored">What is stored, and where</h2>
       <ul>
-        <li><strong>On your machine:</strong> conversation history, task state, memories, saved skills and the secret vault live in a SQLite database owned by the helper, in the app's data directory.</li>
-        <li><strong>In Chrome:</strong> the panel stores your helper address, bearer token, theme and model preference in <span class="mono">chrome.storage.local</span>.</li>
+        <li><strong>On your machine:</strong> conversation history and task state live in an encrypted SQLite store owned by the helper. Memories and settings live in the same owner-only data directory.</li>
+        <li><strong>In Chrome:</strong> the panel stores your helper address, device credential, theme and model preference in <span class="mono">chrome.storage.local</span>.</li>
         <li><strong>Linked Google account:</strong> the helper stores the account's name, email and Firebase user id in its local <span class="mono">account.json</span>. Signing out clears it.</li>
-        <li><strong>Secret vault values</strong> are substituted into actions at execution time and never sent to the model.</li>
+        <li><strong>Model API keys</strong> are stored by the helper and are never returned to the panel.</li>
       </ul>
 
       <h2 id="site">This website</h2>
@@ -181,7 +181,7 @@
       <h2 id="controls">Your controls</h2>
       <ul>
         <li>Revoke page access or the optional permissions in <span class="mono">chrome://extensions</span>, or in Settings, Access.</li>
-        <li>Delete the helper's database file to erase history, tasks and memories.</li>
+        <li>Delete the helper's data directory to erase history, tasks and memories. The menu bar uninstall keeps it on purpose.</li>
         <li>Sign out in Settings, General, Account to remove the linked Google account.</li>
         <li>Uninstall the extension and the helper to remove everything.</li>
       </ul>

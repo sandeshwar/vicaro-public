@@ -4,8 +4,7 @@
 #
 # What it does, in order: download the app tarball, verify its SHA-256, replace
 # ~/Applications/Vicaro Helper.app, stage the Chrome extension, register the login
-# agent. It leaves other apps alone: AI tools are configured from the panel, not by
-# this script.
+# agent. It leaves other apps alone. MCP host wiring is not part of this build.
 #
 # The tarball arrives without a quarantine flag (curl does not set one), so macOS
 # does not show the "unidentified developer" wall. The app is still ad-hoc signed,
@@ -180,7 +179,7 @@ if [ "$DRY" = "1" ]; then
   echo "  would stage the Chrome extension: $([ "$NO_EXT" = "1" ] && echo no || echo yes)"
   echo "  would register login agent: $([ "$NO_AGENT" = "1" ] && echo no || echo yes)"
   echo "  would start the helper now: yes"
-  echo "  would connect AI tools: $([ "$WANT_MCP" = "1" ] && echo yes || echo "no (Settings -> AI tools)")"
+  echo "  would wire AI tools: no (MCP host setup is not in this build)"
   exit 0
 fi
 
@@ -299,13 +298,13 @@ else
   fi
 fi
 
-# ---- AI tools (opt-in) ----
-# Not by default: installing a helper should not rewrite another app's config files
-# unasked. Settings -> AI tools does exactly this later, with a checkbox per tool.
+# ---- AI tools ----
+# MCP host registration is not implemented in the Rust helper yet. --mcp is
+# accepted so older commands do not fail, but it does nothing in this build.
 if [ "$WANT_MCP" = "1" ]; then
-  echo "  AI tools: not installed by this build (configure them from Settings -> AI tools)"
+  echo "  AI tools: not available in this build (MCP host setup is not ported yet)"
 else
-  echo "  AI tools: not connected (Settings -> AI tools)"
+  echo "  AI tools: not in this build"
 fi
 
 echo
