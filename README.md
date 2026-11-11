@@ -85,6 +85,11 @@ example `http://192.168.1.40:11434/v1`; start Ollama there with
 `OLLAMA_HOST=0.0.0.0:11434`. Plain HTTP is allowed for loopback and private
 addresses, while public hosts must use HTTPS.
 
+Local models can take a while to prefill a large prompt or a screenshot-heavy
+context before they stream anything. The helper gives local endpoints up to five
+minutes of silence before it reports a timeout. If a turn times out, wait for the
+model server to go idle and press Retry; the prompt is usually cached by then.
+
 ### 5. Ask
 
 Try a read-only request first: "summarize this page" or "what changed in my other
