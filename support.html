@@ -40,7 +40,7 @@
       "name": "Support",
       "description": "Setup and troubleshooting for the Vicaro Beta helper, model connection, page access and Google sign-in.",
       "inLanguage": "en",
-      "dateModified": "2026-11-10",
+      "dateModified": "2026-11-12",
       "isPartOf": {
         "@type": "WebSite",
         "name": "Vicaro Beta",
@@ -118,6 +118,7 @@
       <a href="#install">Install</a>
       <a href="#connect">Helper connection</a>
       <a href="#model">Model errors</a>
+      <a href="#long-tasks">Long tasks</a>
       <a href="#access">Page access</a>
       <a href="#google">Google sign-in</a>
       <a href="#uninstall">Uninstall</a>
@@ -163,6 +164,18 @@
           <li>Context errors mean the model window is smaller than the conversation. Lower the context budget in Settings, Model, Advanced.</li>
         </ul>
         <p>If the provider returns 429 or an overload message, the endpoint is rate limiting you. Wait or switch models. The panel keeps the failed turn so you can retry.</p>
+      </section>
+
+      <section id="long-tasks">
+        <h2>Long tasks</h2>
+        <p>Vicaro is built for work that runs longer than one exchange. A turn has no fixed message or step limit; it continues until it finishes, you stop it, or it hits a real blocker.</p>
+        <ul>
+          <li>At about 70% of the model window, Vicaro folds older work into a written handoff for itself. The handoff keeps the goal, constraints, decisions, current page state, evidence and open steps.</li>
+          <li>Recent messages stay exact. Older messages are summarized, and the full transcript remains in the encrypted local store.</li>
+          <li>The compacted checkpoint survives a helper restart, so a long task can resume after the helper is reopened.</li>
+          <li>If a model call fails before producing output, Vicaro retries it twice. An unknown tool or malformed arguments are returned to the model so it can correct itself instead of ending the turn.</li>
+        </ul>
+        <p>The model window and the 2 MB transport body are physical limits; Vicaro compacts before it reaches them. A very large single prompt or screenshot can still be rejected by the model provider.</p>
       </section>
 
       <section id="access">
@@ -254,7 +267,7 @@
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Vicaro. Built by Creative Ducks.</span>
-      <span class="fine">Vicaro Beta 1.4.4 &middot; macOS 13.5+ &middot; Chrome 116+</span>
+      <span class="fine">Vicaro Beta 1.4.8 &middot; macOS 13.5+ &middot; Chrome 116+</span>
     </div>
   </div>
 </footer>

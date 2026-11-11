@@ -96,6 +96,12 @@ model server to go idle and press Retry; the prompt is usually cached by then.
 Try a read-only request first: "summarize this page" or "what changed in my other
 tabs?". Then move to actions when you are comfortable with the approval mode.
 
+Long tasks do not have a fixed message or step limit. When the turn approaches
+the model window, Vicaro folds older work into a written handoff that preserves
+the goal, constraints, current page state, evidence and open steps. Recent
+messages stay exact, the full transcript remains in the encrypted local store,
+and the compacted checkpoint survives a helper restart.
+
 ## What gets installed
 
 | Path | What |
