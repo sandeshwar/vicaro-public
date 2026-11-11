@@ -337,5 +337,6 @@ echo
 echo "  Then open the panel, point it at a model, and allow Local Network access when asked."
 echo "  Vicaro needs a model: one running on this Mac, or any OpenAI-compatible endpoint."
 echo "Data and logs: $HOME/Library/Application Support/Vicaro"
-echo "Uninstall: launchctl bootout gui/$(id -u)/com.vicaro.helper.app 2>/dev/null;"
-echo "           rm -rf \"$APP\" \"$AGENT\" \"$HOME/Library/Application Support/Vicaro\""
+echo "Uninstall (keeps chats, memories, settings and the staged extension):"
+echo "  launchctl bootout gui/$(id -u)/com.vicaro.helper.app 2>/dev/null;"
+echo "  rm -rf \"$APP\" \"$AGENT\""

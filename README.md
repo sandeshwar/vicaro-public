@@ -103,6 +103,21 @@ tabs?". Then move to actions when you are comfortable with the approval mode.
 The installer removes the retired TypeScript `Vicaro Orchestrator.app` and its login
 agent when it upgrades an older install.
 
+### Uninstall
+
+Use **Uninstall Vicaro Helper** in the menu bar. It removes the app and its login
+item, but keeps chats, memories, settings, model configuration, the account link
+and the staged extension in `~/Library/Application Support/Vicaro`. Reinstalling
+finds them intact. Remove the extension separately from `chrome://extensions` if
+you want it gone too.
+
+From a terminal, the equivalent is:
+
+```sh
+launchctl bootout "gui/$(id -u)/com.vicaro.helper.app" 2>/dev/null
+rm -rf "$HOME/Applications/Vicaro Helper.app" "$HOME/Library/LaunchAgents/com.vicaro.helper.app.plist"
+```
+
 ## Safety and privacy
 
 Vicaro is early beta software with real browser access. Read the
