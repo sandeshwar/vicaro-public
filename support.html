@@ -134,10 +134,11 @@
       <section id="install">
         <h2>Install</h2>
         <p>Vicaro Beta needs macOS 13.5 or later and Chrome 116 or later. The helper is a menu-bar app. The extension is a Chrome side panel.</p>
-        <p>Run the installer:</p>
+        <p>The normal path is the Chrome Web Store. Install <a href="https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok">Vicaro Beta</a>, then follow its first-run setup tab: it offers the helper installer, opens the disk image, waits for the app, and pairs this browser.</p>
+        <p style="margin-top:14px">Terminal users can run the installer instead:</p>
         <div class="code"><code id="support-install">curl -fsSL https://vicaro.creativeducks.com/install.sh | sh</code><button class="copy" type="button" aria-live="polite" data-copy="support-install">COPY</button></div>
-        <p style="margin-top:14px">It installs the helper into <span class="mono">~/Applications</span>, stages the extension, and copies the extension folder path to your clipboard. Then open <span class="mono">chrome://extensions</span>, turn on Developer mode, choose <strong>Load unpacked</strong>, press Cmd+Shift+G, paste the path and press Return.</p>
-        <div class="callout">The Chrome Web Store listing is in preparation. Until it is live, the unpacked extension is the supported install path.</div>
+        <p>It installs the helper into <span class="mono">~/Applications</span>, registers a login agent, stages a development copy of the extension, and copies its folder path to your clipboard. Load that copy with <span class="mono">chrome://extensions</span> → Developer mode → <strong>Load unpacked</strong> (Cmd+Shift+G to paste the path).</p>
+        <div class="callout">The Chrome Web Store listing is live. Use <strong>Load unpacked</strong> only for development builds.</div>
       </section>
 
       <section id="connect">

@@ -108,7 +108,7 @@
       <p class="eyebrow">Legal <span class="sep">/</span> Privacy</p>
       <h1>Privacy, in plain language.</h1>
       <p class="lede">Vicaro is a self-hosted browser assistant. There is no Vicaro server in the middle, no telemetry, and no account required. The only remote service that sees your pages is the model endpoint you choose.</p>
-      <p class="meta">Last updated 11 November 2026</p>
+      <p class="meta">Last updated 15 November 2026</p>
     </div>
   </section>
 
@@ -117,6 +117,7 @@
       <b>On this page</b>
       <a href="#short">Short version</a>
       <a href="#what">What Vicaro is</a>
+      <a href="#download">Downloading the helper</a>
       <a href="#see">What it can see</a>
       <a href="#permissions">Permissions</a>
       <a href="#google">Google sign-in</a>
@@ -138,6 +139,9 @@
       <p>Vicaro has two parts: a Chrome extension that reads the page you are on and performs the click or keystroke an assistant asks for, and a helper program you install and run yourself. The helper decides what to do, talks to the model you configure, and stores its data locally. They talk over a loopback connection.</p>
       <p>Vicaro is closed-source software. The helper is self-hosted, and its local data directory can be deleted by you.</p>
 
+      <h2 id="download">Downloading the helper</h2>
+      <p>The helper is not bundled with the extension. When you press <strong>Download</strong> in the first-run setup page, or in the side panel's setup card, the extension downloads the installer from Vicaro's public GitHub release at <span class="mono">github.com/sandeshwar/vicaro-public</span>. That request goes to GitHub and carries no page content, chat content, account data or usage telemetry; GitHub sees it like any other file download. The extension does not download the helper on its own — you start it with the Download button — and it never fetches code to run inside the extension.</p>
+
       <h2 id="see">What the extension can see</h2>
       <p>Only what it needs to carry out a request you make:</p>
       <ul>
@@ -146,7 +150,7 @@
         <li>The action it is asked to perform, and the page state afterwards.</li>
         <li>An optional Google email, only if you choose to link an account.</li>
       </ul>
-      <p>Depending on the pages you open, this can include website content, browsing history in the form of open tabs, personal communications such as email or chat pages, and account identifiers. It does not read pages in the background, and it does not run on sites you have not granted. Outside the optional Google sign-in, nothing is sent anywhere except to your own helper and the model endpoint it is configured to use.</p>
+      <p>Depending on the pages you open, this can include website content, browsing history in the form of open tabs, personal communications such as email or chat pages, and account identifiers. It does not read pages in the background, and it does not run on sites you have not granted. Outside the optional Google sign-in and the one-time helper download, nothing is sent anywhere except to your own helper and the model endpoint it is configured to use.</p>
 
       <h2 id="permissions">Permissions and optional capabilities</h2>
       <p>The extension asks for page access per site, the first time a task needs it. There is no broad host permission at install. Two capabilities are off until you enable them in Settings, Access:</p>
@@ -164,6 +168,7 @@
       <ul>
         <li><strong>Your model endpoint.</strong> Messages, page text and tool results are sent to the model server you configure: a local server, your LAN, or a hosted provider. That server's privacy policy applies to it. Vicaro has no default provider and no fallback.</li>
         <li><strong>Google sign-in (optional).</strong> Only if you choose it: Google and Firebase receive the authentication request, as described above. No page or chat content is included.</li>
+        <li><strong>GitHub (helper download only).</strong> If you choose Download in setup, the installer comes from Vicaro's public GitHub release. The request carries no page, chat or account content.</li>
         <li><strong>Nowhere else.</strong> No analytics, no crash reporting, no usage statistics, no advertising identifiers, and no sale or sharing of data with third parties.</li>
       </ul>
 
