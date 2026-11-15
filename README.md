@@ -41,12 +41,28 @@ yet. The panel labels that settings card accordingly.
 | Hardware | Apple Silicon or Intel |
 | Model | A local OpenAI-compatible server, or a hosted endpoint with an API key |
 
-Linux packaging is in progress. Windows is not supported yet. The Chrome Web Store
-listing is in preparation, so the extension is loaded unpacked for now.
+Linux packaging is in progress. Windows is not supported yet. Vicaro Beta is on the
+[Chrome Web Store](https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok);
+its first-run tab offers the helper installer and pairs the browser.
 
 ## Get started
 
-### 1. Install the helper
+### The normal path
+
+1. Install **Vicaro Beta** from the
+   [Chrome Web Store](https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok).
+2. The first-run setup tab offers the helper installer, opens the disk image, and
+   waits for the app.
+3. Drag **Vicaro Helper** into Applications and open it once. If macOS says it cannot
+   check the app, use **System Settings → Privacy & Security → Open Anyway**.
+4. Approve **Chrome on macOS** in the menu bar when the setup tab asks.
+
+The setup tab is also the extension's options page (**Details → Extension options**
+in `chrome://extensions`). The steps below are the terminal and development path.
+
+### Terminal install
+
+#### 1. Install the helper
 
 ```sh
 curl -fsSL https://vicaro.creativeducks.com/install.sh | sh
@@ -61,7 +77,7 @@ Prefer a disk image? Download the universal DMG from the
 and drag **Vicaro Helper** to Applications. The same image runs on Apple Silicon and
 Intel.
 
-### 2. Load the extension
+#### 2. Load the development extension
 
 1. Open `chrome://extensions`.
 2. Turn on **Developer mode**.
@@ -71,13 +87,13 @@ Intel.
 The folder is `~/Library/Application Support/Vicaro/extension`. If you used the DMG,
 download `Vicaro-extension.zip` from the release, unzip it, and load that folder.
 
-### 3. Pair the panel
+#### 3. Pair the panel
 
 Click the Vicaro Beta icon to open the side panel. The first run asks the helper to
 pair this browser. Approve **Chrome on macOS** in the helper menu, or copy the pairing
 code from the menu and paste it into the panel.
 
-### 4. Pick a model
+#### 4. Pick a model
 
 Open **Settings, Model** and enter the base URL and model id for your endpoint. Use
 **Fetch models** to check the connection. For Ollama the common base is
@@ -91,7 +107,7 @@ context before they stream anything. The helper gives local endpoints up to five
 minutes of silence before it reports a timeout. If a turn times out, wait for the
 model server to go idle and press Retry; the prompt is usually cached by then.
 
-### 5. Ask
+#### 5. Ask
 
 Try a read-only request first: "summarize this page" or "what changed in my other
 tabs?". Then move to actions when you are comfortable with the approval mode.
