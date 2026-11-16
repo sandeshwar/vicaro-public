@@ -12,23 +12,23 @@
 - Data: page content and tool results go to the model endpoint the user configures. Chat, tasks and memories stay in the helper's local data directory. No analytics or telemetry.
 - Access: page access is granted per site. Purchases, deletes, sends and uploads stop for approval.
 - Source: closed source. The helper is self-hosted.
-- Version: 1.4.11, released 15 November 2026.
-- Chrome Web Store: available at https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok. Its first-run setup tab downloads the helper installer and pairs the browser.
+- Version: helper 1.4.12; Chrome extension 1.4.7.
+- Chrome Web Store: live at https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok.
 
 ## Pages
 
 - [Home](https://vicaro.creativeducks.com/): product overview, screenshots and install steps.
 - [Support](https://vicaro.creativeducks.com/support.html): helper connection, model errors, page access, Google sign-in and beta safety.
 - [Privacy](https://vicaro.creativeducks.com/privacy.html): what the extension can see, where data goes and what is stored.
-- [GitHub releases](https://github.com/sandeshwar/vicaro-public/releases): signed macOS tarballs, universal DMG and the development extension zip.
+- [GitHub releases](https://github.com/sandeshwar/vicaro-public/releases): macOS tarballs, checksums and the development extension zip.
 
 ## Install
 
-1. Install Vicaro Beta from the Chrome Web Store.
-2. Follow the first-run setup tab: it offers the helper installer, opens the disk image, waits for the helper to start, and pairs this browser after you approve it in the menu bar.
-3. Choose a model in the side panel's Settings.
+1. Add Vicaro Beta from the Chrome Web Store: https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok
+2. In Terminal, run: curl -fsSL https://vicaro.creativeducks.com/install.sh | sh
+3. Open the side panel, approve the pairing request in the menu bar, and configure the model in Settings.
 
-Terminal users can instead run curl -fsSL https://vicaro.creativeducks.com/install.sh | sh, which installs the helper, registers a login agent, and stages a development copy of the extension for chrome://extensions. A universal DMG is available from the latest GitHub release.
+The helper installs from Terminal because the app is ad-hoc signed and not notarized; a browser download would trigger macOS Gatekeeper. The supported install path uses no disk image.
 
 ## Safety
 

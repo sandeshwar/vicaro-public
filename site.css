@@ -224,6 +224,7 @@ section[id], .legal [id] { scroll-margin-top: calc(var(--header) + 24px); }
 .install-card p { margin: 0 0 16px; color: var(--muted); font-size: 14px; }
 .code { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 10px; min-width: 0; max-width: 100%; margin: 0; padding: 13px 12px 13px 15px; border: 1px solid #344956; border-radius: 8px; background: #1a2c38; color: #e4edf2; font: 12px/1.5 var(--mono); }
 .code code { min-width: 0; overflow-x: auto; white-space: nowrap; scrollbar-width: thin; }
+.code code.multiline { white-space: pre; }
 .copy { padding: 7px 9px; border: 1px solid #526979; border-radius: 5px; background: #273f4e; color: #e3edf2; cursor: pointer; font: 700 10px/1 var(--mono); letter-spacing: .04em; transition: background .2s ease; }
 .copy:hover { background: #38596c; }
 .install-card .install-note { margin: 14px 0 0; font-size: 12px; }

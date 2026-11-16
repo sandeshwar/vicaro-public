@@ -3,21 +3,23 @@
 #   curl -fsSL https://vicaro.creativeducks.com/install.sh | sh
 #
 # What it does, in order: download the app tarball, verify its SHA-256, replace
-# ~/Applications/Vicaro Helper.app, stage the Chrome extension, register the login
-# agent. It leaves other apps alone. MCP host wiring is not part of this build.
+# ~/Applications/Vicaro Helper.app, register the login agent, and start the helper.
+# It does not install the Chrome extension: Vicaro Beta comes from the Chrome Web
+# Store. MCP host wiring is not part of this build.
 #
 # The tarball arrives without a quarantine flag (curl does not set one), so macOS
 # does not show the "unidentified developer" wall. The app is still ad-hoc signed,
 # which is what Apple Silicon requires to run native code.
 #
 #   --no-agent       do not register the login agent
-#   --no-extension   do not stage the Chrome extension
-#   --mcp            accepted for older invocations; not used by this build
-#   --no-open        do not launch Chrome or Finder at the end
+#   --no-extension   accepted for older commands; this build never stages one
+#   --mcp            accepted for older commands; not used by this build
+#   --no-open        accepted for older commands; this build opens nothing
 #   --dry-run        print what would happen, change nothing
 set -eu
 
 APP_NAME="Vicaro Helper"
+STORE_URL="https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok"
 # Builds are per-architecture. Fall back to the universal tarball only if the
 # matching slice was not published.
 TARBALL="Vicaro-macos-$(uname -m).tar.gz"
@@ -28,18 +30,15 @@ BASE_URL="${VICARO_BASE_URL:-https://github.com/sandeshwar/vicaro-public/release
 
 NO_AGENT=0
 WANT_MCP=0
-NO_EXT=0
-NO_OPEN=0
 DRY=0
 for arg in "$@"; do
   case "$arg" in
     --no-agent) NO_AGENT=1 ;;
     --mcp) WANT_MCP=1 ;;
     --no-mcp) WANT_MCP=0 ;;
-    --no-extension) NO_EXT=1 ;;
-    --no-open) NO_OPEN=1 ;;
+    --no-extension|--no-open) ;;
     --dry-run) DRY=1 ;;
-    *) echo "unknown option: $arg (use --no-agent, --no-extension, --mcp, --no-open, --dry-run)" >&2; exit 2 ;;
+    *) echo "unknown option: $arg (use --no-agent, --dry-run)" >&2; exit 2 ;;
   esac
 done
 
@@ -176,10 +175,9 @@ fi
 
 if [ "$DRY" = "1" ]; then
   echo "  would install into $APP"
-  echo "  would stage the Chrome extension: $([ "$NO_EXT" = "1" ] && echo no || echo yes)"
   echo "  would register login agent: $([ "$NO_AGENT" = "1" ] && echo no || echo yes)"
   echo "  would start the helper now: yes"
-  echo "  would wire AI tools: no (MCP host setup is not in this build)"
+  echo "  the Chrome extension is installed separately: $STORE_URL"
   exit 0
 fi
 
@@ -213,32 +211,6 @@ rm -rf "$APP"
 cp -R "$TMP/$APP_NAME.app" "$APP"
 xattr -dr com.apple.quarantine "$APP" 2>/dev/null || true
 echo "  installed: $APP"
-
-# ---- Chrome extension ----
-# Chrome has no way to install an unpacked extension from a script, and it never
-# will. So stage it in a stable folder, put the path on the clipboard, and open the
-# extensions page: the user's part is three clicks.
-EXT_DIR="$HOME/Library/Application Support/Vicaro/extension"
-EXT_OK=0
-if [ "$NO_EXT" = "1" ]; then
-  echo "  extension: skipped"
-else
-  mkdir -p "$HOME/Library/Application Support/Vicaro"
-  if curl -fsSL "$BASE_URL/Vicaro-extension.zip" -o "$TMP/ext.zip" 2>/dev/null; then
-    rm -rf "$TMP/ext" && mkdir -p "$TMP/ext"
-    if unzip -q "$TMP/ext.zip" -d "$TMP/ext" 2>/dev/null && [ -f "$TMP/ext/manifest.json" ]; then
-      # Swap the directory rather than unpacking over it: Chrome may be reading it.
-      rm -rf "$EXT_DIR"
-      cp -R "$TMP/ext" "$EXT_DIR"
-      EXT_OK=1
-      echo "  extension: staged at $EXT_DIR"
-    else
-      echo "  extension: download was not a valid package - skipping"
-    fi
-  else
-    echo "  extension: not published for this release - skipping"
-  fi
-fi
 
 # ---- login agent ----
 AGENT="$HOME/Library/LaunchAgents/com.vicaro.helper.app.plist"
@@ -308,34 +280,13 @@ else
 fi
 
 echo
-echo "Vicaro is installed. Two things left, both in Chrome."
-
-if [ "$EXT_OK" = "1" ]; then
-  printf '%s' "$EXT_DIR" | pbcopy 2>/dev/null || true
-  if [ "$NO_OPEN" != "1" ]; then
-    open -a "Google Chrome" "chrome://extensions/" 2>/dev/null || open -R "$EXT_DIR/manifest.json" 2>/dev/null || true
-  fi
-  echo
-  if [ "$NO_OPEN" = "1" ]; then
-    echo "  Add the extension:"
-  else
-    echo "  Add the extension (Chrome is opening for you):"
-  fi
-  echo "    1. Turn on Developer mode, top right."
-  echo "    2. Click Load unpacked."
-  echo "    3. Press Cmd+Shift+G, paste, Return - the folder is on your clipboard."
-  echo "       $EXT_DIR"
-  echo "    4. Pin Vicaro Beta in the toolbar and click it to open the side panel."
-else
-  echo
-  echo "  Add the extension: download Vicaro-extension.zip, unzip it, then"
-  echo "  chrome://extensions -> Developer mode -> Load unpacked."
-fi
-
+echo "Vicaro Helper is installed."
 echo
-echo "  Then open the panel, point it at a model, and allow Local Network access when asked."
-echo "  Vicaro needs a model: one running on this Mac, or any OpenAI-compatible endpoint."
+echo "Add Vicaro Beta to Chrome:"
+echo "  $STORE_URL"
+echo
+echo "Open the side panel, then approve \"Chrome on macOS\" in the Vicaro Helper menu."
 echo "Data and logs: $HOME/Library/Application Support/Vicaro"
-echo "Uninstall (keeps chats, memories, settings and the staged extension):"
+echo "Uninstall (keeps chats, memories and settings):"
 echo "  launchctl bootout gui/$(id -u)/com.vicaro.helper.app 2>/dev/null;"
 echo "  rm -rf \"$APP\" \"$AGENT\""

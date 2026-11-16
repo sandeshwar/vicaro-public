@@ -103,11 +103,11 @@
       "applicationCategory": "BrowserApplication",
       "applicationSubCategory": "Self-hosted browser agent",
       "operatingSystem": "macOS 13.5+",
-      "softwareVersion": "1.4.10",
-      "datePublished": "2026-11-12",
+      "softwareVersion": "1.4.12",
+      "datePublished": "2026-11-16",
       "description": "A self-hosted browser agent for Chrome. Vicaro reads tabs, clicks, types, and works with the model you choose.",
       "url": "https://vicaro.creativeducks.com/",
-      "downloadUrl": "https://github.com/sandeshwar/vicaro-public/releases/latest",
+      "downloadUrl": "https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok",
       "image": "https://vicaro.creativeducks.com/og.png",
       "screenshot": [
         "https://vicaro.creativeducks.com/assets/shots/01-ask-any-tab.png",
@@ -371,14 +371,14 @@
       </div>
       <ol class="steps">
         <li class="step">
-          <h3>Install the helper</h3>
-          <p>A small menu-bar app. It holds the model connection, history and memories, locally.</p>
-          <span class="step-tag">macOS app</span>
-        </li>
-        <li class="step">
           <h3>Add the extension</h3>
           <p>A Chrome side panel. You grant page access per site, the first time you use it. The extension has no broad host grant.</p>
           <span class="step-tag">Chrome 116+</span>
+        </li>
+        <li class="step">
+          <h3>Install the helper</h3>
+          <p>A small menu-bar app. It holds the model connection, history and memories, locally.</p>
+          <span class="step-tag">macOS app</span>
         </li>
         <li class="step">
           <h3>Point it at a model</h3>
@@ -440,27 +440,22 @@
       </div>
       <div class="install-grid">
         <div class="install-card">
-          <h3>Start with the extension</h3>
-          <ol class="install-steps">
-            <li><div><strong>Add Vicaro Beta</strong><span>Install it from the <a href="https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok">Chrome Web Store</a>.</span></div></li>
-            <li><div><strong>Follow the setup tab</strong><span>It offers the helper installer, opens the disk image, and waits for the app.</span></div></li>
-            <li><div><strong>Pin and open</strong><span>Click the Vicaro Beta icon to open the side panel and choose a model.</span></div></li>
-          </ol>
-          <div class="store-status">
-            <span class="dot" aria-hidden="true"></span>
-            <p><b>Chrome Web Store: available now.</b> The first-run tab detects the helper, offers its installer, and pairs this browser after you approve it.</p>
-          </div>
-          <p class="install-note">Prefer the terminal? The one-liner installs the helper and a development copy of the extension.</p>
+          <h3>1. Add Vicaro to Chrome</h3>
+          <p>Install the extension from the Chrome Web Store. Its setup tab opens as soon as it is added.</p>
+          <p><a class="btn arrow" href="https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok">Add to Chrome</a></p>
+          <p class="install-note">Chrome 116+. The extension is live; no Developer mode or unpacked build.</p>
         </div>
         <div class="install-card">
-          <h3>Or use the one-liner</h3>
-          <p>Installs the helper into <span class="mono">~/Applications</span>, registers the login agent, and starts it. It also stages a development copy of the extension and copies its folder path to the clipboard.</p>
-          <div class="code"><code id="install-command">curl -fsSL https://vicaro.creativeducks.com/install.sh | sh</code><button class="copy" type="button" aria-live="polite" data-copy="install-command">COPY</button></div>
-          <p class="install-note">The helper is ad-hoc signed for now. The installer says what it touches and how to undo it.</p>
-          <p class="install-note">Prefer a disk image? <a href="https://github.com/sandeshwar/vicaro-public/releases/latest">Download the universal DMG</a>. The same app runs on Apple Silicon and Intel.</p>
-          <p class="fine" style="margin-top:18px">Need help? Read <a href="support.html">Support</a> or open an issue on <a href="https://github.com/sandeshwar/vicaro-public/issues">GitHub</a>.</p>
+          <h3>2. Install the helper</h3>
+          <p>The setup tab shows this command. Paste it into Terminal once.</p>
+          <div class="code"><code id="install-command" class="multiline">curl -fsSL \
+https://vicaro.creativeducks.com/install.sh \
+| sh</code><button class="copy" type="button" aria-live="polite" data-copy="install-command">COPY</button></div>
+          <p class="install-note">Open Terminal with <span class="mono">⌘Space</span>, type <span class="mono">Terminal</span>, then Return. No <span class="mono">sudo</span>. The installer verifies the download and keeps chats in <span class="mono">~/Library/Application Support/Vicaro</span>.</p>
+          <p class="install-note">No disk image: the helper downloads directly, so macOS does not show the unidentified-developer dialog. We will notarize before offering a GUI installer.</p>
         </div>
       </div>
+      <p class="fine" style="margin-top:18px">Need help? Read <a href="support.html">Support</a> or open an issue on <a href="https://github.com/sandeshwar/vicaro-public/issues">GitHub</a>.</p>
     </div>
   </section>
 
@@ -539,7 +534,7 @@
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Vicaro. Built by Creative Ducks.</span>
-      <span class="fine">Vicaro Beta 1.4.10 &middot; macOS 13.5+ &middot; Chrome 116+</span>
+      <span class="fine">Vicaro Beta 1.4.12 &middot; macOS 13.5+ &middot; Chrome 116+</span>
     </div>
   </div>
 </footer>

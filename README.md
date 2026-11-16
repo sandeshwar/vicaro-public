@@ -4,7 +4,7 @@
 the tabs you already have open, clicks and types when you ask it to, and asks before
 anything destructive. Models run on your machine, your LAN, or an endpoint you choose.
 
-[Website](https://vicaro.creativeducks.com) · [Download](https://github.com/sandeshwar/vicaro-public/releases/latest) · [Support](https://vicaro.creativeducks.com/support.html) · [Privacy](https://vicaro.creativeducks.com/privacy.html)
+[Website](https://vicaro.creativeducks.com) · [Add to Chrome](https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok) · [Support](https://vicaro.creativeducks.com/support.html) · [Privacy](https://vicaro.creativeducks.com/privacy.html)
 
 ![Vicaro Beta side panel](assets/shots/01-ask-any-tab.png)
 
@@ -41,59 +41,41 @@ yet. The panel labels that settings card accordingly.
 | Hardware | Apple Silicon or Intel |
 | Model | A local OpenAI-compatible server, or a hosted endpoint with an API key |
 
-Linux packaging is in progress. Windows is not supported yet. Vicaro Beta is on the
-[Chrome Web Store](https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok);
-its first-run tab offers the helper installer and pairs the browser.
+Linux packaging is in progress. Windows is not supported yet. The extension is live
+on the Chrome Web Store.
 
 ## Get started
 
-### The normal path
+### 1. Add the extension
 
-1. Install **Vicaro Beta** from the
-   [Chrome Web Store](https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok).
-2. The first-run setup tab offers the helper installer, opens the disk image, and
-   waits for the app.
-3. Drag **Vicaro Helper** into Applications and open it once. If macOS says it cannot
-   check the app, use **System Settings → Privacy & Security → Open Anyway**.
-4. Approve **Chrome on macOS** in the menu bar when the setup tab asks.
+Install **[Vicaro Beta](https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok)**
+from the Chrome Web Store. Its setup tab opens automatically.
 
-The setup tab is also the extension's options page (**Details → Extension options**
-in `chrome://extensions`). The steps below are the terminal and development path.
+### 2. Install the helper
 
-### Terminal install
-
-#### 1. Install the helper
+Open Terminal (`⌘Space`, type **Terminal**, Return) and run:
 
 ```sh
 curl -fsSL https://vicaro.creativeducks.com/install.sh | sh
 ```
 
-The installer downloads the latest release, verifies its SHA-256, installs
-`Vicaro Helper.app` into `~/Applications`, stages the extension, registers the login
-agent, and starts the helper on `ws://127.0.0.1:8792/chrome`.
+The installer downloads the latest release tarball, verifies its SHA-256, installs
+`Vicaro Helper.app` into `~/Applications`, registers the login agent, and starts the
+helper on `ws://127.0.0.1:8792/chrome`. It asks for no password and does not use
+`sudo`. It does not modify the extension.
 
-Prefer a disk image? Download the universal DMG from the
-[latest release](https://github.com/sandeshwar/vicaro-public/releases/latest), open it,
-and drag **Vicaro Helper** to Applications. The same image runs on Apple Silicon and
-Intel.
+The supported path uses no disk image. While the helper is ad-hoc signed and not
+notarized, a browser download would trigger macOS Gatekeeper; `curl` does not set the
+quarantine flag. The setup tab waits for the helper and pairs the browser when it
+starts.
 
-#### 2. Load the development extension
-
-1. Open `chrome://extensions`.
-2. Turn on **Developer mode**.
-3. Choose **Load unpacked**.
-4. Press Cmd+Shift+G, paste the folder path the installer copied, then Return.
-
-The folder is `~/Library/Application Support/Vicaro/extension`. If you used the DMG,
-download `Vicaro-extension.zip` from the release, unzip it, and load that folder.
-
-#### 3. Pair the panel
+### 3. Pair the panel
 
 Click the Vicaro Beta icon to open the side panel. The first run asks the helper to
 pair this browser. Approve **Chrome on macOS** in the helper menu, or copy the pairing
 code from the menu and paste it into the panel.
 
-#### 4. Pick a model
+### 4. Pick a model
 
 Open **Settings, Model** and enter the base URL and model id for your endpoint. Use
 **Fetch models** to check the connection. For Ollama the common base is
@@ -107,7 +89,7 @@ context before they stream anything. The helper gives local endpoints up to five
 minutes of silence before it reports a timeout. If a turn times out, wait for the
 model server to go idle and press Retry; the prompt is usually cached by then.
 
-#### 5. Ask
+### 5. Ask
 
 Try a read-only request first: "summarize this page" or "what changed in my other
 tabs?". Then move to actions when you are comfortable with the approval mode.
@@ -123,7 +105,6 @@ and the compacted checkpoint survives a helper restart.
 | Path | What |
 |---|---|
 | `~/Applications/Vicaro Helper.app` | Menu bar helper, Rust, ad-hoc signed |
-| `~/Library/Application Support/Vicaro/extension` | Unpacked Chrome extension |
 | `~/Library/Application Support/Vicaro/helper` | Local data, history and encrypted stores |
 | `~/Library/LaunchAgents/com.vicaro.helper.app.plist` | Login agent |
 | `~/Library/Logs/Vicaro/helper.log` | Helper log |
@@ -134,10 +115,9 @@ agent when it upgrades an older install.
 ### Uninstall
 
 Use **Uninstall Vicaro Helper** in the menu bar. It removes the app and its login
-item, but keeps chats, memories, settings, model configuration, the account link
-and the staged extension in `~/Library/Application Support/Vicaro`. Reinstalling
-finds them intact. Remove the extension separately from `chrome://extensions` if
-you want it gone too.
+item, but keeps chats, memories, settings, model configuration and the account link
+in `~/Library/Application Support/Vicaro`. Reinstalling finds them intact. Remove
+the extension separately from `chrome://extensions` if you want it gone too.
 
 From a terminal, the equivalent is:
 
@@ -167,7 +147,8 @@ actions.
 | Console: `WebSocket ... HTTP Authentication failed` | The helper is refusing an unpaired browser. Open the side panel and approve the request in the helper menu; the message stops after pairing. |
 | Model errors | Check the base URL, `/v1` suffix and API key in **Settings, Model**. |
 | Page access is missing | Grant the site when prompted, or check **Settings, Access**. |
-| "Vicaro Helper is damaged" | `xattr -dr com.apple.quarantine ~/Applications/"Vicaro Helper.app"` |
+| "Apple could not verify Vicaro Helper" | You used an older disk image. Delete it and run the install command above. |
+| "Vicaro Helper is damaged" | Re-run the install command. Your chats and settings are kept. |
 
 More detail is in [Support](https://vicaro.creativeducks.com/support.html). The helper
 log is at `~/Library/Logs/Vicaro/helper.log`.
@@ -206,8 +187,8 @@ proprietary software and the helper source stays private.
 | `/site.css`, `/site.js` | Shared page styles and small enhancements |
 | `/webui/<version>/` | Optional signed helper web UI bundle |
 
-Builds are not stored in git. The tarballs, checksums, DMG and extension zip live on
-[GitHub Releases](https://github.com/sandeshwar/vicaro-public/releases).
+Builds are not stored in git. The tarballs, checksums and development extension
+zip live on [GitHub Releases](https://github.com/sandeshwar/vicaro-public/releases).
 
 ## For maintainers
 
@@ -233,12 +214,16 @@ the command, and the mobile menu is a native `<details>` element.
    `VICARO_RELEASE_CHANNEL=store ./deploy/rust/release.sh`. It builds the Rust helper
    for arm64 and x86_64, configures both the development and store extension IDs,
    bundles the pinned development extension, signs the apps ad-hoc, and writes the
-   tarballs, checksums, universal DMG and `Vicaro-extension.zip` to `dist/release/`.
-   The Chrome Web Store package is built separately with `npm run pack:extension`.
+   tarballs, checksums and `Vicaro-extension.zip` to `dist/release/`. The Chrome Web
+   Store package is built separately with `npm run pack:extension`.
 2. Create a GitHub Release tagged `v<version>` with all assets:
    `Vicaro-macos-arm64.tar.gz`, `Vicaro-macos-x86_64.tar.gz`, both `.sha256`
-   files, `Vicaro-Beta-<version>.dmg` with its checksum, and
-   `Vicaro-extension.zip`.
+   files, and `Vicaro-extension.zip`. Do not publish a disk image while the helper
+   is ad-hoc signed; `install.sh` is the supported path.
+
+   Transition note: the live store extension 1.4.7 still calls the
+   `v1.4.12` `Vicaro-Helper.dmg` alias. Keep that release's assets and avoid cutting
+   a helper release without a DMG until 1.4.8 is live and rolled out.
 3. Update `install.sh` here if the app name, launch agent or paths changed.
 4. Verify:
 
