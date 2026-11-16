@@ -49,7 +49,8 @@ on the Chrome Web Store.
 ### 1. Add the extension
 
 Install **[Vicaro Beta](https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok)**
-from the Chrome Web Store. Its setup tab opens automatically.
+from the Chrome Web Store. Its setup tab opens automatically. Extension 1.4.8 shows
+the Terminal command below; older builds offer a disk image, which you can skip.
 
 ### 2. Install the helper
 
