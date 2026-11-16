@@ -360,7 +360,7 @@ section[id], .legal [id] { scroll-margin-top: calc(var(--header) + 24px); }
   .install-card { padding: 23px; }
   .code { grid-template-columns: 1fr; }
   .code .copy { justify-self: end; }
-  .code code { font-size: 11.5px; }
+  .code code { font-size: 11px; }
   .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 28px; }
   .footer-brand { grid-column: 1 / -1; }
   .footer-bottom { margin-top: 40px; }
