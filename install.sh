@@ -285,7 +285,7 @@ echo
 echo "Add Vicaro Beta to Chrome:"
 echo "  $STORE_URL"
 echo
-echo "Open the side panel, then approve \"Chrome on macOS\" in the Vicaro Helper menu."
+echo "Open the setup tab or side panel and sign in with Google or an email magic link."
 echo "Data and logs: $HOME/Library/Application Support/Vicaro"
 echo "Uninstall (keeps chats, memories and settings):"
 echo "  launchctl bootout gui/$(id -u)/com.vicaro.helper.app 2>/dev/null;"
