@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="theme-color" content="#fafbf9" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#101a22" media="(prefers-color-scheme: dark)" />
+  <title>Sign in: Vicaro</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #fafbf9;
+      --surface: #ffffff;
+      --surface-2: #f0f4f4;
+      --ink: #192c38;
+      --muted: #596c77;
+      --line: #dce5e4;
+      --line-strong: #c7d4d4;
+      --accent: #285b8e;
+      --accent-hover: #173f6b;
+      --btn-bg: #244f78;
+      --btn-ink: #ffffff;
+      --btn-bg-hover: #183e64;
+      --ok: #377a66;
+      --ok-soft: #e1f0e9;
+      --err: #b42318;
+      --err-soft: #fef3f2;
+      --shadow: 0 28px 65px rgba(29, 52, 65, .12), 0 4px 14px rgba(29, 52, 65, .05);
+      --font: "Avenir Next", Avenir, "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+      --display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #101a22;
+        --surface: #182630;
+        --surface-2: #1d2d37;
+        --ink: #eff4f2;
+        --muted: #b0c0c5;
+        --line: #31434a;
+        --line-strong: #496067;
+        --accent: #a6c9ea;
+        --accent-hover: #c9e0f6;
+        --btn-bg: #d7e8f3;
+        --btn-ink: #19354b;
+        --btn-bg-hover: #eef7fc;
+        --ok: #82cfad;
+        --ok-soft: #25473d;
+        --err: #fda29b;
+        --err-soft: #3a1f21;
+        --shadow: 0 28px 65px rgba(0, 0, 0, .3), 0 4px 14px rgba(0, 0, 0, .16);
+      }
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: var(--bg);
+      color: var(--ink);
+      font: 15px/1.6 var(--font);
+      -webkit-font-smoothing: antialiased;
+      padding: 24px;
+    }
+    .card {
+      width: 100%;
+      max-width: 430px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 750;
+      letter-spacing: -.035em;
+    }
+    .brand svg { width: 30px; height: 30px; display: block; }
+    .brand .word { font-size: 20px; }
+    .brand .beta {
+      margin-left: 2px;
+      padding: 4px 7px;
+      border: 1px solid var(--line-strong);
+      border-radius: 4px;
+      color: var(--muted);
+      font: 700 9px/1 var(--font);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font: 600 26px/1.2 var(--display);
+      letter-spacing: -.015em;
+    }
+    .sub {
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .btn {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 9px;
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      color: var(--ink);
+      font: 700 14px/1.2 var(--font);
+      cursor: pointer;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease, opacity .15s ease;
+    }
+    .btn:hover:not(:disabled) { border-color: var(--accent); background: var(--surface-2); }
+    .btn.primary {
+      background: var(--btn-bg);
+      border-color: var(--btn-bg);
+      color: var(--btn-ink);
+    }
+    .btn.primary:hover:not(:disabled) {
+      background: var(--btn-bg-hover);
+      border-color: var(--btn-bg-hover);
+    }
+    .btn:disabled { opacity: .6; cursor: not-allowed; }
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 18px 0;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+    .divider::before, .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 650;
+      margin-bottom: 6px;
+    }
+    input[type="email"] {
+      width: 100%;
+      padding: 11px 13px;
+      border-radius: 9px;
+      border: 1px solid var(--line-strong);
+      background: var(--bg);
+      color: var(--ink);
+      font: 15px/1.3 var(--font);
+      margin-bottom: 12px;
+    }
+    input[type="email"]:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+      border-color: var(--accent);
+    }
+    .notice {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 9px;
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+      font-size: 14px;
+      color: var(--ink);
+    }
+    .notice.ok { border-color: var(--ok); background: var(--ok-soft); color: var(--ok); }
+    .notice.err { border-color: var(--err); background: var(--err-soft); color: var(--err); }
+    .foot {
+      margin-top: 22px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+    .foot a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <rect width="64" height="64" rx="14.4" fill="#2F6FD6" />
+        <path d="M19.2 21.12 L32 42.24 L44.8 21.12" fill="none" stroke="#fff" stroke-width="10.24" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <span class="word">Vicaro</span>
+      <span class="beta">Beta</span>
+    </a>
+
+    <h1 id="title">Sign in to Vicaro</h1>
+    <p id="sub" class="sub">Use the same account across your browsers, local web workspace, and devices. Your chats and page data stay on your machine.</p>
+
+    <div id="signin-view">
+      <button id="google-btn" class="btn" type="button">
+        <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+          <path fill="#FBBC05" d="M10.53 28.59a14.5 14.5 0 0 1 0-9.18l-7.98-6.19a24.0 24.0 0 0 0 0 21.56l7.98-6.19z"/>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+        <span>Continue with Google</span>
+      </button>
+
+      <div class="divider">or</div>
+
+      <form id="email-form">
+        <label for="email-input">Email address</label>
+        <input id="email-input" type="email" autocomplete="email" placeholder="you@example.com" required />
+        <button id="email-btn" class="btn primary" type="submit">Email me a sign-in link</button>
+      </form>
+    </div>
+
+    <form id="confirm-email-form" hidden>
+      <label for="confirm-email-input">Confirm your email address</label>
+      <input id="confirm-email-input" type="email" autocomplete="email" placeholder="you@example.com" required />
+      <button id="confirm-email-btn" class="btn primary" type="submit">Complete sign-in</button>
+    </form>
+
+    <div id="notice" class="notice" hidden role="status"></div>
+
+    <p class="foot">
+      Only your account identity is verified through Firebase Authentication.
+      <a href="/privacy.html" target="_blank" rel="noreferrer">Privacy policy</a>
+    </p>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup,
+      signInWithRedirect,
+      getRedirectResult,
+      sendSignInLinkToEmail,
+      isSignInWithEmailLink,
+      signInWithEmailLink,
+    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+    const FIREBASE_CONFIG = {
+      apiKey: "AIzaSyAzi03FZZjH-aX5sVczvDbiP-bqCdGEzGY",
+      authDomain: "vicaro-helper.firebaseapp.com",
+      projectId: "vicaro-helper",
+      storageBucket: "vicaro-helper.firebasestorage.app",
+      messagingSenderId: "207005792316",
+      appId: "1:207005792316:web:8976628ceacc4d0b90eb39",
+    };
+
+    const EMAIL_KEY = "vicaro.auth.email";
+    const CTX_KEY = "vicaro.auth.ctx";
+
+    const app = initializeApp(FIREBASE_CONFIG);
+    const auth = getAuth(app);
+
+    const $ = (id) => document.getElementById(id);
+    const titleEl = $("title");
+    const subEl = $("sub");
+    const signinView = $("signin-view");
+    const googleBtn = $("google-btn");
+    const emailForm = $("email-form");
+    const emailInput = $("email-input");
+    const emailBtn = $("email-btn");
+    const confirmForm = $("confirm-email-form");
+    const confirmInput = $("confirm-email-input");
+    const confirmBtn = $("confirm-email-btn");
+    const noticeEl = $("notice");
+
+    function setNotice(text, kind = "") {
+      noticeEl.hidden = !text;
+      noticeEl.textContent = text || "";
+      noticeEl.className = "notice" + (kind ? " " + kind : "");
+    }
+
+    function readContext() {
+      const q = new URLSearchParams(window.location.search);
+      let state = (q.get("state") || "").trim();
+      let port = Number(q.get("port") || "8792");
+      let flow = (q.get("flow") || "helper").trim();
+      const provider = (q.get("provider") || "").trim();
+      const prefillEmail = (q.get("email") || "").trim();
+
+      if (!/^[0-9a-f]{64}$/i.test(state)) {
+        try {
+          const saved = JSON.parse(sessionStorage.getItem(CTX_KEY) || "null");
+          if (saved && /^[0-9a-f]{64}$/i.test(saved.state || "")) {
+            state = saved.state;
+            port = Number(saved.port || 8792);
+            flow = saved.flow || "helper";
+          }
+        } catch {}
+      }
+      if (!Number.isInteger(port) || port < 1024 || port > 65535) port = 8792;
+      if (flow !== "helper" && flow !== "extension") flow = "helper";
+      return { state, port, flow, provider, prefillEmail };
+    }
+
+    const ctx = readContext();
+
+    function isMobileUa() {
+      return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent || "");
+    }
+
+    async function handoff(user) {
+      if (!/^[0-9a-f]{64}$/i.test(ctx.state)) {
+        signinView.hidden = true;
+        confirmForm.hidden = true;
+        setNotice("Sign-in session is missing or expired. Start sign-in again from Vicaro Helper or Chrome.", "err");
+        return;
+      }
+      if (isMobileUa()) {
+        signinView.hidden = true;
+        confirmForm.hidden = true;
+        titleEl.textContent = "Open on your Mac";
+        subEl.textContent = "Vicaro Helper runs locally on your Mac right now.";
+        setNotice("Open this sign-in link on the Mac where Vicaro Helper is running.", "");
+        return;
+      }
+      const idToken = await user.getIdToken(true);
+      try { sessionStorage.removeItem(CTX_KEY); } catch {}
+      const target =
+        `http://127.0.0.1:${ctx.port}/auth/callback#` +
+        new URLSearchParams({ id_token: idToken, state: ctx.state }).toString();
+      signinView.hidden = true;
+      confirmForm.hidden = true;
+      titleEl.textContent = "Returning to Vicaro…";
+      subEl.textContent = "Completing sign-in with your local Vicaro Helper.";
+      setNotice("Signed in as " + (user.email || "your account") + ". Redirecting…", "ok");
+      window.location.replace(target);
+    }
+
+    async function finishMagicLink(email) {
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = "Verifying…";
+      setNotice("");
+      try {
+        const result = await signInWithEmailLink(auth, email.trim(), window.location.href);
+        try { localStorage.removeItem(EMAIL_KEY); } catch {}
+        await handoff(result.user);
+      } catch (error) {
+        setNotice(error?.message || "Could not verify the sign-in link. Request a fresh link.", "err");
+        confirmBtn.disabled = false;
+        confirmBtn.textContent = "Complete sign-in";
+      }
+    }
+
+    async function init() {
+      if (!/^[0-9a-f]{64}$/i.test(ctx.state)) {
+        signinView.hidden = true;
+        setNotice("Open sign-in from Vicaro Helper or the Vicaro Chrome extension.", "err");
+        return;
+      }
+
+      try {
+        const redirectResult = await getRedirectResult(auth);
+        if (redirectResult?.user) {
+          await handoff(redirectResult.user);
+          return;
+        }
+      } catch (error) {
+        setNotice(error?.message || "Google sign-in failed. Try again.", "err");
+      }
+
+      if (isSignInWithEmailLink(auth, window.location.href)) {
+        signinView.hidden = true;
+        let savedEmail = "";
+        try { savedEmail = localStorage.getItem(EMAIL_KEY) || ""; } catch {}
+        if (!savedEmail && ctx.prefillEmail) savedEmail = ctx.prefillEmail;
+        if (savedEmail) {
+          titleEl.textContent = "Verifying sign-in link…";
+          subEl.textContent = "Completing sign-in for " + savedEmail + ".";
+          await finishMagicLink(savedEmail);
+        } else {
+          titleEl.textContent = "Confirm your email";
+          subEl.textContent = "Because this link opened in a different browser, confirm your email address to finish signing in.";
+          confirmForm.hidden = false;
+          confirmInput.focus();
+        }
+        return;
+      }
+
+      if (ctx.prefillEmail) emailInput.value = ctx.prefillEmail;
+      if (ctx.provider === "email") emailInput.focus();
+    }
+
+    googleBtn.addEventListener("click", async () => {
+      googleBtn.disabled = true;
+      setNotice("");
+      const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: "select_account" });
+      try {
+        const result = await signInWithPopup(auth, provider);
+        await handoff(result.user);
+      } catch (error) {
+        if (error?.code === "auth/popup-blocked") {
+          try {
+            sessionStorage.setItem(CTX_KEY, JSON.stringify({ state: ctx.state, port: ctx.port, flow: ctx.flow }));
+          } catch {}
+          await signInWithRedirect(auth, provider);
+          return;
+        }
+        setNotice(error?.message || "Google sign-in was cancelled or failed.", "err");
+        googleBtn.disabled = false;
+      }
+    });
+
+    emailForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const email = emailInput.value.trim();
+      if (!email) return;
+      emailBtn.disabled = true;
+      emailBtn.textContent = "Sending link…";
+      setNotice("");
+      try {
+        const continueUrl = new URL(window.location.origin + window.location.pathname);
+        continueUrl.searchParams.set("state", ctx.state);
+        continueUrl.searchParams.set("port", String(ctx.port));
+        continueUrl.searchParams.set("flow", ctx.flow);
+        await sendSignInLinkToEmail(auth, email, {
+          url: continueUrl.toString(),
+          handleCodeInApp: true,
+        });
+        try { localStorage.setItem(EMAIL_KEY, email); } catch {}
+        emailBtn.textContent = "Resend sign-in link";
+        emailBtn.disabled = false;
+        setNotice("Sign-in link sent to " + email + ". Open it on this Mac to finish signing in.", "ok");
+      } catch (error) {
+        setNotice(error?.message || "Could not send sign-in link. Check the email and try again.", "err");
+        emailBtn.textContent = "Email me a sign-in link";
+        emailBtn.disabled = false;
+      }
+    });
+
+    confirmForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const email = confirmInput.value.trim();
+      if (!email) return;
+      await finishMagicLink(email);
+    });
+
+    void init();
+  </script>
+</body>
+</html>

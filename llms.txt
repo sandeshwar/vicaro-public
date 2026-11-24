@@ -8,11 +8,12 @@
 - Platform: macOS 13.5 or newer, Chrome 116 or newer. Apple Silicon and Intel.
 - Model: any local OpenAI-compatible server (Ollama, LM Studio, mlx, vLLM) or a hosted endpoint. No default provider and no fallback.
 - Pricing: free while in beta.
-- Account: no Vicaro account required. Google sign-in is optional and only links one account to the web UI.
+- Account: sign-in with Google or an email magic link (via Firebase Authentication) is required so browsers, the local web UI and devices connect automatically without pairing codes. No chats, pages or memories are sent to Google or Firebase.
 - Data: page content and tool results go to the model endpoint the user configures. Chat, tasks and memories stay in the helper's local data directory. No analytics or telemetry.
 - Access: page access is granted per site. Purchases, deletes, sends and uploads stop for approval.
 - Source: closed source. The helper is self-hosted.
-- Version: helper 1.4.12; Chrome extension 1.4.7.
+- Updates: Vicaro Helper 1.5.0+ checks GitHub Releases and installs SHA-256 verified updates automatically (pause/resume anytime from the menu bar). Chrome Web Store updates the extension automatically.
+- Version: helper 1.5.0; Chrome extension 1.5.0.
 - Chrome Web Store: live at https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok.
 
 ## Pages
@@ -26,7 +27,7 @@
 
 1. Add Vicaro Beta from the Chrome Web Store: https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok
 2. In Terminal, run: curl -fsSL https://vicaro.creativeducks.com/install.sh | sh
-3. Open the side panel, approve the pairing request in the menu bar, and configure the model in Settings.
+3. Sign in with Google or an email magic link in the setup tab (or from Vicaro Helper in the menu bar), then configure the model in Settings.
 
 The helper installs from Terminal because the app is ad-hoc signed and not notarized; a browser download would trigger macOS Gatekeeper. The supported install path uses no disk image.
 

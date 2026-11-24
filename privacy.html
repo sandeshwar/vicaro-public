@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy: Vicaro Beta</title>
-<meta name="description" content="Vicaro Beta privacy policy. Self-hosted, no Vicaro account required, no telemetry, optional Google sign-in.">
+<meta name="description" content="Vicaro Beta privacy policy. Self-hosted, no telemetry, Google or email sign-in via Firebase Authentication, and all chats stay local.">
 <link rel="canonical" href="https://vicaro.creativeducks.com/privacy.html">
 <meta property="og:title" content="Privacy: Vicaro Beta">
 <meta property="og:description" content="How Vicaro Beta handles page content, tabs, accounts and local data.">
@@ -40,7 +40,7 @@
       "name": "Privacy",
       "description": "How Vicaro Beta handles page content, tabs, accounts and local data.",
       "inLanguage": "en",
-      "dateModified": "2026-11-11",
+      "dateModified": "2026-11-24",
       "isPartOf": {
         "@type": "WebSite",
         "name": "Vicaro Beta",
@@ -107,8 +107,8 @@
     <div class="wrap">
       <p class="eyebrow">Legal <span class="sep">/</span> Privacy</p>
       <h1>Privacy, in plain language.</h1>
-      <p class="lede">Vicaro is a self-hosted browser assistant. There is no Vicaro server in the middle, no telemetry, and no account required. The only remote service that sees your pages is the model endpoint you choose.</p>
-      <p class="meta">Last updated 16 November 2026</p>
+      <p class="lede">Vicaro is a self-hosted personal assistant. There is no Vicaro backend server for your chats or pages, and no telemetry. Signing in with Google or an email magic link connects your browsers and devices automatically; the only remote service that sees your pages is the model endpoint you choose.</p>
+      <p class="meta">Last updated 24 November 2026</p>
     </div>
   </section>
 
@@ -119,7 +119,7 @@
       <a href="#what">What Vicaro is</a>
       <a href="#see">What it can see</a>
       <a href="#permissions">Permissions</a>
-      <a href="#google">Google sign-in</a>
+      <a href="#google">Account sign-in</a>
       <a href="#goes">Where data goes</a>
       <a href="#stored">What is stored</a>
       <a href="#site">This website</a>
@@ -131,7 +131,7 @@
 
     <div class="legal">
       <div class="summary-card" id="short">
-        <p><strong>The short version.</strong> Page content and tab metadata are processed on your machine and sent only to the model endpoint you configure. Google sign-in is optional. Vicaro does not sell data, does not run ads, and does not send your pages to us.</p>
+        <p><strong>The short version.</strong> Page content and tab metadata are processed on your machine and sent only to the model endpoint you configure. Signing in with Google or an email magic link verifies your identity through Firebase Authentication so your browsers and web UI connect automatically. Vicaro does not sell data, does not run ads, and does not send your pages or chats to us.</p>
       </div>
 
       <h2 id="what">What Vicaro is</h2>
@@ -144,9 +144,9 @@
         <li>The list of open tabs, including titles and addresses.</li>
         <li>The visible content and interactive elements of a tab after you grant page access to that site.</li>
         <li>The action it is asked to perform, and the page state afterwards.</li>
-        <li>An optional Google email, only if you choose to link an account.</li>
+        <li>Your signed-in account email and display name (if provided), verified through Firebase Authentication.</li>
       </ul>
-      <p>Depending on the pages you open, this can include website content, browsing history in the form of open tabs, personal communications such as email or chat pages, and account identifiers. It does not read pages in the background, and it does not run on sites you have not granted. Outside the optional Google sign-in, nothing is sent anywhere except to your own helper and the model endpoint it is configured to use.</p>
+      <p>Depending on the pages you open, this can include website content, browsing history in the form of open tabs, personal communications such as email or chat pages, and account identifiers. It does not read pages in the background, and it does not run on sites you have not granted. Outside account sign-in below, nothing is sent anywhere except to your own helper and the model endpoint it is configured to use.</p>
 
       <h2 id="permissions">Permissions and optional capabilities</h2>
       <p>The extension asks for page access per site, the first time a task needs it. There is no broad host permission at install. Two capabilities are off until you enable them in Settings, Access:</p>
@@ -156,33 +156,34 @@
       </ul>
       <p>Both can be removed at any time from Chrome's extension settings.</p>
 
-      <h2 id="google">Google sign-in (optional)</h2>
-      <p>You can link one Google account to the helper from the side panel. The extension gets a Google access token from Chrome, exchanges it for a Firebase ID token, and sends that token to your helper over loopback. The helper checks the token against Google's public signing keys and stores the account's name, email and Firebase user id in its local <span class="mono">account.json</span>. The ID token itself is not stored.</p>
-      <p>While an account is linked, its name and email are included in the assistant context sent to your model endpoint, so the assistant can answer questions about the signed-in account. Google receives the sign-in request, as it would for any Google sign-in. No chats, pages or memories are sent to Google or Firebase. You can switch accounts in Settings, General, Account; only one account is linked at a time. Signing out removes the local link and stops the account details from being added to future turns.</p>
+      <h2 id="google">Account sign-in (Google or email magic link)</h2>
+      <p>Signing in is required to connect browsers, the local web UI, and future devices to your helper automatically without manual pairing codes. You can sign in with Google or with a passwordless email magic link through Firebase Authentication. The helper verifies your Firebase ID token against Google's public signing keys and stores your account's Firebase user id, email address, and display name (if provided) locally in <span class="mono">account.json</span>. The ID token itself is not stored.</p>
+      <p>Each enrolled browser receives a local, revocable device credential stored (hashed) in <span class="mono">devices.json</span> so reconnects continue working offline and individual devices can be revoked. While signed in, your account name and email are included in the assistant context sent to your model endpoint. Google and Firebase receive only the authentication request (and send the sign-in email when you choose email magic link). No chats, pages, screenshots, or memories are sent to Google or Firebase. Signing out clears the local account link and disconnects enrolled devices on that helper.</p>
 
       <h2 id="goes">Where your data goes</h2>
       <ul>
         <li><strong>Your model endpoint.</strong> Messages, page text and tool results are sent to the model server you configure: a local server, your LAN, or a hosted provider. That server's privacy policy applies to it. Vicaro has no default provider and no fallback.</li>
-        <li><strong>Google sign-in (optional).</strong> Only if you choose it: Google and Firebase receive the authentication request, as described above. No page or chat content is included.</li>
+        <li><strong>Firebase Authentication (Google / email sign-in).</strong> Receives only the sign-in request needed to verify your identity (and deliver email sign-in links). No page or chat content is included.</li>
         <li><strong>Nowhere else.</strong> No analytics, no crash reporting, no usage statistics, no advertising identifiers, and no sale or sharing of data with third parties.</li>
       </ul>
 
       <h2 id="stored">What is stored, and where</h2>
       <ul>
         <li><strong>On your machine:</strong> conversation history and task state live in an encrypted SQLite store owned by the helper. Memories and settings live in the same owner-only data directory.</li>
-        <li><strong>In Chrome:</strong> the panel stores your helper address, device credential, theme and model preference in <span class="mono">chrome.storage.local</span>.</li>
-        <li><strong>Linked Google account:</strong> the helper stores the account's name, email and Firebase user id in its local <span class="mono">account.json</span>. Signing out clears it.</li>
+        <li><strong>In Chrome:</strong> the panel stores your helper address, revocable device credential, theme and model preference in <span class="mono">chrome.storage.local</span>.</li>
+        <li><strong>Signed-in account and devices:</strong> the helper stores your account's name, email and Firebase user id in <span class="mono">account.json</span>, and hashed per-device credentials in <span class="mono">devices.json</span>. Signing out clears both.</li>
         <li><strong>Model API keys</strong> are stored by the helper and are never returned to the panel.</li>
       </ul>
 
-      <h2 id="site">This website</h2>
-      <p>This site is a static site served by GitHub Pages. It does not set cookies, run analytics, or load third-party scripts. GitHub may keep standard web-server logs under its own privacy policy. The helper installer and release archive are served by GitHub Releases; the extension is distributed by the Chrome Web Store.</p>
+      <h2 id="site">This website &amp; automatic updates</h2>
+      <p>This site is a static site served by GitHub Pages. Marketing, support and privacy pages do not set cookies, run analytics, or load third-party scripts. The <span class="mono">/auth</span> sign-in page loads the Firebase Authentication SDK solely to complete Google or email magic link sign-in and hand your verified token to your local helper. GitHub may keep standard web-server logs under its own privacy policy. The helper installer and release archive are served by GitHub Releases; the extension is distributed by the Chrome Web Store. When installed in Applications, Vicaro Helper checks GitHub Releases periodically for newer versions and verifies each download's SHA-256 checksum before installing (you can pause auto-updates from the menu bar at any time); update checks carry no personal data, page content, or account identifiers.</p>
 
       <h2 id="controls">Your controls</h2>
       <ul>
         <li>Revoke page access or the optional permissions in <span class="mono">chrome://extensions</span>, or in Settings, Access.</li>
+        <li>Revoke an individual browser or device from the Vicaro Helper menu bar or the local web UI Connections page.</li>
         <li>Delete the helper's data directory to erase history, tasks and memories. The menu bar uninstall keeps it on purpose.</li>
-        <li>Sign out in Settings, General, Account to remove the linked Google account.</li>
+        <li>Sign out in the Vicaro Helper menu bar, the web UI, or Settings, General, Account to disconnect your account.</li>
         <li>Uninstall the extension and the helper to remove everything.</li>
       </ul>
 
@@ -231,7 +232,7 @@
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Vicaro. Built by Creative Ducks.</span>
-      <span class="fine">Vicaro Beta 1.4.12 &middot; macOS 13.5+ &middot; Chrome 116+</span>
+      <span class="fine">Vicaro Beta 1.5.0 &middot; macOS 13.5+ &middot; Chrome 116+</span>
     </div>
   </div>
 </footer>

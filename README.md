@@ -22,10 +22,15 @@ anything destructive. Models run on your machine, your LAN, or an endpoint you c
 - **Asks before damage.** Purchases, deletes, sends and uploads stop for approval.
 - **Uses your model.** Point the helper at Ollama, LM Studio, mlx, vLLM, or any
   OpenAI-compatible endpoint. There is no default provider and no fallback.
-- **Keeps data local.** No Vicaro account is required. No analytics, telemetry, or sale
-  of data. Chat, tasks and memories are stored locally by the helper.
-- **Optional Google sign-in.** One account can be linked for the web UI. No chats or
-  pages are sent to Google or Firebase.
+- **Keeps data local.** No analytics, telemetry, or sale of data. Chat, tasks and
+  memories are stored locally by the helper.
+- **Sign in once, auto-connect.** Sign in with Google or a passwordless email magic
+  link (via Firebase Authentication) so your browsers, local web workspace, and
+  devices connect automatically without pairing codes. No chats or pages are sent
+  to Google or Firebase.
+- **Automatic helper updates.** From 1.5.0 onward, `Vicaro Helper.app` checks GitHub
+  Releases automatically, verifies SHA-256 checksums, and updates itself in place —
+  with a menu bar toggle to pause or resume auto-updates anytime.
 
 The beta is panel-first. MCP host support for tools such as Cursor, Claude Code and
 Codex is still being brought over from the reference app. The current helper can
@@ -49,8 +54,8 @@ on the Chrome Web Store.
 ### 1. Add the extension
 
 Install **[Vicaro Beta](https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok)**
-from the Chrome Web Store. Its setup tab opens automatically. Extension 1.4.8 shows
-the Terminal command below; older builds offer a disk image, which you can skip.
+from the Chrome Web Store. Its setup tab opens automatically and shows the Terminal
+command below (and prompts you to run it if an older pre-1.5.0 helper is detected).
 
 ### 2. Install the helper
 
@@ -67,14 +72,15 @@ helper on `ws://127.0.0.1:8792/chrome`. It asks for no password and does not use
 
 The supported path uses no disk image. While the helper is ad-hoc signed and not
 notarized, a browser download would trigger macOS Gatekeeper; `curl` does not set the
-quarantine flag. The setup tab waits for the helper and pairs the browser when it
-starts.
+quarantine flag. The setup tab watches for the helper and prompts you to sign in as
+soon as it starts.
 
-### 3. Pair the panel
+### 3. Sign in to connect
 
-Click the Vicaro Beta icon to open the side panel. The first run asks the helper to
-pair this browser. Approve **Chrome on macOS** in the helper menu, or copy the pairing
-code from the menu and paste it into the panel.
+Sign in with Google or an email magic link in the setup tab (or choose **Sign in to
+Vicaro…** in the helper menu bar app). If you sign in from Chrome first, click **Allow**
+on the one-time confirmation dialog on your Mac. Any additional browser or device
+signed into the same account connects automatically with no pairing code.
 
 ### 4. Pick a model
 
@@ -143,9 +149,9 @@ actions.
 
 | Symptom | Try |
 |---|---|
-| Panel cannot reach the helper | Check the menu bar globe, confirm `ws://127.0.0.1:8792/chrome`, press **Retry connection**. |
-| Pairing request never appears | Use **Copy pairing code** in the helper menu and paste it into the panel. |
-| Console: `WebSocket ... HTTP Authentication failed` | The helper is refusing an unpaired browser. Open the side panel and approve the request in the helper menu; the message stops after pairing. |
+| Panel cannot reach the helper | Check the menu bar globe, confirm `ws://127.0.0.1:8792/chrome`, press **Save & reconnect**. |
+| Email magic link opened in Safari | Confirm your email if prompted — the helper completes sign-in locally and Chrome connects automatically. |
+| Console: `WebSocket ... HTTP Authentication failed` | The helper is refusing an unauthenticated browser. Sign in from the side panel or setup tab; the message stops once connected. |
 | Model errors | Check the base URL, `/v1` suffix and API key in **Settings, Model**. |
 | Page access is missing | Grant the site when prompted, or check **Settings, Access**. |
 | "Apple could not verify Vicaro Helper" | You used an older disk image. Delete it and run the install command above. |
@@ -180,6 +186,7 @@ proprietary software and the helper source stays private.
 | Path | What |
 |---|---|
 | `/` | Landing page (`index.html`) |
+| `/auth/` | Hosted Google & email magic link sign-in page (`auth/index.html`) |
 | `/support.html` | Support and troubleshooting |
 | `/privacy.html` | Privacy policy |
 | `/install.sh` | macOS installer |
@@ -222,9 +229,11 @@ the command, and the mobile menu is a native `<details>` element.
    files, and `Vicaro-extension.zip`. Do not publish a disk image while the helper
    is ad-hoc signed; `install.sh` is the supported path.
 
-   Transition note: the live store extension 1.4.7 still calls the
-   `v1.4.12` `Vicaro-Helper.dmg` alias. Keep that release's assets and avoid cutting
-   a helper release without a DMG until 1.4.8 is live and rolled out.
+   Transition note: the `v1.4.12` release keeps its legacy `Vicaro-Helper.dmg`
+   asset for users still upgrading from older 1.4.7 store installs. Starting with
+   `v1.5.0`, the extension uses `install.sh` directly and detects older helpers,
+   and `Vicaro Helper.app` handles future updates automatically from the tarball
+   assets.
 3. Update `install.sh` here if the app name, launch agent or paths changed.
 4. Verify:
 

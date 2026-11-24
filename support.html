@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Support: Vicaro Beta</title>
-<meta name="description" content="Setup and troubleshooting for Vicaro Beta: helper connection, model endpoint, page access, optional Google sign-in, and the beta safety warning.">
+<meta name="description" content="Setup and troubleshooting for Vicaro Beta: helper connection, model endpoint, page access, account sign-in, and the beta safety warning.">
 <link rel="canonical" href="https://vicaro.creativeducks.com/support.html">
 <meta property="og:title" content="Support: Vicaro Beta">
 <meta property="og:description" content="Setup and troubleshooting for the Vicaro Beta helper, model connection, page access and Google sign-in.">
@@ -40,7 +40,7 @@
       "name": "Support",
       "description": "Setup and troubleshooting for the Vicaro Beta helper, model connection, page access and Google sign-in.",
       "inLanguage": "en",
-      "dateModified": "2026-11-12",
+      "dateModified": "2026-11-24",
       "isPartOf": {
         "@type": "WebSite",
         "name": "Vicaro Beta",
@@ -120,7 +120,7 @@
       <a href="#model">Model errors</a>
       <a href="#long-tasks">Long tasks</a>
       <a href="#access">Page access</a>
-      <a href="#google">Google sign-in</a>
+      <a href="#google">Account sign-in</a>
       <a href="#uninstall">Uninstall</a>
       <a href="#safety">Beta safety</a>
       <a href="#contact">Contact</a>
@@ -132,14 +132,15 @@
       </div>
 
       <section id="install">
-        <h2>Install</h2>
-        <p>Vicaro Beta needs macOS 13.5 or later and Chrome 116 or later. Add the extension first; its setup tab opens automatically. Extension 1.4.8 shows the command below. If your copy still offers a disk image, skip it and run the command.</p>
+        <h2>Install &amp; updates</h2>
+        <p>Vicaro Beta needs macOS 13.5 or later and Chrome 116 or later. Add the extension first; its setup tab opens automatically and shows the command below. If an older helper is already running, the extension displays an <strong>Update Vicaro Helper</strong> card with the same command.</p>
         <p><a class="btn arrow" href="https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok">Add Vicaro to Chrome</a></p>
         <p style="margin-top:18px">Then open Terminal: press <span class="mono">⌘Space</span>, type <strong>Terminal</strong>, and press Return. Paste this command and press Return:</p>
         <div class="code"><code id="support-install" class="multiline">curl -fsSL \
 https://vicaro.creativeducks.com/install.sh \
 | sh</code><button class="copy" type="button" aria-live="polite" data-copy="support-install">COPY</button></div>
-        <p style="margin-top:14px">It installs the helper into <span class="mono">~/Applications</span>, verifies the download, registers the login agent, and starts the helper. It asks for no password and does not use <span class="mono">sudo</span>. The setup tab then pairs the browser; approve <strong>Chrome on macOS</strong> in the menu bar.</p>
+        <p style="margin-top:14px">It installs the helper into <span class="mono">~/Applications</span>, verifies the download, registers the login agent, and starts the helper. It asks for no password and does not use <span class="mono">sudo</span>. Next, sign in with Google or an email magic link in the setup tab (or from <strong>Sign in to Vicaro…</strong> in the menu bar) to connect your browser automatically.</p>
+        <p>From version 1.5.0 onward, Vicaro Helper checks GitHub Releases automatically, verifies the SHA-256 checksum, and installs helper updates in place without touching your chats or settings. Open the menu bar globe to <strong>Check for updates…</strong> or toggle <strong>Auto-update: On (Pause)</strong> / <strong>Auto-update: Paused (Resume)</strong> anytime.</p>
         <div class="callout">Why Terminal? The helper is ad-hoc signed and not notarized. A browser download would trigger macOS Gatekeeper; <span class="mono">curl</span> does not set quarantine, so the app starts normally. This is temporary until notarization.</div>
         <p>If the setup tab is closed, open <span class="mono">chrome://extensions</span>, choose <strong>Details</strong> for Vicaro Beta, then <strong>Extension options</strong>.</p>
       </section>
@@ -149,11 +150,11 @@ https://vicaro.creativeducks.com/install.sh \
         <p>The panel talks to the helper over loopback, by default at <span class="mono">ws://127.0.0.1:8792/chrome</span>. If the panel says it cannot reach the helper:</p>
         <ul>
           <li>Check that the Vicaro Helper globe is in the menu bar. If it is not, open Vicaro Helper from Applications.</li>
-          <li>Open Settings, Helper in the panel and confirm the address. Use Retry connection after the helper starts.</li>
-          <li>If the helper is waiting for approval, open its menu and approve the browser request. The panel pairs itself when you do.</li>
-          <li>If you use a pairing code, copy it from the helper menu, paste it into the panel and choose Pair with this code.</li>
+          <li>Open Settings, Helper in the panel and confirm the address. Use Save &amp; reconnect after the helper starts.</li>
+          <li>If the panel asks you to sign in, sign in with Google or an email magic link using the same account linked to Vicaro Helper.</li>
+          <li>If this is the first time claiming this Mac's helper from Chrome, click <strong>Allow</strong> on the one-time Vicaro Helper confirmation prompt. Any additional browser signed into the same account connects automatically with no pairing code.</li>
         </ul>
-        <div class="callout">If Chrome's console shows <span class="mono">WebSocket connection to 'ws://127.0.0.1:8792/chrome' failed: HTTP Authentication failed</span> on a new browser, the helper is refusing an unpaired socket - not failing to start. Open the side panel, approve its request in the Vicaro Helper menu, and the message stops once the browser is paired.</div>
+        <div class="callout">If Chrome's console shows <span class="mono">WebSocket connection to 'ws://127.0.0.1:8792/chrome' failed: HTTP Authentication failed</span> on a new browser, the helper is refusing an unauthenticated socket - not failing to start. Sign in from the side panel or setup tab and the message stops once the browser enrolls.</div>
         <p>The helper binds to loopback only in this build. It is not reachable from another machine; keep the panel on the same Mac as the helper.</p>
       </section>
 
@@ -194,13 +195,13 @@ https://vicaro.creativeducks.com/install.sh \
       </section>
 
       <section id="google">
-        <h2>Google sign-in</h2>
-        <p>Google sign-in is optional. It links one account to the local helper so the web UI can open with the same account. It does not upload chats, pages or memories.</p>
+        <h2>Account sign-in</h2>
+        <p>Signing in with Google or an email magic link connects your Chrome profiles, local web workspace, and future devices to your helper automatically without pairing codes. It does not upload chats, pages, or memories.</p>
         <ul>
-          <li>If the account picker opens with the wrong profile, choose Use another account in the panel and pick the Google account you want.</li>
-          <li>If sign-in fails, confirm the helper is running and the system browser can reach Google. The extension uses Chrome's identity flow, so an expired Chrome session can block it.</li>
-          <li>To switch accounts, sign out in Settings, General, Account and sign in again. Only one account is linked at a time.</li>
-          <li>To remove the link entirely, sign out. The helper clears the local account file.</li>
+          <li><strong>Two ways to link a new Mac:</strong> choose <strong>Sign in to Vicaro…</strong> in the menu bar app (or the local web UI), or sign in from Chrome first and approve the one-time confirmation dialog on your Mac.</li>
+          <li><strong>Email magic link:</strong> open the emailed sign-in link on the Mac where Vicaro Helper is running. If it opens in Safari instead of Chrome, confirm your email address if prompted — the helper still completes sign-in and connects Chrome automatically.</li>
+          <li><strong>Wrong account or mismatch:</strong> only one account owns a helper at a time. Sign in with the matching account, or choose <strong>Sign out…</strong> in the menu bar app (or <strong>Switch helper account</strong> in Settings, General, Account) to switch.</li>
+          <li><strong>Revoking a browser:</strong> open the menu bar app or the web UI Connections page and click <strong>Revoke</strong> next to any device to disconnect it immediately.</li>
         </ul>
       </section>
 
@@ -271,7 +272,7 @@ https://vicaro.creativeducks.com/install.sh \
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Vicaro. Built by Creative Ducks.</span>
-      <span class="fine">Vicaro Beta 1.4.12 &middot; macOS 13.5+ &middot; Chrome 116+</span>
+      <span class="fine">Vicaro Beta 1.5.0 &middot; macOS 13.5+ &middot; Chrome 116+</span>
     </div>
   </div>
 </footer>

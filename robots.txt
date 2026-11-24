@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /auth/
 
 Sitemap: https://vicaro.creativeducks.com/sitemap.xml
