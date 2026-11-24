@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="v7aWRJc6Mbb--7viYg-XmhfIxllgI6C0-7FjrFP8qRw" />
-<title>Vicaro Beta, an AI coworker in your browser</title>
-<meta name="description" content="A self-hosted browser agent for Chrome. Vicaro reads tabs, clicks, types, and works with the model you choose.">
+<title>Vicaro Beta: an AI agent for the Chrome you already use</title>
+<meta name="description" content="A browser agent for Chrome that runs on your Mac with the model you choose: Ollama, LM Studio or any OpenAI-compatible API. Five autonomy modes, exact approvals and a full audit log. Free in beta.">
 <link rel="canonical" href="https://vicaro.creativeducks.com/">
-<meta property="og:title" content="Vicaro Beta, an AI coworker in your browser">
-<meta property="og:description" content="Self-hosted. Your model. Your Chrome. Vicaro acts in the browser you already use, with a safety gate before anything destructive.">
+<meta property="og:title" content="Vicaro: Your Chrome. Your model. Your rules.">
+<meta property="og:description" content="A browser agent for Chrome that runs on your Mac with the model you choose: Ollama, LM Studio or any OpenAI-compatible API. Five autonomy modes, exact approvals and a full audit log. Free in beta.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://vicaro.creativeducks.com/">
@@ -16,12 +16,12 @@
 <meta property="og:image" content="https://vicaro.creativeducks.com/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Vicaro Beta side panel open in Chrome">
+<meta property="og:image:alt" content="Vicaro: Your Chrome. Your model. Your rules. A browser agent on the model you choose.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Vicaro Beta, an AI coworker in your browser">
-<meta name="twitter:description" content="Self-hosted browser agent for Chrome. Your model, your machine, and a safety gate before anything destructive.">
+<meta name="twitter:title" content="Vicaro: Your Chrome. Your model. Your rules.">
+<meta name="twitter:description" content="A browser agent for Chrome that runs on your Mac with the model you choose: Ollama, LM Studio or any OpenAI-compatible API. Five autonomy modes, exact approvals and a full audit log. Free in beta.">
 <meta name="twitter:image" content="https://vicaro.creativeducks.com/og.png">
-<meta name="twitter:image:alt" content="Vicaro Beta side panel open in Chrome">
+<meta name="twitter:image:alt" content="Vicaro: Your Chrome. Your model. Your rules. A browser agent on the model you choose.">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -29,8 +29,8 @@
 <meta name="color-scheme" content="light dark">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="author" content="Vicaro">
-<meta name="theme-color" content="#fafbf9" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#101a22" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f4f1e9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131410" media="(prefers-color-scheme: dark)">
 <link rel="stylesheet" href="site.css">
 <script type="application/ld+json">
 {
@@ -62,7 +62,7 @@
       "url": "https://vicaro.creativeducks.com/",
       "name": "Vicaro Beta",
       "inLanguage": "en",
-      "dateModified": "2026-11-12",
+      "dateModified": "2026-11-24",
       "publisher": {
         "@id": "https://vicaro.creativeducks.com/#organization"
       }
@@ -71,10 +71,10 @@
       "@type": "WebPage",
       "@id": "https://vicaro.creativeducks.com/#webpage",
       "url": "https://vicaro.creativeducks.com/",
-      "name": "Vicaro Beta, an AI coworker in your browser",
-      "description": "A self-hosted browser agent for Chrome. Vicaro reads tabs, clicks, types, and works with the model you choose.",
+      "name": "Vicaro Beta: an AI agent for the Chrome you already use",
+      "description": "A browser agent for Chrome that runs on your Mac with the model you choose: Ollama, LM Studio or any OpenAI-compatible API. Five autonomy modes, exact approvals and a full audit log. Free in beta.",
       "inLanguage": "en",
-      "dateModified": "2026-11-12",
+      "dateModified": "2026-11-24",
       "isPartOf": {
         "@id": "https://vicaro.creativeducks.com/#website"
       },
@@ -101,11 +101,11 @@
       "@id": "https://vicaro.creativeducks.com/#software",
       "name": "Vicaro Beta",
       "applicationCategory": "BrowserApplication",
-      "applicationSubCategory": "Self-hosted browser agent",
+      "applicationSubCategory": "Browser agent",
       "operatingSystem": "macOS 13.5+",
       "softwareVersion": "1.5.1",
       "datePublished": "2026-11-24",
-      "description": "A self-hosted browser agent for Chrome. Vicaro reads tabs, clicks, types, and works with the model you choose.",
+      "description": "A browser agent for Chrome that runs on your Mac with the model you choose: Ollama, LM Studio or any OpenAI-compatible API. Five autonomy modes, exact approvals and a full audit log. Free in beta.",
       "url": "https://vicaro.creativeducks.com/",
       "downloadUrl": "https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok",
       "image": "https://vicaro.creativeducks.com/og.png",
@@ -117,7 +117,10 @@
       "featureList": [
         "Reads open tabs and page content",
         "Clicks, types, scrolls and navigates",
-        "Asks before purchases, deletes, sends and uploads",
+        "Five autonomy modes with exact-argument approvals",
+        "Activity audit log with JSONL export",
+        "Opt-in local files and shell access",
+        "Durable runs with resume after restart",
         "Connects to local or OpenAI-compatible models",
         "Runs the helper on the user's Mac",
         "Google or email magic link sign-in with automatic browser connection",
@@ -139,10 +142,34 @@
       "mainEntity": [
         {
           "@type": "Question",
+          "name": "Will it run on my computer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Vicaro needs macOS 13.5 or newer and Chrome 116 or newer, on Apple Silicon or Intel. A Linux helper build is in progress. Windows support is coming soon."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "Is it safe to use in beta?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Not for anything you cannot afford to lose. It can click, type, submit forms and change settings. Start with Read only or Ask first, keep backups, and use a Chrome profile that does not hold your most important accounts."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if it makes a mistake?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Depending on the mode you choose, Vicaro stops before actions that change a page and shows the exact action on an approval card. Deny it and the action does not run. Every action leaves a receipt in the thread, and if the helper restarts mid-task, a run that already changed the page waits for you to Resume or Stop instead of replaying it. Some actions cannot be undone once approved, so read the card before you allow it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can a website trick it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It can try. A page can put text in front of the model, but it cannot call a tool. The helper checks every proposed action against your mode, binds approvals to the exact action, and cancels a card if the page changes while it is open. That does not stop everything: in Full auto a page could still persuade the model into a harmless-looking action, and no browser agent today is immune to prompt injection. Use Ask first on sites you don't trust."
           }
         },
         {
@@ -155,6 +182,14 @@
         },
         {
           "@type": "Question",
+          "name": "Why do I need to sign in?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Signing in connects your Chrome profiles and the local web workspace to your helper automatically, without pairing codes, and lets you revoke a browser from the menu bar app. It verifies who you are. It does not upload chats, pages or memories."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "Do I need a Google account?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -163,18 +198,58 @@
         },
         {
           "@type": "Question",
-          "name": "Can I use it from Cursor or Claude Code?",
+          "name": "Which model should I use?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Not in this build. MCP host support is in development. The helper can consume MCP servers you configure, but it does not yet register itself in Cursor or Claude Code."
+            "text": "Any OpenAI-compatible model that supports tool calling. Vision support lets Vicaro use screenshots, and a larger context window helps on long pages. Local options include Ollama, LM Studio, mlx and vLLM."
           }
         },
         {
           "@type": "Question",
-          "name": "Does it work on Windows or Linux?",
+          "name": "Can I use it from Cursor or Claude Code?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "macOS is the supported beta today. A Linux helper build is in progress. Windows is not supported yet."
+            "text": "Yes. Open the web UI from the menu bar, go to Connections, and install Vicaro under MCP hosts for Cursor, Claude Code, Claude Desktop, Codex, VS Code, Windsurf, Grok Build or opencode. Those tools can then use Vicaro's browser tools through the helper on your Mac."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work with my existing logins and extensions?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Vicaro runs in the Chrome profile you already use, with your tabs, signed-in sites and other extensions. That is also why the safety notes suggest a profile you can afford to lose while it is in beta."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a web app?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Vicaro Helper includes a web console that runs on your Mac. Open it with Open web UI in the menu bar or from the side panel. It has an inbox for approvals, delegated tasks and schedules, saved chats, the activity audit, tools, skills, connections, models and autonomy settings."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do I have to use Terminal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The helper app is not notarized by Apple yet, so a browser download would be blocked by macOS Gatekeeper. The curl command downloads it directly, verifies its SHA-256 checksum and installs it without sudo. We will notarize before offering a regular installer."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work while my Mac is asleep?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The helper runs on your Mac, so the Mac needs to be awake and the helper running."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I uninstall it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Choose Uninstall Vicaro Helper from the menu bar. It removes the app and its login item, and leaves your chats, memories and settings in ~/Library/Application Support/Vicaro so a reinstall finds them. To remove the extension, open chrome://extensions and remove Vicaro Beta."
           }
         },
         {
@@ -202,7 +277,7 @@
 <body id="top">
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="site-header">
+<header class="site-header over-dark">
   <div class="wrap header-inner">
     <a class="brand" href="index.html">
       <span class="mark"><svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14.4" fill="#2F6FD6"/><path d="M19.2 21.12 L32 42.24 L44.8 21.12" fill="none" stroke="#fff" stroke-width="10.24" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -210,203 +285,624 @@
       <span class="beta">Beta</span>
     </a>
     <nav class="nav" aria-label="Primary">
-      <a href="#what">What it does</a>
-      <a href="#screens">Screenshots</a>
-      <a href="#how">How it works</a>
+      <a href="#demo">Product</a>
+      <a href="#autonomy">Autonomy</a>
+      <a href="#models">Your model</a>
+      <a href="#console">Console</a>
+      <a href="#compare">Compare</a>
       <a href="support.html">Support</a>
     </nav>
-    <a class="btn small header-cta" href="#install">Get the beta</a>
+    <a class="btn small header-cta" href="https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok">Add to Chrome</a>
     <details class="menu">
       <summary aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
       <div class="menu-panel">
-        <a href="#what">What it does</a>
-        <a href="#screens">Screenshots</a>
-        <a href="#how">How it works</a>
+        <a href="#demo">Product</a>
+        <a href="#autonomy">Autonomy</a>
+        <a href="#models">Your model</a>
+        <a href="#console">Console</a>
+        <a href="#compare">Compare</a>
         <a href="#install">Install</a>
         <a href="support.html">Support</a>
         <a href="privacy.html">Privacy</a>
-        <a class="btn small" href="#install">Get the beta</a>
+        <a class="btn small" href="https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok">Add to Chrome</a>
       </div>
     </details>
   </div>
 </header>
 
 <main id="main">
-  <section class="hero">
+  <section class="hero scope-dark" id="demo">
     <div class="wrap">
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow">A self-hosted browser assistant <span class="sep">/</span> <span class="eyebrow-alt">Beta for macOS</span></p>
-          <h1>A more capable browser, <em>on your terms.</em></h1>
-          <p class="lede">Meet Vicaro, the assistant that reads, clicks and works alongside you in the Chrome you already use. Your model, your machine, your control.</p>
-          <div class="cta">
-            <a class="btn arrow" href="#install">Get Vicaro for Mac</a>
-            <a class="btn ghost" href="#screens">Explore the product</a>
-          </div>
-          <ul class="hero-meta">
-            <li>Free while in beta</li>
-            <li>Google or email sign-in</li>
-            <li>Your model, your machine</li>
-          </ul>
+      <div class="hero-copy">
+        <p class="eyebrow">Browser agent for Chrome <span class="sep">/</span> Beta for macOS</p>
+        <h1>Your Chrome. Your model. <em>Your rules.</em></h1>
+        <p class="lede">Vicaro is an AI agent in Chrome's side panel. It reads your tabs, clicks, types and finishes the job in the browser you're already signed into, on a local model or any provider you choose, and it stops wherever you tell it to.</p>
+        <div class="cta">
+          <a class="btn arrow" href="https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok">Add to Chrome, it's free</a>
+          <a class="btn ghost" href="#autonomy">See how it stays in bounds</a>
         </div>
+        <p class="hero-req">macOS 13.5+ · Chrome 116+ · then one Terminal command for the helper</p>
+        <ul class="hero-meta">
+          <li>Ollama, LM Studio or any OpenAI-compatible API</li>
+          <li>No Vicaro server in the middle</li>
+          <li>No telemetry</li>
+        </ul>
+        <p class="hero-honest">Beta software that takes real actions. <a href="#safety">Read the safety notes</a></p>
+      </div>
 
-        <div class="hero-visual" aria-label="Illustration of the Vicaro side panel summarizing an article in Chrome">
-          <div class="visual-topline"><span>Made for the way you work</span><span>01 / THE WORKSPACE</span></div>
-          <div class="browser">
-            <div class="browser-bar" aria-hidden="true">
-              <span class="dots"><i></i><i></i><i></i></span>
-              <span class="browser-tab"><span class="tab-dot"></span><span>Field notes: the browser as a workspace</span></span>
+      <div class="hero-visual">
+        <div class="replay-tabs" role="tablist" aria-label="Demo scenarios">
+          <button class="replay-tab" role="tab" id="tab-inbox" aria-selected="true" aria-controls="replay-frame" data-scenario="inbox">Inbox cleanup</button>
+          <button class="replay-tab" role="tab" id="tab-collect" aria-selected="false" aria-controls="replay-frame" data-scenario="collect" tabindex="-1">Collect listings</button>
+          <button class="replay-tab" role="tab" id="tab-fill" aria-selected="false" aria-controls="replay-frame" data-scenario="fill" tabindex="-1">Fill from a file</button>
+          <span class="replay-ctl">
+            <button class="replay-btn" type="button" id="replay-step" hidden>Step<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M8 5l-5 3V2z"/></svg></button>
+            <button class="replay-btn" type="button" id="replay-pause" hidden aria-pressed="false"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1h2v8H2zM6 1h2v8H6z"/></svg><span>Pause</span></button>
+          </span>
+        </div>
+        <div class="browser" id="replay-frame" role="tabpanel" aria-labelledby="tab-inbox">
+          <div class="browser-bar" aria-hidden="true">
+            <span class="dots"><i></i><i></i><i></i></span>
+            <span class="browser-tab"><span class="tab-dot"></span><span id="replay-tabtitle">Inbox — 214 conversations</span></span>
+          </div>
+          <div class="browser-body">
+            <div class="page-mock scope-light" id="replay-page">
+              <div class="pm-head"><h3 class="pm-title">Inbox</h3><span class="pm-sub">214 conversations</span></div>
+              <ul class="pm-rows">
+                <li class="pm-row"><span class="pm-avatar"></span><span class="pm-who"><b>Maya from Ops</b><span>Re: Thursday deploy window</span></span></li>
+                <li class="pm-row"><span class="pm-avatar"></span><span class="pm-who"><b>Jordan Lee</b><span>Contract draft — second pass</span></span></li>
+                <li class="pm-row"><span class="pm-avatar"></span><span class="pm-who"><b>Bank alerts</b><span>Your statement is ready</span></span></li>
+                <li class="pm-row"><span class="pm-avatar"></span><span class="pm-who"><b>Priya Nair</b><span>Lunch next week?</span></span></li>
+                <li class="pm-row"><span class="pm-avatar"></span><span class="pm-who"><b>Calendar</b><span>Invite: design review, Tue 2pm</span></span></li>
+              </ul>
+              <p class="pm-toast">37 conversations archived</p>
+              <span class="pm-fade" aria-hidden="true"></span>
             </div>
-            <div class="browser-body">
-              <div class="page-mock" aria-hidden="true">
-                <p class="mock-kicker">Field notes / 04</p>
-                <h3>The browser is the workspace.</h3>
-                <p class="byline"><i></i> Mira Chen &middot; 6 min read</p>
-                <p>Tabs used to be a place to read. Now they are where the work happens: research, drafts, purchases, and the admin in between.</p>
-                <p>The assistant should meet you there, with the logins and context you already have, instead of asking you to copy the page into another window.</p>
-                <div class="mock-card">
-                  <b>Three shifts</b>
-                  <span></span><span></span><span></span>
+            <div class="vp">
+              <div class="vp-head">
+                <svg class="vpm" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14.4" fill="#2F6FD6"/><path d="M19.2 21.12 L32 42.24 L44.8 21.12" fill="none" stroke="#fff" stroke-width="10.24" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <b>Vicaro</b>
+                <span class="vp-status" id="replay-status"><i></i>Done</span>
+              </div>
+              <div class="vp-stream" id="replay-stream">
+                <div class="vp-user"><p>Archive newsletters older than 30 days.</p></div>
+                <p class="vp-label"><b>VICARO</b> · NOW</p>
+                <details class="vp-fold"><summary>THOUGHTS · 21 WORDS</summary><div class="vp-fold-in">Newsletters older than 30 days: select them, then archive. The Archive control is in the toolbar.</div></details>
+                <details class="vp-fold"><summary>TRACE · 4 ACTIONS · 2.1S</summary><div class="vp-fold-in">rows_list · rows_select · click_named · read_state</div></details>
+                <div class="vp-tools">
+                  <div class="vp-tool"><span class="vp-tn">rows_list</span><span class="vp-tr">214 rows</span></div>
+                  <div class="vp-tool"><span class="vp-tn">rows_select</span><span class="vp-tr">37 newsletters selected</span></div>
+                  <div class="vp-tool"><span class="vp-tn">click_named</span><span class="vp-tr">Archive</span></div>
+                </div>
+                <p class="vp-receipt">Archived 37 · verified · 4 actions · 2.1s</p>
+                <div class="vp-answer"><p>Done. I archived <b>37 newsletter threads</b> older than 30 days. Everything else in the inbox is untouched.</p></div>
+              </div>
+              <div class="vp-foot">
+                <div class="vp-stats" id="replay-statsline"><i></i><span id="replay-stats">48 tok/s · prefill 410 tok/s · ctx 6%</span></div>
+                <div class="vp-composer">
+                  <span class="vp-attach" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.4 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.2-9.19a4 4 0 015.65 5.66l-9.2 9.19a2 2 0 01-2.82-2.83l8.49-8.48"/></svg></span>
+                  <span class="vp-input">Steer or interrupt…</span>
+                  <span class="vp-modepill" id="replay-mode">Ask first</span>
+                  <span class="vp-model" id="replay-model">qwen3 · Ollama · local</span>
+                  <span class="vp-send" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
                 </div>
               </div>
-              <div class="panel-preview">
-                <img src="assets/shots/panel-hero.webp" width="800" height="1720" alt="Vicaro side panel with a summary of the current article" fetchpriority="high">
+            </div>
+          </div>
+        </div>
+        <p class="replay-caption"><span class="dot"></span> Illustrative replay. Tool names are real.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="works">
+    <div class="wrap">
+      <span class="w-label">Works with</span>
+      <span class="w-name">Ollama</span><span class="w-sep"></span>
+      <span class="w-name">LM Studio</span><span class="w-sep"></span>
+      <span class="w-name">mlx</span><span class="w-sep"></span>
+      <span class="w-name">vLLM</span><span class="w-sep"></span>
+      <span class="w-name">OpenAI</span><span class="w-sep"></span>
+      <span class="w-name">OpenCode</span><span class="w-sep"></span>
+      <span class="w-name">any OpenAI-compatible endpoint</span>
+    </div>
+  </div>
+
+  <section class="section" id="autonomy">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker">Autonomy</p>
+          <h2>You decide where it <em>stops.</em></h2>
+          <p class="sub">Five modes, one click in Settings. The same task, gated differently.</p>
+        </div>
+      </div>
+      <div class="mode-grid">
+        <div>
+          <fieldset class="dial" id="mode-dial">
+            <legend>Autonomy mode</legend>
+            <label class="dial-opt"><input type="radio" name="automode" value="readonly"><span class="dial-face"><span class="dial-pos">1</span><span class="dial-name">Read only</span></span></label>
+            <label class="dial-opt"><input type="radio" name="automode" value="askfirst" checked><span class="dial-face"><span class="dial-pos">2</span><span class="dial-name">Ask first</span></span></label>
+            <label class="dial-opt"><input type="radio" name="automode" value="light"><span class="dial-face"><span class="dial-pos">3</span><span class="dial-name">Light touch</span></span></label>
+            <label class="dial-opt"><input type="radio" name="automode" value="full"><span class="dial-face"><span class="dial-pos">4</span><span class="dial-name">Full auto</span></span></label>
+            <label class="dial-opt"><input type="radio" name="automode" value="super"><span class="dial-face"><span class="dial-pos">5</span><span class="dial-name">Super</span></span></label>
+          </fieldset>
+          <p class="mode-hint" id="mode-hint">I pause before anything that changes a page — clicks, typing, navigation.</p>
+        </div>
+        <div>
+          <ol class="mode-task" id="mode-task">
+            <li><span class="mt-name">Read the cart page<span class="mt-kind">read</span></span><span class="mt-badge run">Runs</span></li>
+            <li><span class="mt-name">Set quantity to 2<span class="mt-kind">fill</span></span><span class="mt-badge ask">Asks</span></li>
+            <li><span class="mt-name">Click "Continue to checkout"<span class="mt-kind">click</span></span><span class="mt-badge ask">Asks</span></li>
+            <li><span class="mt-name">Click "Pay now"<span class="mt-kind">click on a payment control</span></span><span class="mt-badge ask">Asks</span></li>
+          </ol>
+          <p class="mode-note" id="mode-note"></p>
+          <ul class="mode-facts">
+            <li>Approval cards show the exact action, not a summary.</li>
+            <li>If the page changes while a card is open, the card is cancelled.</li>
+            <li>Every decision is logged, including the ones that ran automatically.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="models">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker">Your model</p>
+          <h2>Pick the model. <em>See where your data goes.</em></h2>
+        </div>
+      </div>
+      <fieldset class="model-sel" id="model-sel">
+        <legend>Model endpoint</legend>
+        <label class="model-opt"><input type="radio" name="endpoint" value="ollama" checked><span><i class="local"></i>Ollama</span></label>
+        <label class="model-opt"><input type="radio" name="endpoint" value="lmstudio"><span><i class="local"></i>LM Studio</span></label>
+        <label class="model-opt"><input type="radio" name="endpoint" value="lan"><span><i class="lan"></i>mlx / vLLM on your LAN</span></label>
+        <label class="model-opt"><input type="radio" name="endpoint" value="openai"><span><i class="hosted"></i>OpenAI</span></label>
+        <label class="model-opt"><input type="radio" name="endpoint" value="opencode"><span><i class="hosted"></i>OpenCode</span></label>
+        <label class="model-opt"><input type="radio" name="endpoint" value="custom"><span><i class="hosted"></i>Custom endpoint</span></label>
+      </fieldset>
+      <div class="flow" id="model-flow" data-scope="local">
+        <div class="fl-lan">
+          <span class="fl-label">Your network</span>
+          <div class="fl-mac">
+            <span class="fl-label">Your Mac</span>
+            <div class="fl-pair">
+              <div class="fl-node"><b>Chrome extension</b><small>side panel · your profile</small></div>
+              <span class="fl-arrow" aria-hidden="true"><i class="fl-pkt"></i>→</span>
+              <div class="fl-node"><b>Vicaro Helper</b><small>runs on this Mac</small></div>
+            </div>
+            <span class="fl-slot">
+              <span class="fl-link" aria-hidden="true"><span class="fl-arrow"><i class="fl-pkt"></i>→</span></span>
+              <span class="fl-ep" id="ep-local">
+                <span class="fl-node" id="flow-ep"><b id="flow-ep-name">Ollama</b><small id="flow-ep-sub">localhost · OpenAI-compatible</small></span>
+              </span>
+            </span>
+          </div>
+          <span class="fl-slot">
+            <span class="fl-link" aria-hidden="true"><span class="fl-arrow"><i class="fl-pkt"></i>→</span></span>
+            <span class="fl-ep" id="ep-lan"></span>
+          </span>
+        </div>
+        <span class="fl-slot fl-slot-out">
+          <span class="fl-link" aria-hidden="true"><span class="fl-arrow"><i class="fl-pkt"></i>→</span><b class="fl-x" id="fl-x-out"></b></span>
+          <span class="fl-ep" id="ep-out"></span>
+        </span>
+      </div>
+      <p class="model-line" id="model-line">A local model keeps page content and chat on this Mac.</p>
+      <div class="model-grid">
+        <p class="model-fine">Sign-in verifies who you are through Google or an email link. No chats, pages or memories go to Google or Firebase.</p>
+        <ul class="model-facts">
+          <li>Model presets: switch provider and model in one tap. Keys stay in the helper.</li>
+          <li>Text-only model? Vicaro reads the page as text when screenshots aren't supported.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="where">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker">Site-aware</p>
+          <h2>It knows <em>where you are.</em></h2>
+          <p class="sub">Open the panel and it suggests what fits the tab you're on. The same suggestions it shows at home.</p>
+        </div>
+      </div>
+      <div class="where-stage">
+        <div>
+          <div class="where-tabs" role="tablist" aria-label="Site types" id="where-tabs">
+            <button class="where-tab" role="tab" id="wtab-mail" aria-selected="true" aria-controls="wpanel-mail" data-where="mail">Mail</button>
+            <button class="where-tab" role="tab" id="wtab-github" aria-selected="false" aria-controls="wpanel-github" data-where="github" tabindex="-1">GitHub</button>
+            <button class="where-tab" role="tab" id="wtab-youtube" aria-selected="false" aria-controls="wpanel-youtube" data-where="youtube" tabindex="-1">YouTube</button>
+            <button class="where-tab" role="tab" id="wtab-shopping" aria-selected="false" aria-controls="wpanel-shopping" data-where="shopping" tabindex="-1">Shopping</button>
+            <button class="where-tab" role="tab" id="wtab-docs" aria-selected="false" aria-controls="wpanel-docs" data-where="docs" tabindex="-1">Docs</button>
+            <button class="where-tab" role="tab" id="wtab-calendar" aria-selected="false" aria-controls="wpanel-calendar" data-where="calendar" tabindex="-1">Calendar</button>
+          </div>
+          <div class="where-copy">
+            <p>Mail gets reply drafts and inbox summaries. Repos get change reviews. Shops get review digests and price checks. Suggestions come from the tab, not from a script you have to remember.</p>
+            <p>Suggestions follow the site you're on. Vicaro reads page content only on sites you've granted, when you send a task.</p>
+          </div>
+        </div>
+        <div class="where-panel scope-dark" id="where-stage">
+          <div class="vp-head">
+            <svg class="vpm" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14.4" fill="#2F6FD6"/><path d="M19.2 21.12 L32 42.24 L44.8 21.12" fill="none" stroke="#fff" stroke-width="10.24" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <b>Vicaro</b>
+            <span class="vp-status"><i></i>Ready</span>
+          </div>
+          <div class="sugg-list" id="wpanel-mail" role="tabpanel" aria-labelledby="wtab-mail">
+            <span class="sugg"><b>What needs a reply?</b><span>Look through unread mail</span></span>
+            <span class="sugg"><b>Summarize my unread mail</b><span>Key points from the inbox</span></span>
+            <span class="sugg"><b>Draft a reply to this email</b><span>Uses the message you have open</span></span>
+          </div>
+          <div class="sugg-list" id="wpanel-github" role="tabpanel" aria-labelledby="wtab-github" hidden>
+            <span class="sugg"><b>Summarize this page</b><span>The issue, PR or repo you're on</span></span>
+            <span class="sugg"><b>What changed recently?</b><span>Recent commits and activity</span></span>
+            <span class="sugg"><b>Check my open tabs</b><span>See what's waiting for you</span></span>
+          </div>
+          <div class="sugg-list" id="wpanel-youtube" role="tabpanel" aria-labelledby="wtab-youtube" hidden>
+            <span class="sugg"><b>Summarize this video</b><span>From the description and transcript</span></span>
+            <span class="sugg"><b>Find the key moments</b><span>Chapters and timestamps</span></span>
+            <span class="sugg"><b>Check my open tabs</b><span>See what's waiting for you</span></span>
+          </div>
+          <div class="sugg-list" id="wpanel-shopping" role="tabpanel" aria-labelledby="wtab-shopping" hidden>
+            <span class="sugg"><b>Summarize the reviews</b><span>Pros and cons from buyers</span></span>
+            <span class="sugg"><b>Compare prices</b><span>Look for this item elsewhere</span></span>
+            <span class="sugg"><b>Check my open tabs</b><span>See what's waiting for you</span></span>
+          </div>
+          <div class="sugg-list" id="wpanel-docs" role="tabpanel" aria-labelledby="wtab-docs" hidden>
+            <span class="sugg"><b>Summarize this document</b><span>The doc you're reading</span></span>
+            <span class="sugg"><b>List the action items</b><span>Tasks, owners and dates</span></span>
+            <span class="sugg"><b>Check my open tabs</b><span>See what's waiting for you</span></span>
+          </div>
+          <div class="sugg-list" id="wpanel-calendar" role="tabpanel" aria-labelledby="wtab-calendar" hidden>
+            <span class="sugg"><b>What's on today?</b><span>Your schedule at a glance</span></span>
+            <span class="sugg"><b>Find a free slot this week</b><span>Gaps between meetings</span></span>
+            <span class="sugg"><b>Check my open tabs</b><span>See what's waiting for you</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="beyond">
+    <div class="wrap beyond-grid">
+      <div class="beyond-copy">
+        <p class="kicker">Local machine</p>
+        <h2>Your files and your browser, <em>in the same turn.</em></h2>
+        <p>A cloud browser can't open your files. A browser-only extension can't either. Vicaro can read a folder on this Mac, then turn around and fill the launch form open in your tab — one prompt, both sides.</p>
+        <p class="beyond-note">Off by default. Turn it on in Settings → Local machine and choose the folders it may use. Writes and shell commands ask first.</p>
+      </div>
+      <div class="beyond-vis">
+        <div class="term-card scope-dark">
+          <span class="t-cmd">fs_list ~/launch-kit</span>
+          <ul class="t-out">
+            <li>tagline.md</li>
+            <li>pricing.md</li>
+            <li class="t-dir">screenshots/</li>
+          </ul>
+        </div>
+        <div class="form-card scope-light">
+          <h4>Product launch — submission</h4>
+          <div class="pm-field"><label>Product name</label><div class="pm-input">Vicaro</div></div>
+          <div class="pm-field"><label>Tagline</label><div class="pm-input">An AI agent for the Chrome you already use</div></div>
+          <div class="pm-field"><label>Pricing</label><div class="pm-input">Free in beta</div></div>
+          <div class="pm-field"><label>Screenshots</label><div class="pm-input">3 files attached</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dots-bg" id="jobs">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker">Real jobs</p>
+          <h2>Built for real jobs, <em>not just summaries.</em></h2>
+        </div>
+      </div>
+      <div class="jobs-grid">
+        <article class="job-card">
+          <p class="job-prompt">Collect every listing across 5 pages into a table</p>
+          <div class="job-tools"><span>collect_records</span></div>
+          <span class="job-mode m-read">Read only</span>
+        </article>
+        <article class="job-card">
+          <p class="job-prompt">Select the newsletters and archive them</p>
+          <div class="job-tools"><span>rows_list</span><span>rows_select</span><span>click_named</span></div>
+          <span class="job-mode m-ask">Ask first</span>
+        </article>
+        <article class="job-card">
+          <p class="job-prompt">Fill this form from my resume</p>
+          <div class="job-tools"><span>fs_read</span><span>inspect_form</span><span>fill_form</span></div>
+          <span class="job-mode m-ask">Ask first</span>
+        </article>
+        <article class="job-card">
+          <p class="job-prompt">Compare these 4 tabs and tell me which plan is cheapest</p>
+          <div class="job-tools"><span>read_tab ×4 in parallel</span><span>without switching your view</span></div>
+          <span class="job-mode m-read">Read only</span>
+        </article>
+        <article class="job-card">
+          <p class="job-prompt">Download last month's invoice and read it</p>
+          <div class="job-tools"><span>capture_download</span><span>read_download</span></div>
+          <span class="job-mode m-light">Light touch</span>
+        </article>
+        <article class="job-card">
+          <p class="job-prompt">Why is this page slow?</p>
+          <div class="job-tools"><span>performance_metrics</span><span>network_log</span><span>console_logs</span></div>
+          <span class="job-mode m-read">Read only</span>
+        </article>
+        <article class="job-card">
+          <p class="job-prompt">Pick a table on the page, then ask about it</p>
+          <div class="job-tools"><span>composer “Pick a table”</span><span>page_extract</span></div>
+          <span class="job-mode m-read">Read only</span>
+        </article>
+        <article class="job-card">
+          <p class="job-prompt">Remember my shipping address</p>
+          <div class="job-tools"><span>memory_save</span></div>
+          <span class="job-mode m-any">any mode</span>
+        </article>
+      </div>
+      <p class="jobs-foot">75 browser tools, opt-in local files and shell, memory, skills from ClawHub, the MCP servers you configure, and MCP hosts like Cursor and Claude Code that can drive it.</p>
+    </div>
+  </section>
+
+  <section class="section" id="receipts">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker">Audit</p>
+          <h2>Receipts, <em>not vibes.</em></h2>
+        </div>
+      </div>
+      <div class="receipts-grid">
+        <div class="audit">
+          <div class="audit-head">
+            <div>
+              <span class="a-kicker">Audit</span>
+              <h3>Activity</h3>
+              <p class="a-sub">Every tool call, the decision behind it, and what it returned.</p>
+            </div>
+            <div class="a-right">
+              <span class="a-conn"><i></i>Connected</span>
+              <span class="a-export"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>Export JSONL</span>
+            </div>
+          </div>
+          <div class="a-counts">
+            <div class="a-count"><span>Calls</span><b>4</b></div>
+            <div class="a-count"><span>Allowed</span><b>1</b></div>
+            <div class="a-count"><span>Asked</span><b>2</b></div>
+            <div class="a-count"><span>Denied</span><b>1</b></div>
+            <div class="a-count"><span>Failed</span><b>2</b></div>
+          </div>
+          <div class="a-table">
+            <div class="a-row">
+              <div class="a-tool"><b>browser.read_tab</b><span>Read the controlled demo page</span></div>
+              <span class="a-chip read">READ</span><span class="a-chip allow">ALLOW</span><span class="a-chip ok">ok</span>
+            </div>
+            <div class="a-row">
+              <div class="a-tool"><b>browser.fill_form</b><span>Filled Name with Alex</span></div>
+              <span class="a-chip write">WRITE</span><span class="a-chip ask">ASK</span><span class="a-chip ok">ok</span>
+            </div>
+            <div class="a-row">
+              <div class="a-tool"><b>browser.click</b><span>Clicked Save</span><span class="a-why">The page changed during review</span></div>
+              <span class="a-chip write">WRITE</span><span class="a-chip ask">ASK</span><span class="a-chip fail">FAILED</span>
+            </div>
+            <div class="a-row">
+              <div class="a-tool"><b>computer.shell_run</b><span>Attempted a shell command</span><span class="a-why">Read-only mode denies execution</span></div>
+              <span class="a-chip exec">EXECUTE</span><span class="a-chip deny">DENY</span><span class="a-chip fail">FAILED</span>
+            </div>
+          </div>
+        </div>
+        <div class="receipts-copy">
+          <ul>
+            <li><b>Durable runs.</b> If the helper restarts mid-task, a run that already changed the page waits for you to Resume or Stop. It never replays an action blindly.</li>
+            <li><b>Chat history is encrypted on your Mac.</b></li>
+            <li><b>Live tok/s, prefill speed and context use</b> while it works.</li>
+          </ul>
+          <p class="illus">From the web console's Activity page. Illustrative data; tool names and decisions are real.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="console">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker">Web console</p>
+          <h2>A full console for <em>the work it does.</em></h2>
+        </div>
+        <p class="sub">Vicaro Helper includes a web console that runs on your Mac. Open it with Open web UI in the menu bar, or from the side panel.</p>
+      </div>
+      <div class="console-grid">
+        <div>
+          <div class="console-app scope-dark" aria-label="Illustrative replica of the Vicaro web console">
+            <div class="ca-side">
+              <div class="ca-brand"><svg class="vpm" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14.4" fill="#2F6FD6"/><path d="M19.2 21.12 L32 42.24 L44.8 21.12" fill="none" stroke="#fff" stroke-width="10.24" stroke-linecap="round" stroke-linejoin="round"/></svg>Vicaro</div>
+              <p class="ca-sec">Operate</p>
+              <span class="ca-item">Home</span>
+              <span class="ca-item on">Needs you<span class="ca-badge">2</span></span>
+              <span class="ca-item">Work</span>
+              <span class="ca-item">Chats</span>
+              <span class="ca-item">Activity</span>
+              <p class="ca-sec">Assistant</p>
+              <span class="ca-item">Tools</span>
+              <span class="ca-item">Skills</span>
+              <span class="ca-item">Connections</span>
+              <p class="ca-sec">System</p>
+              <span class="ca-item">Models</span>
+              <span class="ca-item">Autonomy</span>
+              <span class="ca-item">Settings</span>
+            </div>
+            <div class="ca-main">
+              <div class="ca-head">
+                <h3>Needs you</h3>
+                <p>One inbox for every decision the assistant is waiting on.</p>
+              </div>
+              <div class="ca-row">
+                <div class="ca-info">
+                  <b>Archive 37 conversations</b>
+                  <code>click_named { name: "Archive" }</code>
+                  <span>Inbox cleanup · mail tab</span>
+                </div>
+                <div class="ca-btns"><span class="ca-allow">Allow</span><span class="ca-deny">Deny</span></div>
+              </div>
+              <div class="ca-row">
+                <div class="ca-info">
+                  <b>Submit application</b>
+                  <code>fill_form → Submit</code>
+                  <span>Fill from a file · job form</span>
+                </div>
+                <div class="ca-btns"><span class="ca-allow">Allow</span><span class="ca-deny">Deny</span></div>
               </div>
             </div>
           </div>
-          <p class="hero-status"><span class="dot"></span> An assistant in your browser <span class="sep">/</span> An illustrative preview</p>
+          <p class="illus" style="margin-top:12px">Illustrative.</p>
+        </div>
+        <div class="console-tiles">
+          <div class="ctile"><b>Needs you</b><p>One inbox for every decision the assistant is waiting on.</p></div>
+          <div class="ctile"><b>Work</b><p>Delegated tasks with their attempts, effects and verified outcomes.</p></div>
+          <div class="ctile"><b>Schedules</b><p>Run a task once at a set time, or on repeat. Your Mac needs to be awake and the helper running.</p></div>
+          <div class="ctile"><b>Activity</b><p>The permission audit ledger, exportable as JSONL.</p></div>
+          <div class="ctile"><b>Tools &amp; Skills</b><p>Per-tool modes override the global policy. Install skills from the ClawHub marketplace.</p></div>
+          <div class="ctile"><b>Connections</b><p>Connected devices with one-click revoke, and MCP hosts: install Vicaro into Cursor, Claude Code, Claude Desktop, Codex, VS Code, Windsurf, Grok Build or opencode.</p></div>
         </div>
       </div>
-
-      <div class="beta-band" role="note">
-        <span class="icon" aria-hidden="true">!</span>
-        <p><strong>Beta software.</strong> It can click, type, submit forms, make purchases, delete data, and change account settings. Review every action before you approve it.</p>
-        <a href="#safety">Read the safety notes</a>
-      </div>
     </div>
   </section>
 
-  <section class="section tight" id="about">
-    <div class="wrap about-grid">
-      <div>
-        <p class="kicker">What is Vicaro?</p>
-        <h2>A self-hosted browser agent for Chrome.</h2>
-        <p>Vicaro is an AI assistant that runs in Chrome's side panel and acts on the browser you already use. It reads open tabs, clicks, types, and reports back. A small helper on your Mac runs the loop and talks to the model you choose.</p>
-        <p>Unlike a hosted browser agent, Vicaro does not run your pages in a vendor cloud. The helper, history and memories stay on your machine, and page content goes only to the model endpoint you configure.</p>
-      </div>
-      <dl class="facts">
-        <div><dt>Category</dt><dd>Browser agent and AI assistant</dd></div>
-        <div><dt>Runs on</dt><dd>macOS 13.5+ and Chrome 116+</dd></div>
-        <div><dt>Model</dt><dd>Local server or any OpenAI-compatible endpoint</dd></div>
-        <div><dt>Price</dt><dd>Free while in beta</dd></div>
-        <div><dt>Data</dt><dd>Local SQLite, no telemetry</dd></div>
-        <div><dt>Source</dt><dd>Closed source, self-hosted helper</dd></div>
-      </dl>
-    </div>
-  </section>
-
-  <section class="section" id="what">
+  <section class="section alt" id="compare">
     <div class="wrap">
       <div class="section-head">
         <div>
-          <p class="kicker">What it does</p>
-          <h2>More than a window to chat.</h2>
-          <p class="sub">Vicaro sees the tab you are on, acts inside it, and checks the result before it answers.</p>
+          <p class="kicker">Compare</p>
+          <h2>How Vicaro compares</h2>
         </div>
       </div>
-      <div class="features">
-        <article class="feature">
-          <span class="fico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5M12 13h5M12 16h3"/></svg></span>
-          <div><h3>Reads what you see</h3><p>Open tabs, the page in front of you, and the interactive elements behind it, with the logins you already have.</p></div>
-        </article>
-        <article class="feature">
-          <span class="fico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l7.5 16 2.2-6.3L20 11.5 4 4z"/></svg></span>
-          <div><h3>Acts, then checks</h3><p>Clicks, types, scrolls and navigates. After anything that changes the page, it verifies the result before continuing.</p></div>
-        </article>
-        <article class="feature">
-          <span class="fico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.4-3 8.2-7 10-4-1.8-7-5.6-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
-          <div><h3>Asks before damage</h3><p>Purchases, deletes, sends and uploads always stop for your Allow. In lighter modes, reads and simple navigation can run without a prompt.</p></div>
-        </article>
-        <article class="feature">
-          <span class="fico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg></span>
-          <div><h3>Shows its work</h3><p>Every action and observation becomes a receipt in the thread, with the page evidence it used.</p></div>
-        </article>
+      <div class="compare-wrap">
+        <table class="compare">
+          <thead>
+            <tr>
+              <th scope="col"><span class="vh">Feature</span></th>
+              <th scope="col" class="vicaro-col"><span class="compare-head"><svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14.4" fill="#2F6FD6"/><path d="M19.2 21.12 L32 42.24 L44.8 21.12" fill="none" stroke="#fff" stroke-width="10.24" stroke-linecap="round" stroke-linejoin="round"/></svg>Vicaro</span></th>
+              <th scope="col">Claude in Chrome</th>
+              <th scope="col">Perplexity Comet</th>
+              <th scope="col">ChatGPT cloud browser</th>
+              <th scope="col">BrowserOS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Where it runs</th>
+              <td class="vicaro-col">Your Chrome profile</td>
+              <td>Your Chrome profile</td>
+              <td>Its own browser</td>
+              <td>A cloud computer</td>
+              <td>Its own browser</td>
+            </tr>
+            <tr>
+              <th scope="row">Models</th>
+              <td class="vicaro-col">Any OpenAI-compatible, incl. local</td>
+              <td>Claude only</td>
+              <td>Perplexity's models</td>
+              <td>OpenAI only</td>
+              <td>Connects your agents</td>
+            </tr>
+            <tr>
+              <th scope="row">Page content goes to</th>
+              <td class="vicaro-col">Your model endpoint only</td>
+              <td>Anthropic's cloud</td>
+              <td>Perplexity's cloud</td>
+              <td>OpenAI's cloud</td>
+              <td>Stays local</td>
+            </tr>
+            <tr>
+              <th scope="row">Price</th>
+              <td class="vicaro-col">Free in beta</td>
+              <td>Paid Claude plans</td>
+              <td>Free</td>
+              <td>Paid ChatGPT plans</td>
+              <td>Free</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </div>
-  </section>
-
-  <section class="section" id="screens">
-    <div class="wrap">
-      <div class="section-head">
-        <div>
-          <p class="kicker">A closer look</p>
-          <h2>See Vicaro in action.</h2>
-          <p class="sub">The panel, the model settings, and the beta warning users see before they let it act.</p>
-        </div>
-      </div>
-      <div class="gallery">
-        <figure class="shot">
-          <a href="assets/shots/01-ask-any-tab.png" target="_blank" rel="noopener"><img src="assets/shots/01-ask-any-tab.webp" srcset="assets/shots/01-ask-any-tab-640.webp 640w, assets/shots/01-ask-any-tab.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 580px" width="1280" height="800" loading="lazy" decoding="async" alt="Vicaro side panel answering a question about the current page"></a>
-          <figcaption><span><b>Ask about any tab.</b> The panel reads the page and answers in place.</span><span class="open">OPEN 01</span></figcaption>
-        </figure>
-        <figure class="shot">
-          <a href="assets/shots/03-your-model.png" target="_blank" rel="noopener"><img src="assets/shots/03-your-model.webp" srcset="assets/shots/03-your-model-640.webp 640w, assets/shots/03-your-model.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 580px" width="1280" height="800" loading="lazy" decoding="async" alt="Vicaro model settings pointed at a local OpenAI-compatible endpoint"></a>
-          <figcaption><span><b>Your model, your machine.</b> A local server or any OpenAI-compatible endpoint.</span><span class="open">OPEN 02</span></figcaption>
-        </figure>
-        <figure class="shot">
-          <a href="assets/shots/04-beta-guardrails.png" target="_blank" rel="noopener"><img src="assets/shots/04-beta-guardrails.webp" srcset="assets/shots/04-beta-guardrails-640.webp 640w, assets/shots/04-beta-guardrails.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 580px" width="1280" height="800" loading="lazy" decoding="async" alt="Vicaro beta warning in Settings explaining possible loss of money, data or access"></a>
-          <figcaption><span><b>Beta, with guardrails.</b> The warning is in Settings, not buried in a FAQ.</span><span class="open">OPEN 03</span></figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="how">
-    <div class="wrap">
-      <div class="section-head">
-        <div>
-          <p class="kicker">How it works</p>
-          <h2>Three parts, all yours.</h2>
-          <p class="sub">The thinking runs on your machine. The browser is the interface. There is no Vicaro server in the middle.</p>
-        </div>
-      </div>
-      <ol class="steps">
-        <li class="step">
-          <h3>Add the extension</h3>
-          <p>A Chrome side panel. You grant page access per site, the first time you use it. The extension has no broad host grant.</p>
-          <span class="step-tag">Chrome 116+</span>
-        </li>
-        <li class="step">
-          <h3>Install the helper</h3>
-          <p>A small menu-bar app. It holds the model connection, history and memories, locally.</p>
-          <span class="step-tag">macOS app</span>
-        </li>
-        <li class="step">
-          <h3>Point it at a model</h3>
-          <p>Ollama, LM Studio, mlx or vLLM on your LAN, or any OpenAI-compatible endpoint with your key.</p>
-          <span class="step-tag">Local or hosted</span>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="section" id="model">
-    <div class="wrap split">
-      <div>
-        <p class="kicker">Self-hosted by design</p>
-        <h2>Your model. Your machine.</h2>
-        <p>Vicaro does not ship a default model and does not run a fallback. You choose the endpoint that sees your pages, whether that is a server on this Mac, a machine on your LAN, or a provider you already pay for.</p>
-        <ul class="checks">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Sign in once with Google or email link — browsers connect automatically</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> No analytics, no telemetry, no ad identifiers</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Chat, tasks and memories stay in the helper's local data directory</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Sign-in verifies identity only — no chats or page content go to Google or Firebase</li>
+      <div class="stronger">
+        <h3>Where they're stronger</h3>
+        <ul>
+          <li><b>Claude in Chrome</b> has a trained safety classifier, published prompt-injection evaluations and cross-platform support.</li>
+          <li><b>ChatGPT's cloud browser</b> needs no setup and keeps working after you close the laptop.</li>
+          <li><b>Comet</b> is a free, polished, cross-platform browser.</li>
+          <li><b>BrowserOS</b> is open source, with parallel agents, audit and replay.</li>
         </ul>
       </div>
-      <div class="split-media">
-        <img src="assets/shots/03-your-model.webp" srcset="assets/shots/03-your-model-640.webp 640w, assets/shots/03-your-model.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 560px" width="1280" height="800" loading="lazy" decoding="async" alt="Model settings showing a local endpoint and a saved API key">
-        <p class="split-caption">Settings, Model. The endpoint is yours, and the key stays on your machine.</p>
+      <p class="compare-note">Based on vendor pages as of November 2026. This market changes monthly.</p>
+    </div>
+  </section>
+
+  <section class="section" id="install">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker">Install</p>
+          <h2>Start in a few minutes.</h2>
+          <p class="sub">macOS 13.5+ and Chrome 116+. Linux is in progress. Windows support is coming soon.</p>
+        </div>
       </div>
+      <div class="install-grid">
+        <div class="install-card">
+          <span class="istep">1</span>
+          <h3>Add Vicaro to Chrome</h3>
+          <p>Install the extension from the Chrome Web Store. Its setup tab opens as soon as it is added, and the store keeps it updated.</p>
+          <p><a class="btn arrow" href="https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok">Add to Chrome</a></p>
+          <p class="install-note">Chrome 116+.</p>
+          <details class="script-details">
+            <summary>Want the newest build?</summary>
+            <p>The Chrome Web Store can trail the latest release while a new version is in review. For the newest extension:</p>
+            <ol>
+              <li><a href="https://github.com/sandeshwar/vicaro-public/releases/latest/download/Vicaro-extension.zip">Download <span class="mono">Vicaro-extension.zip</span></a> from the latest GitHub release (<a href="https://github.com/sandeshwar/vicaro-public/releases/latest">release notes</a>).</li>
+              <li>Unzip it.</li>
+              <li>Open <span class="mono">chrome://extensions</span> and turn on Developer mode.</li>
+              <li>Click <strong>Load unpacked</strong> and choose the unzipped folder.</li>
+              <li>Sign in in the new extension to connect it to your helper.</li>
+            </ol>
+            <p>Unpacked builds don't update themselves, so download the zip again for each release. Use either the store version or the zip, not both. Your model settings and chats live in the helper, so switching keeps them.</p>
+          </details>
+        </div>
+        <div class="install-card">
+          <span class="istep">2</span>
+          <h3>Install the helper</h3>
+          <p>The setup tab shows this command (and prompts you to re-run it if an older helper needs upgrading). <span class="mono">install.sh</span> always installs the latest helper release. Once installed, Vicaro Helper 1.5.0 updates itself automatically — you can pause updates anytime from the menu bar.</p>
+          <div class="code scope-dark"><div class="code-bar"><button class="copy" type="button" aria-live="polite" data-copy="install-command">COPY</button></div><code id="install-command" class="multiline">curl -fsSL \
+https://vicaro.creativeducks.com/install.sh \
+| sh</code></div>
+          <p class="install-note">Open Terminal with <span class="mono">⌘Space</span>, type <span class="mono">Terminal</span>, then Return. No <span class="mono">sudo</span>. The installer verifies the download and keeps chats in <span class="mono">~/Library/Application Support/Vicaro</span>.</p>
+          <p class="install-note">No disk image: the helper downloads directly, so macOS does not show the unidentified-developer dialog. We will notarize before offering a GUI installer.</p>
+          <details class="script-details">
+            <summary>What does this script do?</summary>
+            <ul>
+              <li>Detects your Mac (Apple Silicon or Intel)</li>
+              <li>Downloads the helper from GitHub Releases</li>
+              <li>Verifies its SHA-256 checksum</li>
+              <li>Installs <span class="mono">~/Applications/Vicaro Helper.app</span> without sudo</li>
+              <li>Registers a login item and starts the helper</li>
+            </ul>
+            <p>Preview without changing anything:</p>
+            <div class="code"><div class="code-bar"><button class="copy" type="button" aria-live="polite" data-copy="dryrun-command">COPY</button></div><code id="dryrun-command">curl -fsSL https://vicaro.creativeducks.com/install.sh | sh -s -- --dry-run</code></div>
+            <p><a href="install.sh">Read the script</a></p>
+          </details>
+        </div>
+        <div class="install-card">
+          <span class="istep">3</span>
+          <h3>Sign in and pick a model</h3>
+          <p>Sign in with Google or an email link, choose Ollama, LM Studio or a hosted provider, and send your first task.</p>
+          <p class="install-note">Sign-in verifies identity only. No chats, pages or memories go to Google or Firebase.</p>
+        </div>
+      </div>
+      <p class="fine" style="margin-top:18px">Need help? Read <a href="support.html">Support</a> or open an issue on <a href="https://github.com/sandeshwar/vicaro-public/issues">GitHub</a>.</p>
     </div>
   </section>
 
@@ -425,79 +921,138 @@
             <li>Provided as is, without warranty. You are responsible for the actions you approve.</li>
           </ul>
         </div>
-        <img src="assets/shots/04-beta-guardrails.webp" srcset="assets/shots/04-beta-guardrails-640.webp 640w, assets/shots/04-beta-guardrails.webp 1280w" sizes="(max-width: 760px) calc(100vw - 32px), 560px" width="1280" height="800" loading="lazy" decoding="async" alt="Beta warning in Vicaro Settings describing possible loss of money, data or access">
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="install">
-    <div class="wrap">
-      <div class="section-head">
-        <div>
-          <p class="kicker">Install</p>
-          <h2>Start in a few minutes.</h2>
-          <p class="sub">macOS 13.5+ and Chrome 116+. The Linux helper is in progress. Windows is not supported yet.</p>
+        <div class="safety-card scope-dark" aria-hidden="true">
+          <div class="vp-head">
+            <svg class="vpm" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14.4" fill="#2F6FD6"/><path d="M19.2 21.12 L32 42.24 L44.8 21.12" fill="none" stroke="#fff" stroke-width="10.24" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <b>Vicaro</b>
+            <span class="vp-status need"><i></i>Needs you</span>
+          </div>
+          <div class="vp-confirm">
+            <div class="vp-c-head">Click "Pay now"?<span class="vp-c-risk">WRITE</span></div>
+            <code class="vp-c-cmd">click_named { name: "Pay now" }</code>
+            <p class="vp-c-target">Checkout · button "Pay now"</p>
+            <p class="vp-c-note">Pay, Delete, Send and Submit buttons get an extra check.</p>
+            <div class="vp-c-actions">
+              <button type="button" class="vp-allow" tabindex="-1">Allow</button>
+              <button type="button" class="vp-deny" tabindex="-1">Deny</button>
+            </div>
+          </div>
+          <p class="sc-cap">Illustrative.</p>
         </div>
       </div>
-      <div class="install-grid">
-        <div class="install-card">
-          <h3>1. Add Vicaro to Chrome</h3>
-          <p>Install the extension from the Chrome Web Store. Its setup tab opens as soon as it is added.</p>
-          <p><a class="btn arrow" href="https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok">Add to Chrome</a></p>
-          <p class="install-note">Chrome 116+. The extension is live; no Developer mode or unpacked build.</p>
-        </div>
-        <div class="install-card">
-          <h3>2. Install the helper</h3>
-          <p>The setup tab shows this command (and prompts you to re-run it if an older helper needs upgrading). Once installed, Vicaro Helper 1.5.0 updates itself automatically — with a menu bar option to pause updates anytime.</p>
-          <div class="code"><code id="install-command" class="multiline">curl -fsSL \
-https://vicaro.creativeducks.com/install.sh \
-| sh</code><button class="copy" type="button" aria-live="polite" data-copy="install-command">COPY</button></div>
-          <p class="install-note">Open Terminal with <span class="mono">⌘Space</span>, type <span class="mono">Terminal</span>, then Return. No <span class="mono">sudo</span>. The installer verifies the download and keeps chats in <span class="mono">~/Library/Application Support/Vicaro</span>.</p>
-          <p class="install-note">No disk image: the helper downloads directly, so macOS does not show the unidentified-developer dialog. We will notarize before offering a GUI installer.</p>
-        </div>
-      </div>
-      <p class="fine" style="margin-top:18px">Need help? Read <a href="support.html">Support</a> or open an issue on <a href="https://github.com/sandeshwar/vicaro-public/issues">GitHub</a>.</p>
     </div>
   </section>
 
   <section class="section tight" id="faq">
     <div class="wrap">
-      <div class="section-head">
-        <div>
+      <div class="faq-layout">
+        <div class="faq-side">
           <p class="kicker">Questions</p>
-          <h2>The short answers.</h2>
+          <h2>Ask, or <em>browse.</em></h2>
+          <p class="faq-sub">Pick a question or type your own. The answers below are the same ones support uses.</p>
+          <div class="faq-chips" id="faq-chips" role="group" aria-label="Filter by topic">
+            <button type="button" class="faq-chip" data-topic="all" aria-pressed="true">All</button>
+            <button type="button" class="faq-chip" data-topic="safety" aria-pressed="false">Safety</button>
+            <button type="button" class="faq-chip" data-topic="privacy" aria-pressed="false">Privacy</button>
+            <button type="button" class="faq-chip" data-topic="models" aria-pressed="false">Models</button>
+            <button type="button" class="faq-chip" data-topic="setup" aria-pressed="false">Setup</button>
+            <button type="button" class="faq-chip" data-topic="pricing" aria-pressed="false">Pricing &amp; license</button>
+          </div>
+          <div class="faq-contact">
+            <h3>Still have a question?</h3>
+            <div class="faq-contact-btns">
+              <a class="btn small" href="mailto:hello@creativeducks.com">Email us</a>
+              <a class="btn small ghost" href="support.html">Support</a>
+            </div>
+          </div>
+        </div>
+        <div class="faq-panel scope-dark" id="faq-panel" hidden>
+          <div class="vp-head">
+            <svg class="vpm" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14.4" fill="#2F6FD6"/><path d="M19.2 21.12 L32 42.24 L44.8 21.12" fill="none" stroke="#fff" stroke-width="10.24" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <b>Vicaro</b>
+            <span class="vp-status"><i></i>Ready</span>
+            <button type="button" class="fq-new" id="fq-new" aria-label="New chat" title="New chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+          <div class="vp-stream fq-thread" id="fq-thread"></div>
+          <div class="fq-bottom">
+            <div class="fq-opts" id="fq-opts" role="listbox" aria-label="Matching questions" hidden></div>
+            <div class="vp-composer">
+              <input type="text" id="fq-input" role="combobox" aria-expanded="false" aria-controls="fq-opts" aria-autocomplete="list" placeholder="Ask about Vicaro…" autocomplete="off" spellcheck="false">
+              <button type="button" class="vp-send fq-send" id="fq-send" aria-label="Ask"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+            </div>
+            <p class="fq-cap"><span class="dot"></span> Searches the answers on this page. No model, no server.</p>
+          </div>
         </div>
       </div>
-      <div class="faq">
-        <details>
-          <summary>Is it safe to use in beta?</summary>
-          <p>Not for anything you cannot afford to lose. It can click, type, submit forms and change settings. Start with Read only or Ask first, keep backups, and use a Chrome profile that does not hold your most important accounts.</p>
-        </details>
-        <details>
-          <summary>Does it send my pages to your servers?</summary>
-          <p>No. Vicaro has no servers. Page text, tool results and messages go to the model endpoint you configure, and nowhere else. That endpoint may be local, on your LAN, or a hosted provider you chose.</p>
-        </details>
-        <details>
-          <summary>Do I need a Google account?</summary>
-          <p>No, a Google account is not required. You can sign in with Google or with a passwordless email magic link (via Firebase Authentication) so your browsers, local web UI and devices connect automatically without pairing codes. No chats, pages or memories are sent to Google or Firebase.</p>
-        </details>
-        <details>
-          <summary>Can I use it from Cursor or Claude Code?</summary>
-          <p>Not in this build. MCP host support is in development. The helper can consume MCP servers you configure, but it does not yet register itself in Cursor or Claude Code.</p>
-        </details>
-        <details>
-          <summary>Does it work on Windows or Linux?</summary>
-          <p>macOS is the supported beta today. A Linux helper build is in progress. Windows is not supported yet.</p>
-        </details>
-        <details>
-          <summary>What does it cost?</summary>
-          <p>Nothing while it is in beta. If that changes, the price will be announced before it applies.</p>
-        </details>
-        <details>
-          <summary>Is it open source?</summary>
-          <p>No. Vicaro is closed-source software, and the helper is self-hosted: it runs on your machine and keeps its data in a local database you can inspect or delete.</p>
-        </details>
-      </div>
+      <details class="faq-all" open>
+        <summary>Read all answers as a list</summary>
+        <div class="faq">
+          <details id="faq-compat" name="faq" data-topic="setup" data-sources="Install|#install">
+            <summary>Will it run on my computer?</summary>
+            <p>Vicaro needs macOS 13.5 or newer and Chrome 116 or newer, on Apple Silicon or Intel. A Linux helper build is in progress. Windows support is coming soon.</p>
+          </details>
+          <details id="faq-safe" name="faq" data-topic="safety" data-sources="Safety notes|#safety,Autonomy modes|#autonomy">
+            <summary>Is it safe to use in beta?</summary>
+            <p>Not for anything you cannot afford to lose. It can click, type, submit forms and change settings. Start with Read only or Ask first, keep backups, and use a Chrome profile that does not hold your most important accounts.</p>
+          </details>
+          <details id="faq-mistake" name="faq" data-topic="safety" data-sources="Autonomy modes|#autonomy,Receipts|#receipts">
+            <summary>What happens if it makes a mistake?</summary>
+            <p>Depending on the mode you choose, Vicaro stops before actions that change a page and shows the exact action on an approval card. Deny it and the action does not run. Every action leaves a receipt in the thread, and if the helper restarts mid-task, a run that already changed the page waits for you to Resume or Stop instead of replaying it. Some actions cannot be undone once approved, so read the card before you allow it.</p>
+          </details>
+          <details id="faq-inject" name="faq" data-topic="safety" data-sources="Autonomy modes|#autonomy,Beta safety|support.html#safety">
+            <summary>Can a website trick it?</summary>
+            <p>It can try. A page can put text in front of the model, but it cannot call a tool. The helper checks every proposed action against your mode, binds approvals to the exact action, and cancels a card if the page changes while it is open. That does not stop everything: in Full auto a page could still persuade the model into a harmless-looking action, and no browser agent today is immune to prompt injection. Use Ask first on sites you don't trust.</p>
+          </details>
+          <details id="faq-servers" name="faq" data-topic="privacy" data-sources="Your model|#models,Privacy|privacy.html">
+            <summary>Does it send my pages to your servers?</summary>
+            <p>No. Vicaro has no servers. Page text, tool results and messages go to the model endpoint you configure, and nowhere else. That endpoint may be local, on your LAN, or a hosted provider you chose.</p>
+          </details>
+          <details id="faq-signin" name="faq" data-topic="privacy" data-sources="Account sign-in|support.html#google,Privacy|privacy.html">
+            <summary>Why do I need to sign in?</summary>
+            <p>Signing in connects your Chrome profiles and the local web workspace to your helper automatically, without pairing codes, and lets you revoke a browser from the menu bar app. It verifies who you are. It does not upload chats, pages or memories.</p>
+          </details>
+          <details id="faq-account" name="faq" data-topic="privacy" data-sources="Account sign-in|support.html#google">
+            <summary>Do I need a Google account?</summary>
+            <p>No, a Google account is not required. You can sign in with Google or with a passwordless email magic link (via Firebase Authentication) so your browsers, local web UI and devices connect automatically without pairing codes. No chats, pages or memories are sent to Google or Firebase.</p>
+          </details>
+          <details id="faq-model" name="faq" data-topic="models" data-sources="Your model|#models">
+            <summary>Which model should I use?</summary>
+            <p>Any OpenAI-compatible model that supports tool calling. Vision support lets Vicaro use screenshots, and a larger context window helps on long pages. Local options include Ollama, LM Studio, mlx and vLLM.</p>
+          </details>
+          <details id="faq-cursor" name="faq" data-topic="setup" data-sources="Web console|#console">
+            <summary>Can I use it from Cursor or Claude Code?</summary>
+            <p>Yes. Open the web UI from the menu bar, go to Connections, and install Vicaro under MCP hosts for Cursor, Claude Code, Claude Desktop, Codex, VS Code, Windsurf, Grok Build or opencode. Those tools can then use Vicaro's browser tools through the helper on your Mac.</p>
+          </details>
+          <details id="faq-logins" name="faq" data-topic="setup" data-sources="Safety notes|#safety">
+            <summary>Does it work with my existing logins and extensions?</summary>
+            <p>Yes. Vicaro runs in the Chrome profile you already use, with your tabs, signed-in sites and other extensions. That is also why the safety notes suggest a profile you can afford to lose while it is in beta.</p>
+          </details>
+          <details id="faq-console" name="faq" data-topic="setup" data-sources="Web console|#console">
+            <summary>Is there a web app?</summary>
+            <p>Yes. Vicaro Helper includes a web console that runs on your Mac. Open it with Open web UI in the menu bar or from the side panel. It has an inbox for approvals, delegated tasks and schedules, saved chats, the activity audit, tools, skills, connections, models and autonomy settings.</p>
+          </details>
+          <details id="faq-terminal" name="faq" data-topic="setup" data-sources="Install|#install,Install help|support.html#install">
+            <summary>Why do I have to use Terminal?</summary>
+            <p>The helper app is not notarized by Apple yet, so a browser download would be blocked by macOS Gatekeeper. The <span class="mono">curl</span> command downloads it directly, verifies its SHA-256 checksum and installs it without <span class="mono">sudo</span>. We will notarize before offering a regular installer.</p>
+          </details>
+          <details id="faq-asleep" name="faq" data-topic="setup" data-sources="">
+            <summary>Does it work while my Mac is asleep?</summary>
+            <p>No. The helper runs on your Mac, so the Mac needs to be awake and the helper running.</p>
+          </details>
+          <details id="faq-uninstall" name="faq" data-topic="setup" data-sources="Uninstall|support.html#uninstall">
+            <summary>How do I uninstall it?</summary>
+            <p>Choose Uninstall Vicaro Helper from the menu bar. It removes the app and its login item, and leaves your chats, memories and settings in <span class="mono">~/Library/Application Support/Vicaro</span> so a reinstall finds them. To remove the extension, open <span class="mono">chrome://extensions</span> and remove Vicaro Beta.</p>
+          </details>
+          <details id="faq-cost" name="faq" data-topic="pricing" data-sources="Install|#install">
+            <summary>What does it cost?</summary>
+            <p>Nothing while it is in beta. If that changes, the price will be announced before it applies.</p>
+          </details>
+          <details id="faq-open" name="faq" data-topic="pricing" data-sources="Privacy|privacy.html">
+            <summary>Is it open source?</summary>
+            <p>No. Vicaro is closed-source software, and the helper is self-hosted: it runs on your machine and keeps its data in a local database you can inspect or delete.</p>
+          </details>
+        </div>
+      </details>
     </div>
   </section>
 </main>
@@ -510,13 +1065,15 @@ https://vicaro.creativeducks.com/install.sh \
           <span class="mark"><svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14.4" fill="#2F6FD6"/><path d="M19.2 21.12 L32 42.24 L44.8 21.12" fill="none" stroke="#fff" stroke-width="10.24" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           <span class="word">Vicaro</span><span class="beta">Beta</span>
         </a>
-        <p>A self-hosted browser agent for Chrome. Your model, your machine, your tabs.</p>
+        <p>A browser agent for Chrome that runs on your Mac with the model you choose.</p>
       </div>
       <div class="footer-col">
         <h3>Product</h3>
-        <a href="#what">What it does</a>
-        <a href="#screens">Screenshots</a>
-        <a href="#install">Install</a>
+        <a href="#demo">Product</a>
+        <a href="#autonomy">Autonomy</a>
+        <a href="#models">Your model</a>
+        <a href="#console">Console</a>
+        <a href="#compare">Compare</a>
         <a href="support.html">Support</a>
       </div>
       <div class="footer-col">
@@ -530,6 +1087,7 @@ https://vicaro.creativeducks.com/install.sh \
         <h3>Notes</h3>
         <a href="#safety">Beta safety</a>
         <a href="#faq">FAQ</a>
+        <a href="#install">Install</a>
         <a href="privacy.html">Data handling</a>
       </div>
     </div>
@@ -541,5 +1099,7 @@ https://vicaro.creativeducks.com/install.sh \
 </footer>
 
 <script src="site.js" defer></script>
+<script src="home.js" defer></script>
+<script src="faq.js" defer></script>
 </body>
 </html>

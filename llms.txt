@@ -5,7 +5,7 @@
 ## Key facts
 
 - Category: browser agent and AI assistant for Chrome.
-- Platform: macOS 13.5 or newer, Chrome 116 or newer. Apple Silicon and Intel.
+- Platform: macOS 13.5 or newer, Chrome 116 or newer. Apple Silicon and Intel. Windows support is coming soon.
 - Model: any local OpenAI-compatible server (Ollama, LM Studio, mlx, vLLM) or a hosted endpoint. No default provider and no fallback.
 - Pricing: free while in beta.
 - Account: sign-in with Google or an email magic link (via Firebase Authentication) is required so browsers, the local web UI and devices connect automatically without pairing codes. No chats, pages or memories are sent to Google or Firebase.
@@ -13,6 +13,8 @@
 - Access: page access is granted per site. Purchases, deletes, sends and uploads stop for approval.
 - Source: closed source. The helper is self-hosted.
 - Updates: Vicaro Helper 1.5.0+ checks GitHub Releases and installs SHA-256 verified updates automatically (pause/resume anytime from the menu bar). Chrome Web Store updates the extension automatically.
+- Web console: the helper includes a web console on the Mac (Open web UI in the menu bar, or from the side panel) with an approvals inbox, delegated tasks and schedules, chats, the activity audit with JSONL export, tools, skills, connections, models and autonomy settings.
+- MCP: helper 1.5+ ships vicaro-mcp and can be installed as an MCP server into Cursor, Claude Code, Claude Desktop, Codex, VS Code, Windsurf, Grok Build or opencode from the web console's Connections page.
 - Version: helper 1.5.1; Chrome extension 1.5.0.
 - Chrome Web Store: live at https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok.
 
@@ -25,7 +27,7 @@
 
 ## Install
 
-1. Add Vicaro Beta from the Chrome Web Store: https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok
+1. Add Vicaro Beta from the Chrome Web Store: https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok (the store can trail a release in review; for the newest build, download Vicaro-extension.zip from https://github.com/sandeshwar/vicaro-public/releases/latest and load it unpacked - unpacked builds do not auto-update).
 2. In Terminal, run: curl -fsSL https://vicaro.creativeducks.com/install.sh | sh
 3. Sign in with Google or an email magic link in the setup tab (or from Vicaro Helper in the menu bar), then configure the model in Settings.
 

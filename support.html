@@ -26,8 +26,8 @@
 <meta name="color-scheme" content="light dark">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="author" content="Vicaro">
-<meta name="theme-color" content="#fafbf9" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#101a22" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f4f1e9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131410" media="(prefers-color-scheme: dark)">
 <link rel="stylesheet" href="site.css">
 <script type="application/ld+json">
 {
@@ -82,22 +82,26 @@
       <span class="word">Vicaro</span><span class="beta">Beta</span>
     </a>
     <nav class="nav" aria-label="Primary">
-      <a href="index.html#what">What it does</a>
-      <a href="index.html#screens">Screenshots</a>
-      <a href="index.html#how">How it works</a>
+      <a href="index.html#demo">Product</a>
+      <a href="index.html#autonomy">Autonomy</a>
+      <a href="index.html#models">Your model</a>
+      <a href="index.html#console">Console</a>
+      <a href="index.html#compare">Compare</a>
       <a href="support.html" aria-current="page">Support</a>
     </nav>
-    <a class="btn small header-cta" href="index.html#install">Get the beta</a>
+    <a class="btn small header-cta" href="https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok">Add to Chrome</a>
     <details class="menu">
       <summary aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
       <div class="menu-panel">
-        <a href="index.html#what">What it does</a>
-        <a href="index.html#screens">Screenshots</a>
-        <a href="index.html#how">How it works</a>
+        <a href="index.html#demo">Product</a>
+        <a href="index.html#autonomy">Autonomy</a>
+        <a href="index.html#models">Your model</a>
+        <a href="index.html#console">Console</a>
+        <a href="index.html#compare">Compare</a>
         <a href="index.html#install">Install</a>
         <a href="support.html" aria-current="page">Support</a>
         <a href="privacy.html">Privacy</a>
-        <a class="btn small" href="index.html#install">Get the beta</a>
+        <a class="btn small" href="https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok">Add to Chrome</a>
       </div>
     </details>
   </div>
@@ -133,16 +137,25 @@
 
       <section id="install">
         <h2>Install &amp; updates</h2>
-        <p>Vicaro Beta needs macOS 13.5 or later and Chrome 116 or later. Add the extension first; its setup tab opens automatically and shows the command below. If an older helper is already running, the extension displays an <strong>Update Vicaro Helper</strong> card with the same command.</p>
+        <p>Vicaro Beta needs macOS 13.5 or later and Chrome 116 or later. Add the extension first; its setup tab opens automatically and shows the command below. If an older helper is already running, the extension displays an <strong>Update Vicaro Helper</strong> card with the same command. A Linux helper build is in progress; Windows support is coming soon.</p>
         <p><a class="btn arrow" href="https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok">Add Vicaro to Chrome</a></p>
         <p style="margin-top:18px">Then open Terminal: press <span class="mono">⌘Space</span>, type <strong>Terminal</strong>, and press Return. Paste this command and press Return:</p>
-        <div class="code"><code id="support-install" class="multiline">curl -fsSL \
+        <div class="code"><div class="code-bar"><button class="copy" type="button" aria-live="polite" data-copy="support-install">COPY</button></div><code id="support-install" class="multiline">curl -fsSL \
 https://vicaro.creativeducks.com/install.sh \
-| sh</code><button class="copy" type="button" aria-live="polite" data-copy="support-install">COPY</button></div>
+| sh</code></div>
         <p style="margin-top:14px">It installs the helper into <span class="mono">~/Applications</span>, verifies the download, registers the login agent, and starts the helper. It asks for no password and does not use <span class="mono">sudo</span>. Next, sign in with Google or an email magic link in the setup tab (or from <strong>Sign in to Vicaro…</strong> in the menu bar) to connect your browser automatically.</p>
         <p>From version 1.5.0 onward, Vicaro Helper checks GitHub Releases automatically, verifies the SHA-256 checksum, and installs helper updates in place without touching your chats or settings. Open the menu bar globe to <strong>Check for updates…</strong> or toggle <strong>Auto-update: On (Pause)</strong> / <strong>Auto-update: Paused (Resume)</strong> anytime.</p>
         <div class="callout">Why Terminal? The helper is ad-hoc signed and not notarized. A browser download would trigger macOS Gatekeeper; <span class="mono">curl</span> does not set quarantine, so the app starts normally. This is temporary until notarization.</div>
         <p>If the setup tab is closed, open <span class="mono">chrome://extensions</span>, choose <strong>Details</strong> for Vicaro Beta, then <strong>Extension options</strong>.</p>
+        <p style="margin-top:18px"><strong>Want the newest extension build?</strong> The Chrome Web Store can trail the latest release while a new version is in review. For the newest extension:</p>
+        <ol>
+          <li>Download <a href="https://github.com/sandeshwar/vicaro-public/releases/latest/download/Vicaro-extension.zip"><span class="mono">Vicaro-extension.zip</span></a> from the latest GitHub release (<a href="https://github.com/sandeshwar/vicaro-public/releases/latest">release notes</a>).</li>
+          <li>Unzip it.</li>
+          <li>Open <span class="mono">chrome://extensions</span> and turn on Developer mode.</li>
+          <li>Click <strong>Load unpacked</strong> and choose the unzipped folder.</li>
+          <li>Sign in in the new extension to connect it to your helper.</li>
+        </ol>
+        <p>Unpacked builds do not update themselves, so download the zip again for each release. Use either the store version or the zip, not both. Your model settings and chats live in the helper, so switching keeps them.</p>
       </section>
 
       <section id="connect">
@@ -251,9 +264,11 @@ https://vicaro.creativeducks.com/install.sh \
       </div>
       <div class="footer-col">
         <h3>Product</h3>
-        <a href="index.html#what">What it does</a>
-        <a href="index.html#screens">Screenshots</a>
-        <a href="index.html#install">Install</a>
+        <a href="index.html#demo">Product</a>
+        <a href="index.html#autonomy">Autonomy</a>
+        <a href="index.html#models">Your model</a>
+        <a href="index.html#console">Console</a>
+        <a href="index.html#compare">Compare</a>
         <a href="support.html">Support</a>
       </div>
       <div class="footer-col">

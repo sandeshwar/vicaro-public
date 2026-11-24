@@ -32,10 +32,11 @@ anything destructive. Models run on your machine, your LAN, or an endpoint you c
   Releases automatically, verifies SHA-256 checksums, and updates itself in place —
   with a menu bar toggle to pause or resume auto-updates anytime.
 
-The beta is panel-first. MCP host support for tools such as Cursor, Claude Code and
-Codex is still being brought over from the reference app. The current helper can
-consume MCP servers you configure, but it does not register itself in those tools
-yet. The panel labels that settings card accordingly.
+The beta is panel-first. Helper 1.5+ also ships `vicaro-mcp`, an MCP server that
+exposes Vicaro's browser tools to other apps: open the web console, go to
+**Connections**, and under **MCP hosts** install Vicaro into Cursor, Claude Code,
+Claude Desktop, Codex, VS Code, Windsurf, Grok Build or opencode. The helper can
+also consume MCP servers you configure.
 
 ## Requirements
 
@@ -46,7 +47,7 @@ yet. The panel labels that settings card accordingly.
 | Hardware | Apple Silicon or Intel |
 | Model | A local OpenAI-compatible server, or a hosted endpoint with an API key |
 
-Linux packaging is in progress. Windows is not supported yet. The extension is live
+Linux packaging is in progress. Windows support is coming soon. The extension is live
 on the Chrome Web Store.
 
 ## Get started
@@ -56,6 +57,15 @@ on the Chrome Web Store.
 Install **[Vicaro Beta](https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok)**
 from the Chrome Web Store. Its setup tab opens automatically and shows the Terminal
 command below (and prompts you to run it if an older pre-1.5.0 helper is detected).
+
+The store can trail the latest release while a new version is in review. For the
+newest extension, download
+[`Vicaro-extension.zip`](https://github.com/sandeshwar/vicaro-public/releases/latest/download/Vicaro-extension.zip)
+from the [latest GitHub release](https://github.com/sandeshwar/vicaro-public/releases/latest),
+unzip it, open `chrome://extensions`, turn on Developer mode and click
+**Load unpacked**, then sign in in the new extension. Unpacked builds do not update
+themselves, so download the zip again for each release; use either the store version
+or the zip, not both.
 
 ### 2. Install the helper
 
