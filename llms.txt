@@ -13,7 +13,7 @@
 - Access: page access is granted per site. Purchases, deletes, sends and uploads stop for approval.
 - Source: closed source. The helper is self-hosted.
 - Updates: Vicaro Helper 1.5.0+ checks GitHub Releases and installs SHA-256 verified updates automatically (pause/resume anytime from the menu bar). Chrome Web Store updates the extension automatically.
-- Version: helper 1.5.0; Chrome extension 1.5.0.
+- Version: helper 1.5.1; Chrome extension 1.5.0.
 - Chrome Web Store: live at https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok.
 
 ## Pages
