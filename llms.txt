@@ -1,6 +1,6 @@
 # Vicaro Beta
 
-> Vicaro is a self-hosted browser agent for Chrome. It runs in the side panel, reads open tabs, clicks and types when asked, and asks before purchases, deletes, sends or uploads. The helper runs on the user's Mac and connects to a model endpoint the user chooses.
+> Vicaro is a self-hosted browser agent for Chrome. It runs in the side panel, reads open tabs, clicks and types when asked, with approval modes that can require confirmation before purchases, deletes, sends or uploads. The helper runs on the user's Mac and connects to a model endpoint the user chooses.
 
 ## Key facts
 
@@ -10,7 +10,7 @@
 - Pricing: free while in beta.
 - Account: sign-in with Google or an email magic link (via Firebase Authentication) is required so browsers, the local web UI and devices connect automatically without pairing codes. No chats, pages or memories are sent to Google or Firebase.
 - Data: page content and tool results go to the model endpoint the user configures. Chat, tasks and memories stay in the helper's local data directory. No analytics or telemetry.
-- Access: page access is granted per site. Purchases, deletes, sends and uploads stop for approval.
+- Access: page access is granted per site. In Ask first and Light touch, purchases, deletes, sends and uploads stop for approval; Full auto and Super can run scoped writes without a prompt.
 - Source: closed source. The helper is self-hosted.
 - Updates: Vicaro Helper 1.5.0+ checks GitHub Releases and installs SHA-256 verified updates automatically (pause/resume anytime from the menu bar). Chrome Web Store updates the extension automatically.
 - Web console: the helper includes a web console on the Mac (Open web UI in the menu bar, or from the side panel) with an approvals inbox, delegated tasks and schedules, chats, the activity audit with JSONL export, tools, skills, connections, models and autonomy settings.

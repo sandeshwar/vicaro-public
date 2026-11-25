@@ -1,8 +1,9 @@
 # Vicaro Beta
 
 **A self-hosted browser assistant for Chrome.** Vicaro lives in the side panel, reads
-the tabs you already have open, clicks and types when you ask it to, and asks before
-anything destructive. Models run on your machine, your LAN, or an endpoint you choose.
+the tabs you already have open, clicks and types when you ask it to, and offers
+five autonomy modes that control when it must ask first. Models run on your machine,
+your LAN, or an endpoint you choose.
 
 [Website](https://vicaro.creativeducks.com) · [Add to Chrome](https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok) · [Support](https://vicaro.creativeducks.com/support.html) · [Privacy](https://vicaro.creativeducks.com/privacy.html)
 
@@ -19,7 +20,9 @@ anything destructive. Models run on your machine, your LAN, or an endpoint you c
   interactive elements on the current page, with the logins already in Chrome.
 - **Acts, then checks.** It clicks, types, scrolls and navigates, then verifies the page
   before answering.
-- **Asks before damage.** Purchases, deletes, sends and uploads stop for approval.
+- **Approval modes control damage.** In Ask first and Light touch, purchases,
+  deletes, sends and uploads stop for approval. Full auto and Super can run scoped
+  writes without a prompt.
 - **Uses your model.** Point the helper at Ollama, LM Studio, mlx, vLLM, or any
   OpenAI-compatible endpoint. There is no default provider and no fallback.
 - **Keeps data local.** No analytics, telemetry, or sale of data. Chat, tasks and
@@ -151,7 +154,8 @@ Vicaro is early beta software with real browser access. Read the
 actions.
 
 - Page access is granted per site.
-- Destructive actions always ask.
+- Approval is mode-dependent: Ask first and Light touch stop for writes; Full auto
+  and Super can run scoped writes without a prompt.
 - Deep control is attached only while a task needs it.
 - The model endpoint you configure is the only remote service that sees page content.
 
@@ -203,7 +207,6 @@ proprietary software and the helper source stays private.
 | `/assets/shots/` | Screenshots used by the site and store listing |
 | `/llms.txt` | Concise product facts and canonical links for AI crawlers |
 | `/site.css`, `/site.js` | Shared page styles and small enhancements |
-| `/webui/<version>/` | Optional signed helper web UI bundle |
 
 Builds are not stored in git. The tarballs, checksums and development extension
 zip live on [GitHub Releases](https://github.com/sandeshwar/vicaro-public/releases).
@@ -253,8 +256,11 @@ the command, and the mobile menu is a native `<details>` element.
 
 ### Web UI bundle rules
 
-The helper ships its UI embedded, and can also load a signed bundle from
-`/webui/<version>/`. That exists so UI changes can ship without a helper release.
+The helper currently ships its UI embedded. A signed `/webui/<version>/` bundle
+is a deferred design, not an implemented distribution path; do not publish one as
+if the helper can load it today.
+
+If that design is implemented later, the intended rules are:
 
 - **Version-pinned directories, immutable.** Never edit a published version.
 - **The manifest lists every file with its SHA-256**, plus a signature over the

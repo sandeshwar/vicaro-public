@@ -188,7 +188,7 @@ https://vicaro.creativeducks.com/install.sh \
         <h2>Long tasks</h2>
         <p>Vicaro is built for work that runs longer than one exchange. A turn has no fixed message or step limit; it continues until it finishes, you stop it, or it hits a real blocker.</p>
         <ul>
-          <li>At about 70% of the model window, Vicaro folds older work into a written handoff for itself. The handoff keeps the goal, constraints, decisions, current page state, evidence and open steps.</li>
+          <li>Above roughly 70% of the model window, the model can ask Vicaro to fold older work into a written handoff for itself when that context is no longer useful. Vicaro also compacts automatically near the window limit. The handoff keeps the goal, constraints, decisions, current page state, evidence and open steps.</li>
           <li>Recent messages stay exact. Older messages are summarized, and the full transcript remains in the encrypted local store.</li>
           <li>The compacted checkpoint survives a helper restart, so a long task can resume after the helper is reopened.</li>
           <li>If a model call fails before producing output, Vicaro retries it twice. An unknown tool or malformed arguments are returned to the model so it can correct itself instead of ending the turn.</li>

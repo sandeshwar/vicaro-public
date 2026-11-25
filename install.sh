@@ -5,7 +5,7 @@
 # What it does, in order: download the app tarball, verify its SHA-256, replace
 # ~/Applications/Vicaro Helper.app, register the login agent, and start the helper.
 # It does not install the Chrome extension: Vicaro Beta comes from the Chrome Web
-# Store. MCP host wiring is not part of this build.
+# Store. MCP host wiring is done later from the helper web console, not by this installer.
 #
 # The tarball arrives without a quarantine flag (curl does not set one), so macOS
 # does not show the "unidentified developer" wall. The app is still ad-hoc signed,
@@ -47,7 +47,7 @@ case "$(uname -m)" in
   *) echo "unsupported architecture: $(uname -m)" >&2; exit 1 ;;
 esac
 if [ "$(uname -s)" != "Darwin" ]; then
-  echo "this installer is macOS only - on Linux use the .deb or AppImage" >&2; exit 1
+  echo "this installer is macOS only - Linux helper packaging is still in progress" >&2; exit 1
 fi
 
 DEST="$HOME/Applications"
@@ -271,12 +271,13 @@ else
 fi
 
 # ---- AI tools ----
-# MCP host registration is not implemented in the Rust helper yet. --mcp is
-# accepted so older commands do not fail, but it does nothing in this build.
+# MCP host registration is part of the helper, but this installer does not write
+# other applications' config files. --mcp is accepted so older commands do not
+# fail; host setup now lives in the web console either way.
 if [ "$WANT_MCP" = "1" ]; then
-  echo "  AI tools: not available in this build (MCP host setup is not ported yet)"
+  echo "  AI tools: open the helper web UI -> Connections -> MCP hosts"
 else
-  echo "  AI tools: not in this build"
+  echo "  AI tools: available in the helper web UI -> Connections -> MCP hosts"
 fi
 
 echo
