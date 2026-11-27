@@ -133,9 +133,14 @@ try {
 
     # Register vicaro:// URL scheme under HKCU (no admin required).
     $ProtoKey = "HKCU:\Software\Classes\vicaro"
+    $IconIco = Join-Path $AppDir "icons\vicaro.ico"
     New-Item -Path "$ProtoKey\shell\open\command" -Force | Out-Null
     Set-ItemProperty -Path $ProtoKey -Name "(Default)" -Value "URL:Vicaro Protocol"
     Set-ItemProperty -Path $ProtoKey -Name "URL Protocol" -Value ""
+    if (Test-Path -LiteralPath $IconIco) {
+        New-Item -Path "$ProtoKey\DefaultIcon" -Force | Out-Null
+        Set-ItemProperty -Path "$ProtoKey\DefaultIcon" -Name "(Default)" -Value "`"$IconIco`",0"
+    }
     Set-ItemProperty -Path "$ProtoKey\shell\open\command" -Name "(Default)" -Value "wscript.exe `"$AppDir\vicaro-tray.vbs`" open-uri `"%1`""
 
     # Create Start Menu shortcut.
@@ -147,6 +152,9 @@ try {
         $Shortcut.Arguments = "`"$AppDir\vicaro-tray.vbs`" tray"
         $Shortcut.WorkingDirectory = $AppDir
         $Shortcut.Description = "Vicaro Helper (local browser agent)"
+        if (Test-Path -LiteralPath $IconIco) {
+            $Shortcut.IconLocation = "$IconIco,0"
+        }
         $Shortcut.Save()
     } catch {}
 
