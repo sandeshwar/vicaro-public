@@ -1,17 +1,19 @@
 #!/bin/sh
-# Vicaro helper installer (macOS). Reads like a script, because you should read it:
+# Vicaro helper installer (macOS & Linux). Reads like a script, because you should read it:
 #   curl -fsSL https://vicaro.creativeducks.com/install.sh | sh
 #
-# What it does, in order: download the app tarball, verify its SHA-256, replace
-# ~/Applications/Vicaro Helper.app, register the login agent, and start the helper.
+# What it does, in order:
+#   macOS: download the app tarball, verify its SHA-256, replace
+#          ~/Applications/Vicaro Helper.app, register the LaunchAgent, and start it.
+#   Linux: download the Linux tarball, verify its SHA-256, install into
+#          ~/.local/share/vicaro/app, link ~/.local/bin/vicaro-helper, register
+#          the systemd --user service, XDG autostart tray agent and vicaro://
+#          desktop handler, and start the helper.
+#
 # It does not install the Chrome extension: Vicaro Beta comes from the Chrome Web
 # Store. MCP host wiring is done later from the helper web console, not by this installer.
 #
-# The tarball arrives without a quarantine flag (curl does not set one), so macOS
-# does not show the "unidentified developer" wall. The app is still ad-hoc signed,
-# which is what Apple Silicon requires to run native code.
-#
-#   --no-agent       do not register the login agent
+#   --no-agent       do not register the login agent / systemd user service
 #   --no-extension   accepted for older commands; this build never stages one
 #   --mcp            accepted for older commands; not used by this build
 #   --no-open        accepted for older commands; this build opens nothing
@@ -20,9 +22,6 @@ set -eu
 
 APP_NAME="Vicaro Helper"
 STORE_URL="https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok"
-# Builds are per-architecture. Fall back to the universal tarball only if the
-# matching slice was not published.
-TARBALL="Vicaro-macos-$(uname -m).tar.gz"
 # Where the tarball and its .sha256 live: the GitHub Release on vicaro-public.
 # Free, CDN-backed, and it keeps install traffic away from the site's bandwidth.
 # There is no mirror - the release is the only source, so a failed fetch is fatal.
@@ -42,16 +41,39 @@ for arg in "$@"; do
   esac
 done
 
-case "$(uname -m)" in
-  arm64|x86_64) ;;
-  *) echo "unsupported architecture: $(uname -m)" >&2; exit 1 ;;
+OS_RAW="$(uname -s)"
+ARCH_RAW="$(uname -m)"
+case "$OS_RAW" in
+  Darwin)
+    OS="macos"
+    case "$ARCH_RAW" in
+      arm64|x86_64) ARCH="$ARCH_RAW" ;;
+      *) echo "unsupported architecture: $ARCH_RAW" >&2; exit 1 ;;
+    esac
+    TARBALL="Vicaro-macos-$ARCH.tar.gz"
+    DEST="$HOME/Applications"
+    APP="$DEST/$APP_NAME.app"
+    ;;
+  Linux)
+    OS="linux"
+    case "$ARCH_RAW" in
+      x86_64|amd64) ARCH="x86_64" ;;
+      aarch64|arm64) ARCH="aarch64" ;;
+      *) echo "unsupported Linux architecture: $ARCH_RAW (supported: x86_64, aarch64)" >&2; exit 1 ;;
+    esac
+    TARBALL="Vicaro-linux-$ARCH.tar.gz"
+    XDG_DATA="${XDG_DATA_HOME:-$HOME/.local/share}"
+    XDG_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}"
+    XDG_STATE="${XDG_STATE_HOME:-$HOME/.local/state}"
+    APP="$XDG_DATA/vicaro/app"
+    BIN_DIR="$HOME/.local/bin"
+    ;;
+  *)
+    echo "unsupported OS: $OS_RAW (supported: macOS, Linux; Windows support is coming soon)" >&2
+    exit 1
+    ;;
 esac
-if [ "$(uname -s)" != "Darwin" ]; then
-  echo "this installer is macOS only - Linux helper packaging is still in progress" >&2; exit 1
-fi
 
-DEST="$HOME/Applications"
-APP="$DEST/$APP_NAME.app"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
@@ -150,18 +172,34 @@ if [ -n "${VICARO_TARBALL:-}" ]; then
   [ -f "$VICARO_TARBALL.sha256" ] && cp "$VICARO_TARBALL.sha256" "$TMP/app.sha256"
 else
   if ! fetch "$BASE_URL/$TARBALL" "$TMP/app.tar.gz" "$TARBALL"; then
-    WANTED="$TARBALL"
-    TARBALL="Vicaro-macos-universal.tar.gz"
-    echo "  no $WANTED for this Mac - trying $TARBALL"
-    fetch "$BASE_URL/$TARBALL" "$TMP/app.tar.gz" "$TARBALL"
+    if [ "$OS" = "macos" ]; then
+      WANTED="$TARBALL"
+      TARBALL="Vicaro-macos-universal.tar.gz"
+      echo "  no $WANTED for this Mac - trying $TARBALL"
+      fetch "$BASE_URL/$TARBALL" "$TMP/app.tar.gz" "$TARBALL"
+    else
+      echo "could not download $TARBALL from $BASE_URL" >&2
+      exit 1
+    fi
   fi
   curl -fsSL "$BASE_URL/$TARBALL.sha256" -o "$TMP/app.sha256"
 fi
 
 # ---- verify ----
+sha256_file() {
+  if command -v sha256sum >/dev/null 2>&1; then
+    sha256sum "$1" | cut -d' ' -f1
+  elif command -v shasum >/dev/null 2>&1; then
+    shasum -a 256 "$1" | cut -d' ' -f1
+  else
+    echo "neither sha256sum nor shasum found" >&2
+    exit 1
+  fi
+}
+
 if [ -f "$TMP/app.sha256" ]; then
-  EXPECTED="$(cut -d' ' -f1 "$TMP/app.sha256")"
-  ACTUAL="$(shasum -a 256 "$TMP/app.tar.gz" | cut -d' ' -f1)"
+  EXPECTED="$(awk '{print $1}' "$TMP/app.sha256")"
+  ACTUAL="$(sha256_file "$TMP/app.tar.gz")"
   if [ "$EXPECTED" != "$ACTUAL" ]; then
     echo "checksum mismatch - refusing to install" >&2
     echo "  expected $EXPECTED" >&2
@@ -174,6 +212,7 @@ else
 fi
 
 if [ "$DRY" = "1" ]; then
+  echo "  platform: $OS ($ARCH)"
   echo "  would install into $APP"
   echo "  would register login agent: $([ "$NO_AGENT" = "1" ] && echo no || echo yes)"
   echo "  would start the helper now: yes"
@@ -182,43 +221,47 @@ if [ "$DRY" = "1" ]; then
 fi
 
 # ---- install ----
-tar -xzf "$TMP/app.tar.gz" -C "$TMP"
-[ -d "$TMP/$APP_NAME.app" ] || { echo "tarball did not contain $APP_NAME.app" >&2; exit 1; }
-# Only this installation's process: a different build elsewhere is not ours to kill.
-# Stop both the tray shell and its helper child; the child keeps port 8792 open and
-# would make the health check below report the old build as "already running".
-pkill -TERM -f "$APP/Contents/MacOS/VicaroHelper" 2>/dev/null || true
-pkill -TERM -f "$APP/Contents/Resources/vicaro-helper" 2>/dev/null || true
-n=0
-while pgrep -f "$APP/Contents/Resources/vicaro-helper" >/dev/null 2>&1 && [ "$n" -lt 10 ]; do
-  n=$((n + 1))
-  sleep 1
-done
+HEALTH="http://127.0.0.1:${VICARO_PORT:-8792}/"
+up() { curl -fsS -m 2 "$HEALTH" >/dev/null 2>&1; }
 
-# Retire the Node app this installer used to ship. Leaving both on disk means a
-# stale login agent can win the next restart and the panel talks to 8790.
-OLD_APP="$DEST/Vicaro Orchestrator.app"
-OLD_AGENT="$HOME/Library/LaunchAgents/com.vicaro.orchestrator.app.plist"
-if [ -d "$OLD_APP" ] || [ -f "$OLD_AGENT" ]; then
-  launchctl bootout "gui/$(id -u)/com.vicaro.orchestrator.app" 2>/dev/null || true
-  pkill -TERM -f "$OLD_APP/Contents/MacOS/VicaroOrchestrator" 2>/dev/null || true
-  rm -rf "$OLD_APP" "$OLD_AGENT"
-  echo "  retired: old TypeScript app"
-fi
+if [ "$OS" = "macos" ]; then
+  tar -xzf "$TMP/app.tar.gz" -C "$TMP"
+  [ -d "$TMP/$APP_NAME.app" ] || { echo "tarball did not contain $APP_NAME.app" >&2; exit 1; }
+  # Only this installation's process: a different build elsewhere is not ours to kill.
+  # Stop both the tray shell and its helper child; the child keeps port 8792 open and
+  # would make the health check below report the old build as "already running".
+  pkill -TERM -f "$APP/Contents/MacOS/VicaroHelper" 2>/dev/null || true
+  pkill -TERM -f "$APP/Contents/Resources/vicaro-helper" 2>/dev/null || true
+  n=0
+  while pgrep -f "$APP/Contents/Resources/vicaro-helper" >/dev/null 2>&1 && [ "$n" -lt 10 ]; do
+    n=$((n + 1))
+    sleep 1
+  done
 
-mkdir -p "$DEST"
-rm -rf "$APP"
-cp -R "$TMP/$APP_NAME.app" "$APP"
-xattr -dr com.apple.quarantine "$APP" 2>/dev/null || true
-echo "  installed: $APP"
+  # Retire the Node app this installer used to ship. Leaving both on disk means a
+  # stale login agent can win the next restart and the panel talks to 8790.
+  OLD_APP="$DEST/Vicaro Orchestrator.app"
+  OLD_AGENT="$HOME/Library/LaunchAgents/com.vicaro.orchestrator.app.plist"
+  if [ -d "$OLD_APP" ] || [ -f "$OLD_AGENT" ]; then
+    launchctl bootout "gui/$(id -u)/com.vicaro.orchestrator.app" 2>/dev/null || true
+    pkill -TERM -f "$OLD_APP/Contents/MacOS/VicaroOrchestrator" 2>/dev/null || true
+    rm -rf "$OLD_APP" "$OLD_AGENT"
+    echo "  retired: old TypeScript app"
+  fi
 
-# ---- login agent ----
-AGENT="$HOME/Library/LaunchAgents/com.vicaro.helper.app.plist"
-if [ "$NO_AGENT" = "1" ]; then
-  echo "  login agent: skipped"
-else
-  mkdir -p "$HOME/Library/LaunchAgents"
-  cat > "$AGENT" <<PL
+  mkdir -p "$DEST"
+  rm -rf "$APP"
+  cp -R "$TMP/$APP_NAME.app" "$APP"
+  xattr -dr com.apple.quarantine "$APP" 2>/dev/null || true
+  echo "  installed: $APP"
+
+  # ---- login agent ----
+  AGENT="$HOME/Library/LaunchAgents/com.vicaro.helper.app.plist"
+  if [ "$NO_AGENT" = "1" ]; then
+    echo "  login agent: skipped"
+  else
+    mkdir -p "$HOME/Library/LaunchAgents"
+    cat > "$AGENT" <<PL
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0"><dict>
@@ -231,42 +274,155 @@ else
   <key>ProcessType</key><string>Background</string>
 </dict></plist>
 PL
-  launchctl bootout "gui/$(id -u)/com.vicaro.helper.app" 2>/dev/null || true
-  launchctl bootstrap "gui/$(id -u)" "$AGENT" 2>/dev/null || true
-  launchctl kickstart "gui/$(id -u)/com.vicaro.helper.app" 2>/dev/null || true
-  echo "  login agent: registered"
-fi
+    launchctl bootout "gui/$(id -u)/com.vicaro.helper.app" 2>/dev/null || true
+    launchctl bootstrap "gui/$(id -u)" "$AGENT" 2>/dev/null || true
+    launchctl kickstart "gui/$(id -u)/com.vicaro.helper.app" 2>/dev/null || true
+    echo "  login agent: registered"
+  fi
 
-# ---- start it now ----
-# The agent covers future logins; installing should also leave a helper that is
-# already answering, otherwise the first thing the panel shows is "connecting".
-# Both launchctl calls above are best-effort (they fail outside a GUI session), so
-# this is what actually guarantees the app is up, and it reports the truth.
-HEALTH="http://127.0.0.1:${VICARO_PORT:-8792}/"
-up() { curl -fsS -m 2 "$HEALTH" >/dev/null 2>&1; }
-if up; then
-  echo "  helper: already running"
-else
-  echo "  helper: starting"
-  # Never start a second copy: the login agent may have launched it a moment ago,
-  # and two instances race for the port and leave nothing running.
-  opened=0
-  n=0
-  while [ "$n" -lt 15 ]; do
-    up && break
-    if ! pgrep -f "$APP/Contents/MacOS/VicaroHelper" >/dev/null 2>&1; then
-      if [ "$opened" = "0" ]; then
-        open -a "$APP" 2>/dev/null || true
-        opened=1
+  # ---- start it now ----
+  if up; then
+    echo "  helper: already running"
+  else
+    echo "  helper: starting"
+    opened=0
+    n=0
+    while [ "$n" -lt 15 ]; do
+      up && break
+      if ! pgrep -f "$APP/Contents/MacOS/VicaroHelper" >/dev/null 2>&1; then
+        if [ "$opened" = "0" ]; then
+          open -a "$APP" 2>/dev/null || true
+          opened=1
+        fi
       fi
+      n=$((n + 1))
+      sleep 1
+    done
+    if up; then
+      echo "  helper: running on ${VICARO_PORT:-8792}"
+    else
+      echo "  helper: started, not answering yet - open Vicaro Helper from Applications"
     fi
+  fi
+else
+  # ---- Linux install ----
+  tar -xzf "$TMP/app.tar.gz" -C "$TMP"
+  [ -d "$TMP/vicaro-helper" ] || { echo "tarball did not contain vicaro-helper/" >&2; exit 1; }
+
+  if command -v systemctl >/dev/null 2>&1; then
+    systemctl --user stop vicaro-helper.service 2>/dev/null || true
+  fi
+  pkill -TERM -f "$APP/vicaro-helper" 2>/dev/null || true
+  pkill -TERM -f "$APP/vicaro-helper-ctl tray" 2>/dev/null || true
+  n=0
+  while pgrep -f "$APP/vicaro-helper" >/dev/null 2>&1 && [ "$n" -lt 10 ]; do
     n=$((n + 1))
     sleep 1
   done
-  if up; then
-    echo "  helper: running on ${VICARO_PORT:-8792}"
+
+  mkdir -p "$XDG_DATA/vicaro" "$BIN_DIR" "$XDG_DATA/applications" "$XDG_DATA/icons/hicolor/256x256/apps"
+  rm -rf "$APP"
+  cp -R "$TMP/vicaro-helper" "$APP"
+  chmod 0755 "$APP/vicaro-helper" "$APP/vicaro-mcp" "$APP/vicaro-helper-run" "$APP/vicaro-helper-ctl"
+  ln -sf "$APP/vicaro-helper-ctl" "$BIN_DIR/vicaro-helper"
+  if [ -f "$APP/icons/vicaro.png" ]; then
+    cp "$APP/icons/vicaro.png" "$XDG_DATA/icons/hicolor/256x256/apps/vicaro-helper.png"
+  fi
+  echo "  installed: $APP"
+  echo "  cli:       $BIN_DIR/vicaro-helper"
+
+  # Register vicaro:// URL scheme and desktop entry.
+  DESKTOP="$XDG_DATA/applications/vicaro-helper.desktop"
+  cat > "$DESKTOP" <<DT
+[Desktop Entry]
+Type=Application
+Name=Vicaro Helper
+Comment=Self-hosted browser agent helper for Chrome
+Exec=$APP/vicaro-helper-ctl open-uri %u
+Icon=vicaro-helper
+Terminal=false
+NoDisplay=true
+MimeType=x-scheme-handler/vicaro;
+Categories=Network;Utility;
+DT
+  if command -v xdg-mime >/dev/null 2>&1; then
+    xdg-mime default vicaro-helper.desktop x-scheme-handler/vicaro 2>/dev/null || true
+  fi
+  if command -v update-desktop-database >/dev/null 2>&1; then
+    update-desktop-database "$XDG_DATA/applications" 2>/dev/null || true
+  fi
+
+  # ---- login service + tray autostart ----
+  SYSTEMD_OK=0
+  SERVICE="$XDG_CONFIG/systemd/user/vicaro-helper.service"
+  AUTOSTART="$XDG_CONFIG/autostart/vicaro-helper-tray.desktop"
+  if [ "$NO_AGENT" = "1" ]; then
+    echo "  login service: skipped"
   else
-    echo "  helper: started, not answering yet - open Vicaro Helper from Applications"
+    mkdir -p "$XDG_CONFIG/systemd/user" "$XDG_CONFIG/autostart"
+    cat > "$SERVICE" <<UNIT
+[Unit]
+Description=Vicaro Helper (local browser agent service)
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=$APP/vicaro-helper-run
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target
+UNIT
+
+    cat > "$AUTOSTART" <<AUTO
+[Desktop Entry]
+Type=Application
+Name=Vicaro Helper Tray
+Comment=Vicaro Helper desktop notifications, account link prompts, and tray menu
+Exec=$APP/vicaro-helper-ctl tray
+Icon=vicaro-helper
+Terminal=false
+X-GNOME-Autostart-enabled=true
+AUTO
+
+    if command -v systemctl >/dev/null 2>&1 && systemctl --user show-environment >/dev/null 2>&1; then
+      systemctl --user daemon-reload 2>/dev/null || true
+      if systemctl --user enable --now vicaro-helper.service 2>/dev/null; then
+        SYSTEMD_OK=1
+        echo "  systemd service: enabled and started"
+      fi
+    else
+      echo "  systemd user session not available - will start helper directly"
+    fi
+  fi
+
+  # ---- start it now ----
+  if up; then
+    echo "  helper: already running"
+  else
+    echo "  helper: starting"
+    if [ "$SYSTEMD_OK" = "0" ]; then
+      nohup "$APP/vicaro-helper-run" >/dev/null 2>&1 &
+    fi
+    n=0
+    while [ "$n" -lt 15 ]; do
+      up && break
+      n=$((n + 1))
+      sleep 1
+    done
+    if up; then
+      echo "  helper: running on ${VICARO_PORT:-8792}"
+    else
+      echo "  helper: started, not answering yet - check $XDG_STATE/vicaro/helper.log"
+    fi
+  fi
+
+  # Launch the desktop tray/notification companion if a graphical session is active.
+  if [ "$NO_AGENT" = "0" ] && { [ -n "${DISPLAY:-}" ] || [ -n "${WAYLAND_DISPLAY:-}" ]; }; then
+    if command -v python3 >/dev/null 2>&1; then
+      nohup "$APP/vicaro-helper-ctl" tray >/dev/null 2>&1 &
+    fi
   fi
 fi
 
@@ -287,7 +443,15 @@ echo "Add Vicaro Beta to Chrome:"
 echo "  $STORE_URL"
 echo
 echo "Open the setup tab or side panel and sign in with Google or an email magic link."
-echo "Data and logs: $HOME/Library/Application Support/Vicaro"
-echo "Uninstall (keeps chats, memories and settings):"
-echo "  launchctl bootout gui/$(id -u)/com.vicaro.helper.app 2>/dev/null;"
-echo "  rm -rf \"$APP\" \"$AGENT\""
+if [ "$OS" = "macos" ]; then
+  echo "Data and logs: $HOME/Library/Application Support/Vicaro"
+  echo "Uninstall (keeps chats, memories and settings):"
+  echo "  launchctl bootout gui/$(id -u)/com.vicaro.helper.app 2>/dev/null;"
+  echo "  rm -rf \"$APP\" \"$AGENT\""
+else
+  echo "Data: $XDG_DATA/vicaro/helper"
+  echo "Logs: $XDG_STATE/vicaro/helper.log"
+  echo "CLI:  $BIN_DIR/vicaro-helper status"
+  echo "Uninstall (keeps chats, memories and settings):"
+  echo "  $BIN_DIR/vicaro-helper uninstall"
+fi

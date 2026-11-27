@@ -137,13 +137,15 @@
 
       <section id="install">
         <h2>Install &amp; updates</h2>
-        <p>Vicaro Beta needs macOS 13.5 or later and Chrome 116 or later. Add the extension first; its setup tab opens automatically and shows the command below. If an older helper is already running, the extension displays an <strong>Update Vicaro Helper</strong> card with the same command. A Linux helper build is in progress; Windows support is coming soon.</p>
+        <p>Vicaro Beta needs macOS 13.5 or later (Apple Silicon or Intel), Linux (x86_64 or arm64), or Windows 10/11 (x86_64 or arm64), plus Chrome 116 or later. Add the extension first; its setup tab opens automatically and shows the command for your OS.</p>
         <p><a class="btn arrow" href="https://chromewebstore.google.com/detail/vicaro-beta/inemnoeadlodgmheeijooeknmladelok">Add Vicaro to Chrome</a></p>
-        <p style="margin-top:18px">Then open Terminal: press <span class="mono">⌘Space</span>, type <strong>Terminal</strong>, and press Return. Paste this command and press Return:</p>
+        <p style="margin-top:18px"><strong>macOS &amp; Linux</strong> — open Terminal and run:</p>
         <div class="code"><div class="code-bar"><button class="copy" type="button" aria-live="polite" data-copy="support-install">COPY</button></div><code id="support-install" class="multiline">curl -fsSL \
 https://vicaro.creativeducks.com/install.sh \
 | sh</code></div>
-        <p style="margin-top:14px">It installs the helper into <span class="mono">~/Applications</span>, verifies the download, registers the login agent, and starts the helper. It asks for no password and does not use <span class="mono">sudo</span>. Next, sign in with Google or an email magic link in the setup tab (or from <strong>Sign in to Vicaro…</strong> in the menu bar) to connect your browser automatically.</p>
+        <p style="margin-top:14px"><strong>Windows</strong> — open PowerShell (<span class="mono">Win+X</span> → Terminal / PowerShell) and run:</p>
+        <div class="code"><div class="code-bar"><button class="copy" type="button" aria-live="polite" data-copy="support-install-win">COPY</button></div><code id="support-install-win">irm https://vicaro.creativeducks.com/install.ps1 | iex</code></div>
+        <p style="margin-top:14px">On macOS it installs into <span class="mono">~/Applications</span>; on Linux into <span class="mono">~/.local/share/vicaro/app</span> with a <span class="mono">systemd --user</span> service; on Windows into <span class="mono">%LOCALAPPDATA%\Vicaro\app</span> with a system tray icon and startup entry. None require <span class="mono">sudo</span> or admin privileges. Next, sign in with Google or an email magic link in the setup tab to connect your browser automatically.</p>
         <p>From version 1.5.0 onward, Vicaro Helper checks GitHub Releases automatically, verifies the SHA-256 checksum, and installs helper updates in place without touching your chats or settings. Open the menu bar globe to <strong>Check for updates…</strong> or toggle <strong>Auto-update: On (Pause)</strong> / <strong>Auto-update: Paused (Resume)</strong> anytime.</p>
         <div class="callout">Why Terminal? The helper is ad-hoc signed and not notarized. A browser download would trigger macOS Gatekeeper; <span class="mono">curl</span> does not set quarantine, so the app starts normally. This is temporary until notarization.</div>
         <p>If the setup tab is closed, open <span class="mono">chrome://extensions</span>, choose <strong>Details</strong> for Vicaro Beta, then <strong>Extension options</strong>.</p>
@@ -220,8 +222,8 @@ https://vicaro.creativeducks.com/install.sh \
 
       <section id="uninstall">
         <h2>Uninstall</h2>
-        <p>Choose <strong>Uninstall Vicaro Helper</strong> from the menu bar. It removes the app and its login item. Your chats, memories, settings, model configuration and account link stay in <span class="mono">~/Library/Application Support/Vicaro</span>, so a reinstall finds them intact.</p>
-        <p>To remove the extension too, open <span class="mono">chrome://extensions</span> and remove Vicaro Beta there. The helper never deletes that folder during uninstall.</p>
+        <p>On macOS, choose <strong>Uninstall Vicaro Helper</strong> from the menu bar; on Linux or Windows, choose <strong>Uninstall</strong> from the tray menu or run <span class="mono">vicaro-helper uninstall</span>. Your chats, memories, settings, model configuration and account link stay in <span class="mono">~/Library/Application Support/Vicaro</span> (macOS), <span class="mono">~/.local/share/vicaro/helper</span> (Linux), or <span class="mono">%LOCALAPPDATA%\Vicaro\helper</span> (Windows), so a reinstall finds them intact.</p>
+        <p>To remove the extension too, open <span class="mono">chrome://extensions</span> and remove Vicaro Beta there. The helper never deletes your data folder during uninstall.</p>
       </section>
 
       <section id="safety">
@@ -287,7 +289,7 @@ https://vicaro.creativeducks.com/install.sh \
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Vicaro. Built by Creative Ducks.</span>
-      <span class="fine">Vicaro Beta 1.5.1 &middot; macOS 13.5+ &middot; Chrome 116+</span>
+      <span class="fine">Vicaro Beta 1.5.1 &middot; macOS 13.5+, Linux &amp; Windows &middot; Chrome 116+</span>
     </div>
   </div>
 </footer>

@@ -45,13 +45,12 @@ also consume MCP servers you configure.
 
 | | |
 |---|---|
-| OS | macOS 13.5 or newer |
+| OS | macOS 13.5+, Linux (x86_64 / arm64), or Windows 10/11 (x86_64 / arm64) |
 | Browser | Chrome 116 or newer |
-| Hardware | Apple Silicon or Intel |
+| Hardware | Apple Silicon, Intel, or x86_64 / arm64 |
 | Model | A local OpenAI-compatible server, or a hosted endpoint with an API key |
 
-Linux packaging is in progress. Windows support is coming soon. The extension is live
-on the Chrome Web Store.
+The extension is live on the Chrome Web Store.
 
 ## Get started
 
@@ -72,10 +71,16 @@ or the zip, not both.
 
 ### 2. Install the helper
 
-Open Terminal (`⌘Space`, type **Terminal**, Return) and run:
+**macOS & Linux** — open Terminal and run:
 
 ```sh
 curl -fsSL https://vicaro.creativeducks.com/install.sh | sh
+```
+
+**Windows** — open PowerShell (`Win+X` → Terminal / Windows PowerShell) and run:
+
+```powershell
+irm https://vicaro.creativeducks.com/install.ps1 | iex
 ```
 
 The installer downloads the latest release tarball, verifies its SHA-256, installs
@@ -122,6 +127,8 @@ and the compacted checkpoint survives a helper restart.
 
 ## What gets installed
 
+**macOS:**
+
 | Path | What |
 |---|---|
 | `~/Applications/Vicaro Helper.app` | Menu bar helper, Rust, ad-hoc signed |
@@ -129,15 +136,41 @@ and the compacted checkpoint survives a helper restart.
 | `~/Library/LaunchAgents/com.vicaro.helper.app.plist` | Login agent |
 | `~/Library/Logs/Vicaro/helper.log` | Helper log |
 
-The installer removes the retired TypeScript `Vicaro Orchestrator.app` and its login
+**Linux:**
+
+| Path | What |
+|---|---|
+| `~/.local/share/vicaro/app` | Helper binaries (`vicaro-helper`, `vicaro-mcp`), runtime wrapper, and tray/CLI controller |
+| `~/.local/bin/vicaro-helper` | CLI (`status`, `start`, `stop`, `open-ui`, `sign-in`, `approve`, `update`, `uninstall`) |
+| `~/.local/share/vicaro/helper` | Local data, history and encrypted stores |
+| `~/.config/systemd/user/vicaro-helper.service` | User login service |
+| `~/.config/autostart/vicaro-helper-tray.desktop` | Tray / desktop notification & claim-prompt agent |
+| `~/.local/share/applications/vicaro-helper.desktop` | `vicaro://` deep-link handler |
+| `~/.local/state/vicaro/helper.log` | Helper log |
+
+**Windows:**
+
+| Path | What |
+|---|---|
+| `%LOCALAPPDATA%\Vicaro\app` | Helper binaries (`vicaro-helper.exe`, `vicaro-mcp.exe`), tray app, and CLI |
+| `%LOCALAPPDATA%\Vicaro\bin\vicaro-helper.cmd` | CLI shim (added to user `PATH`) |
+| `%LOCALAPPDATA%\Vicaro\helper` | Local data, history and encrypted stores |
+| `HKCU\Software\Microsoft\Windows\CurrentVersion\Run\VicaroHelper` | Login startup entry |
+| `HKCU\Software\Classes\vicaro` | `vicaro://` deep-link handler |
+| `%LOCALAPPDATA%\Vicaro\Logs\helper.log` | Helper log |
+
+The macOS installer removes the retired TypeScript `Vicaro Orchestrator.app` and its login
 agent when it upgrades an older install.
 
 ### Uninstall
 
-Use **Uninstall Vicaro Helper** in the menu bar. It removes the app and its login
-item, but keeps chats, memories, settings, model configuration and the account link
-in `~/Library/Application Support/Vicaro`. Reinstalling finds them intact. Remove
-the extension separately from `chrome://extensions` if you want it gone too.
+On macOS, use **Uninstall Vicaro Helper** in the menu bar. On Linux or Windows, use
+**Uninstall** from the tray menu or run `vicaro-helper uninstall`. All remove the app
+and its login service while keeping chats, memories, settings, model configuration and
+the account link in `~/Library/Application Support/Vicaro` (macOS),
+`~/.local/share/vicaro/helper` (Linux), or `%LOCALAPPDATA%\Vicaro\helper` (Windows).
+Reinstalling finds them intact. Remove the extension separately from `chrome://extensions`
+if you want it gone too.
 
 From a terminal, the equivalent is:
 
@@ -203,7 +236,8 @@ proprietary software and the helper source stays private.
 | `/auth/` | Hosted Google & email magic link sign-in page (`auth/index.html`) |
 | `/support.html` | Support and troubleshooting |
 | `/privacy.html` | Privacy policy |
-| `/install.sh` | macOS installer |
+| `/install.sh` | macOS & Linux installer |
+| `/install.ps1` | Windows PowerShell installer |
 | `/assets/shots/` | Screenshots used by the site and store listing |
 | `/llms.txt` | Concise product facts and canonical links for AI crawlers |
 | `/site.css`, `/site.js` | Shared page styles and small enhancements |

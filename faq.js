@@ -298,16 +298,18 @@
     } catch (e) {}
     plat = plat || navigator.platform || "";
 
-    if (/Android|iPhone|iPad|iPod/.test(ua) || /android|ios/i.test(plat)) rows.push(["bad", "Open this page on your Mac."]);
+    let isMac = false, isLinux = false, isWin = false;
+    if (/Android|iPhone|iPad|iPod/.test(ua) || /android|ios/i.test(plat)) rows.push(["bad", "Open this page on macOS, Linux, or Windows."]);
     else if (/mac/i.test(plat)) {
+      isMac = true;
       if (platVer) {
         const [maj, min] = platVer.split(".").map(Number);
         rows.push((maj > 13 || (maj === 13 && min >= 5)) ? ["ok", `macOS ${platVer}`] : ["bad", `macOS ${platVer} — needs 13.5 or newer`]);
       } else rows.push(["warn", "macOS detected. Check that you're on 13.5 or newer."]);
     }
-    else if (/win/i.test(plat)) { rows.push(["warn", "Windows — support is coming soon."]); winFlag = true; }
+    else if (/win/i.test(plat)) { isWin = true; rows.push(["ok", "Windows"]); }
     else if (/cros/i.test(plat)) rows.push(["bad", "ChromeOS — not supported yet."]);
-    else if (/linux/i.test(plat)) rows.push(["bad", "Linux — helper in progress."]);
+    else if (/linux/i.test(plat)) { isLinux = true; rows.push(["ok", "Linux"]); }
     else rows.push(["warn", "Could not detect your OS."]);
 
     const gc = brands.find(b => b.brand === "Google Chrome");
@@ -316,13 +318,12 @@
     else if (chromium) rows.push(["warn", "Vicaro is built and tested for Chrome"]);
     else rows.push(["bad", "Vicaro needs Chrome 116+"]);
 
-    if (arch === "arm") rows.push(["ok", "Apple Silicon"]);
-    else if (arch === "x86") rows.push(["ok", "Intel"]);
-    else rows.push(["warn", "Apple Silicon and Intel are both supported"]);
+    if (arch === "arm") rows.push(["ok", isMac ? "Apple Silicon" : "arm64"]);
+    else if (arch === "x86") rows.push(["ok", isMac ? "Intel" : "x86_64"]);
+    else rows.push(["warn", (isLinux || isWin) ? "x86_64 and arm64 are both supported" : "macOS, Linux, and Windows (x86_64 / arm64) are supported"]);
 
     const hasBad = rows.some(r => r[0] === "bad"), hasWarn = rows.some(r => r[0] === "warn");
     if (!hasBad && !hasWarn) return { rows, verdict: "Looks good.", cta: ["Add to Chrome", CWS] };
-    if (winFlag) return { rows, verdict: "Not on this computer yet. Windows support is coming soon.", cta: ["Follow releases", "https://github.com/sandeshwar/vicaro-public/releases"] };
     if (hasBad) return { rows, verdict: "Not on this computer yet.", cta: ["Follow releases", "https://github.com/sandeshwar/vicaro-public/releases"] };
     return { rows, verdict: "Probably fine. Check the items above.", cta: null };
   }
